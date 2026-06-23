@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flagged — Privacy Policy</title>
+<title>FaceSeek — Privacy Policy</title>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
          max-width: 760px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1a1a1a; }
@@ -11,126 +11,138 @@
   code { background: #f4f4f4; padding: 1px 5px; border-radius: 4px; }
   a { color: #0a5cff; }
   .meta { color: #666; font-size: 14px; }
-  ul { padding-left: 22px; }
+  .box { background: #f6f8ff; border: 1px solid #d8e0ff; border-radius: 10px; padding: 12px 16px; }
 </style>
 </head>
 <body>
-<h1>Flagged Privacy Policy</h1>
+<h1>FaceSeek Privacy Policy</h1>
 <p class="meta">Last updated: June 23, 2026</p>
 
-<p>This Privacy Policy explains how the Flagged app ("Flagged", "we", "us") handles
-information when you use it. Flagged is an entertainment app that reads a WhatsApp chat
-export you choose and produces a playful "verdict" about the conversation dynamic. By using
-Flagged you agree to this policy.</p>
+<p>This Privacy Policy explains how the FaceSeek app ("FaceSeek", "we", "us") handles
+information when you use it. FaceSeek is a <strong>reverse-image search</strong> tool: you
+choose a photo, and the app finds public web pages where a visually similar image appears.
+By using FaceSeek you agree to this policy.</p>
 
-<h2>1. No account required</h2>
-<p>Flagged has no user accounts. There is no registration, sign-in, password, or profile. We
-do not ask for your name, email address, or phone number, and we do not create a personal
-account for you. We do not track you across apps or websites and do not use the App Tracking
-Transparency framework for tracking.</p>
+<div class="box">
+<p><strong>In short:</strong> FaceSeek does not perform facial recognition, does not identify
+people, and does not build a profile of anyone. The only face-related processing is on-device
+and is never transmitted. To run a search, the photo you choose is sent to Google Cloud Vision
+to find where that image appears online — and we ask for your explicit permission before the
+first time this happens.</p>
+</div>
 
-<h2>2. Your chat is read on your device</h2>
-<p>You start an analysis by importing a WhatsApp chat export (a <code>.txt</code> file you
-create with WhatsApp's "Export Chat → Without Media"). Flagged reads and parses that file
-<strong>entirely on your device</strong>. From it, the app computes aggregate statistics
-about the conversation. <strong>The actual text of your messages, the names of the people in
-the chat, and any phone numbers never leave your device.</strong> We do not operate a server
-that receives or stores your chat, and we do not save your imported file after the analysis.</p>
-
-<h2>3. The AI verdict and what is sent to OpenAI</h2>
-<p>Flagged can use a third-party artificial-intelligence service to write a smarter, more
-specific verdict. <strong>This happens only if you give explicit permission on the in-app
-consent screen shown before the analysis.</strong> If you decline, Flagged generates the
-verdict entirely on your device using a built-in rule-based engine and <strong>nothing is
-sent off your device</strong>.</p>
-
-<p>If you allow the AI verdict, the app sends only <strong>anonymous, aggregate statistics</strong>
-over an encrypted (HTTPS) connection to <strong>OpenAI (OpenAI, L.L.C.)</strong> so it can
-generate the verdict. Specifically, the data sent is:</p>
+<h2>1. Face data (what we do and do not do)</h2>
+<p>Face data is sensitive, so we want to be precise about it:</p>
 <ul>
-  <li>Total message count, the timespan of the chat (in days), and roughly how long ago the
-      chat began;</li>
-  <li>Each side's share of messages, who starts conversations, average reply times, and a
-      computed "interest score" (0&ndash;100) derived from those numbers;</li>
-  <li>Counts and percentages such as one-word ("dry") replies, double-texts, average message
-      length, emoji counts, and questions asked;</li>
-  <li>Counts of deleted, edited, and media messages, the longest silence, and the most active hour;</li>
-  <li>The relationship category you selected (for example "crush", "friend", or "ex").</li>
+  <li><strong>On-device face landmarks only.</strong> Before a search, FaceSeek may use Apple's
+      on-device Vision framework to detect face-landmark points (eyes, nose, jaw outline, etc.)
+      <em>purely to display the "analyzing" animation</em>. This processing happens entirely on
+      your device.</li>
+  <li><strong>Nothing is transmitted.</strong> Those landmark points are never saved and never
+      leave your device.</li>
+  <li><strong>No faceprint, no recognition.</strong> We do <strong>not</strong> create, store,
+      share, sell, or use any facial-recognition template, faceprint, face embedding, or other
+      biometric identifier. We do not match your face against any database and we do not use
+      face data to identify you or anyone else.</li>
+  <li><strong>What is actually sent for the search.</strong> When you start a search, the
+      <em>photo</em> you selected (an ordinary image, not a face template) is sent to Google
+      Cloud Vision to find visually similar public images. See Section 3.</li>
+  <li><strong>Retention.</strong> The on-device landmark data exists only in memory during the
+      animation and is discarded immediately. We do not retain your photo on our servers after
+      the search (we have no servers that store it — see Section 2).</li>
+  <li><strong>Sharing.</strong> Face landmark data is never shared with anyone. The photo is
+      shared only with Google Cloud Vision, only to perform the search you requested, only after
+      you consent.</li>
 </ul>
-<p>The data is identified only as "You" and "Them". <strong>It does not include any message
-text, contact names, phone numbers, or any other content that could identify a real person.</strong>
-OpenAI processes this data solely to return the verdict for your request. Under OpenAI's
-stated API data-usage policy, data submitted through the OpenAI API <strong>is not used to
-train or improve OpenAI's models by default</strong>, and is retained only for a limited
-period (OpenAI states up to 30 days) for abuse and misuse monitoring before deletion. These
-practices are governed by OpenAI's own policies, which may change. OpenAI acts as our data
-processor and is required to provide protection for this data that is comparable to the
-protection described in this policy. See
-OpenAI's Privacy Policy at
-<a href="https://openai.com/policies/privacy-policy">https://openai.com/policies/privacy-policy</a>,
-its API data-usage policy at
-<a href="https://openai.com/policies/api-data-usage-policies">https://openai.com/policies/api-data-usage-policies</a>,
-and its Enterprise Privacy page at
-<a href="https://openai.com/enterprise-privacy">https://openai.com/enterprise-privacy</a>.</p>
 
-<p>We use the result only to display your verdict inside the app. We do not store the
-statistics or the verdict on any server of ours, and we do not sell or share this data with
-anyone other than OpenAI for the purpose described above.</p>
+<h2>2. No account required</h2>
+<p>FaceSeek does not have user accounts. There is no registration, sign-in, password, or
+profile. We do not ask for your name, email address, or phone number, and we do not create a
+personal account for you. Because we do not run our own server that stores your photos, we do
+not keep your submitted photos after a search completes.</p>
 
-<h2>4. Subscriptions and purchases</h2>
-<p>The full report is available through an auto-renewing subscription. Subscriptions are
-processed by Apple through the App Store. We use <strong>RevenueCat, Inc.</strong> to manage
-subscription status and entitlements. RevenueCat identifies your subscription using an
-anonymous, randomly generated app-user identifier that is not linked to your real-world
-identity. We and RevenueCat receive purchase and subscription status from Apple (for example,
-whether your subscription is active) but not your Apple ID password or full payment card
-details. See RevenueCat's privacy policy at
-<a href="https://www.revenuecat.com/privacy">https://www.revenuecat.com/privacy</a>.
-RevenueCat acts as our service provider for subscription management and is required to protect
-this data with safeguards comparable to those described in this policy. The subscription
-transactions themselves are handled by Apple under Apple's privacy policy.</p>
+<h2>3. Photos you submit and the third-party search service (consent)</h2>
+<p>When you choose a photo to run a search, that photo is sent <strong>directly from your device
+to Google Cloud Vision</strong>, a service operated by <strong>Google LLC</strong>, so its
+Web&nbsp;Detection feature can find public web pages where the same or a visually similar image
+appears. <strong>The first time you run a search, FaceSeek shows you an in-app consent screen
+that states exactly what is sent (only the chosen photo), who it is sent to (Google Cloud
+Vision / Google LLC), and what it is used for. No photo is sent until you agree.</strong></p>
+<p>We use the result only to show you the matching pages you requested. We do not operate our own
+server that stores your photos, and FaceSeek does not save your submitted photos after the
+search. Google processes the image as a data processor under Google Cloud's terms; see Google's
+Privacy Policy at <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>
+and the Google Cloud Vision documentation for how Google handles request data. Your photo is used
+solely to perform the search you initiate; it is not used by FaceSeek to build any face database,
+identify you, or profile any individual.</p>
+
+<h2>4. On-device processing</h2>
+<p>As described in Section 1, any face-landmark detection happens entirely on your device using
+Apple's Vision framework and is never transmitted off the device.</p>
 
 <h2>5. Device permissions</h2>
 <ul>
-  <li><strong>Files</strong> — when you tap "Import chat", iOS lets you pick the WhatsApp
-      <code>.txt</code> export you want to analyze. Flagged only reads the single file you
-      choose; it does not browse or upload anything else.</li>
+  <li><strong>Camera</strong> — used only if you choose to capture a new photo for a search.</li>
+  <li><strong>Photo Library</strong> — used only to let you select an existing photo for a search.</li>
+  <li><strong>Notifications</strong> (optional) — if you allow them, used to alert you about
+      your searches; you can decline or disable them at any time in iOS Settings.</li>
 </ul>
+<p>We access the camera and photo library only for the photo you actively choose to search.
+We do not scan or upload your photo library in the background.</p>
 
-<h2>6. Information we do NOT collect</h2>
-<p>Flagged does not collect your location, contacts, photos, health data, or browsing history,
-and does not use third-party advertising or analytics trackers. We do not sell your personal
-data, and we do not build any profile of you or the people in your chats.</p>
+<h2>6. Subscriptions and purchases</h2>
+<p>Subscriptions are processed by Apple through the App Store. We use <strong>RevenueCat</strong>
+to manage subscription status and entitlements. RevenueCat identifies your subscription using an
+anonymous, randomly generated app-user identifier; it is not linked to your real-world identity.
+We and RevenueCat receive purchase and subscription status from Apple (for example, whether your
+subscription is active) but not your Apple ID password or full payment card details. See
+RevenueCat's privacy policy at <a href="https://www.revenuecat.com/privacy">https://www.revenuecat.com/privacy</a>.</p>
 
-<h2>7. Third-party services</h2>
+<h2>7. Information we do NOT collect</h2>
+<p>FaceSeek does not collect your location, contacts, health data, or browsing history, and
+does not use third-party advertising trackers or App Tracking Transparency tracking. We do not
+sell your personal data.</p>
+
+<h2>8. Third-party services</h2>
 <ul>
-  <li><strong>OpenAI (OpenAI, L.L.C.)</strong> — generates the AI verdict from anonymous
-      chat statistics, only when you give permission.</li>
-  <li><strong>RevenueCat, Inc.</strong> — subscription management.</li>
+  <li><strong>Google Cloud Vision</strong> (Google LLC) — reverse-image / web detection on the
+      photo you submit, performed only after your consent.</li>
+  <li><strong>RevenueCat, Inc.</strong> — subscription management (anonymous identifier).</li>
   <li><strong>Apple</strong> — App Store in-app purchases.</li>
 </ul>
+<p>We confirm that the third party we share the photo with (Google Cloud Vision) is contractually
+bound to protect it as a data processor and provides protections equivalent to those described
+in this policy.</p>
 
-<h2>8. Entertainment use only</h2>
-<p>Flagged is for fun. Its verdicts, "red flags", and scores are generated from message
-statistics and are not factual claims, professional advice, or judgments about any real
-person. Only analyze chats you have a right to analyze.</p>
+<h2>9. No profiling of individuals</h2>
+<p>FaceSeek is a reverse-image search. It returns links to public web pages where an image
+appears; it does <strong>not</strong> aggregate information from those pages, does not assemble a
+profile of any individual, does not name or identify people, and does not access government,
+criminal, background-check, dating, or other restricted databases. Results are probabilistic
+links to public web pages.</p>
 
-<h2>9. Children</h2>
-<p>Flagged is not directed to children. It is intended for users aged 17 and older, and we do
+<h2>10. Acceptable use</h2>
+<p>FaceSeek searches publicly available content and is intended for lawful uses such as checking
+where your own photos appear online or reverse-searching an image you have the right to search.
+FaceSeek is not an identity-verification, background-check, people-search, or surveillance product
+and must not be used to identify, harass, stalk, track, or harm anyone. Verify before acting on any
+result.</p>
+
+<h2>11. Children</h2>
+<p>FaceSeek is not directed to children. It is intended for users aged 17 and older, and we do
 not knowingly collect data from children.</p>
 
-<h2>10. Your choices and rights</h2>
-<p>You are always in control of whether any data is sent: you can decline the AI verdict and
-keep the entire analysis on your device. Because we do not maintain accounts or store your
-chats or statistics on our servers, there is no account data for us to export or delete. You
-can stop using the app at any time and manage or cancel your subscription in your Apple ID
-settings. To ask a question about your data, contact us below.</p>
+<h2>12. Your choices and rights</h2>
+<p>Because we do not maintain accounts or store your photos on our servers, there is no account
+data for us to export or delete. You can stop using the app at any time, manage or cancel your
+subscription in your Apple ID settings, and revoke camera, photo, or notification permissions in
+iOS Settings. To ask a question about your data, contact us below.</p>
 
-<h2>11. Changes to this policy</h2>
+<h2>13. Changes to this policy</h2>
 <p>We may update this policy from time to time. Material changes will be reflected by updating
 the "Last updated" date above.</p>
 
-<h2>12. Contact</h2>
+<h2>14. Contact</h2>
 <p>Questions about this policy? Email <a href="mailto:alkanekrem07@gmail.com">alkanekrem07@gmail.com</a>.</p>
 
 </body>
