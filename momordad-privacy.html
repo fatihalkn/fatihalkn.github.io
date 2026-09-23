@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Mom or Dad?</title>
+<meta name="description" content="How the Mom or Dad? iPhone app handles photos and faces: everything is compared on your device, nothing is uploaded, nothing is collected.">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231B1917'/><circle cx='16' cy='13' r='6' fill='%23F3C44F'/><rect x='7' y='22' width='18' height='4' rx='2' fill='%23F4EEE2'/></svg>">
+<style>
+/* Mom or Dad? — the booth's own palette, on paper. Shared by both legal pages. */
+:root{
+  --enamel:#1B1917; --enamel-hi:#2A2622; --line:#3A3531; --curtain:#A3222B;
+  --strip:#F4EEE2; --strip-shade:#CFC6B6; --ink:#1B1917; --muted:#5B544C;
+  --silver:#A59F95; --soft:#D9D2C4; --bulb:#F3C44F; --mom:#E0892F; --dad:#2E7D6B;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--enamel); color:var(--soft);
+  font-family:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px; margin:0 auto; padding:0 16px 64px}
 
+/* ── the booth sign ─────────────────────────────────────────────────────── */
+header{text-align:center; padding:44px 0 28px}
+.bulbs{display:flex; justify-content:center; gap:10px; margin-bottom:18px}
+.bulbs i{width:9px; height:9px; border-radius:50%; background:var(--bulb); opacity:.9;
+  box-shadow:0 0 12px rgba(243,196,79,.65)}
+.bulbs i:nth-child(even){opacity:.45; box-shadow:0 0 8px rgba(243,196,79,.3)}
+.sign{
+  font-family:'Sign',Georgia,serif; font-weight:400; font-size:clamp(26px,7vw,40px);
+  color:var(--bulb); letter-spacing:.5px; margin:0; text-shadow:0 0 26px rgba(243,196,79,.35);
+}
+.kicker{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--silver);
+  font-weight:700; margin:16px 0 0}
+h1{font-weight:800; font-size:clamp(28px,6.4vw,40px); line-height:1.15; color:var(--strip);
+  margin:6px 0 10px; letter-spacing:-.01em}
+.dates{font-size:14px; color:var(--silver); margin:0}
+nav.tabs{display:flex; justify-content:center; gap:8px; margin:26px 0 0; flex-wrap:wrap}
+nav.tabs a{display:inline-block; padding:9px 18px; border-radius:99px; text-decoration:none;
+  font-weight:700; font-size:14px; color:var(--soft); border:1px solid var(--line)}
+nav.tabs a[aria-current]{background:var(--bulb); color:var(--enamel); border-color:var(--bulb)}
+nav.tabs a:hover{border-color:var(--bulb); color:var(--bulb)}
+nav.tabs a[aria-current]:hover{color:var(--enamel)}
+
+/* ── at a glance ────────────────────────────────────────────────────────── */
+.glance{border:1px solid var(--line); border-radius:18px; background:var(--enamel-hi);
+  padding:22px 22px 6px; margin:8px 0 30px}
+.glance h2{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--bulb);
+  margin:0 0 14px; font-weight:800}
+.glance ul{list-style:none; margin:0; padding:0}
+.glance li{display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; font-size:16px;
+  color:var(--strip)}
+.glance li span{flex:0 0 26px; height:26px; border-radius:50%; display:grid; place-items:center;
+  font-size:13px; font-weight:800; margin-top:1px}
+.glance li.yes span{background:var(--bulb); color:var(--enamel)}
+.glance li.no span{background:var(--line); color:var(--strip)}
+
+/* ── the paper document ─────────────────────────────────────────────────── */
+main{background:var(--strip); color:var(--ink); border-radius:20px; padding:34px 30px 40px;
+  box-shadow:0 18px 44px rgba(0,0,0,.45)}
+main h2{font-size:clamp(20px,4.6vw,25px); font-weight:800; line-height:1.25; margin:38px 0 10px;
+  letter-spacing:-.01em; scroll-margin-top:16px}
+main h2:first-child{margin-top:0}
+main h2 b{display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%;
+  background:var(--ink); color:var(--strip); font-size:14px; font-weight:800; margin-right:10px;
+  vertical-align:2px}
+main h3{font-size:17px; font-weight:800; margin:26px 0 6px}
+main p,main li{color:#332F2A}
+main a{color:#8A5A12; text-underline-offset:3px}
+main a:hover{color:var(--curtain)}
+main ul,main ol{padding-left:22px; margin:10px 0}
+main li{margin-bottom:8px}
+main strong{color:var(--ink)}
+hr{border:0; border-top:1px solid var(--strip-shade); margin:30px 0}
+.lead{font-size:19px; line-height:1.55}
+.note{border-left:3px solid var(--curtain); background:#EDE6D8; border-radius:0 12px 12px 0;
+  padding:14px 18px; margin:18px 0; font-size:16px}
+.note.bulb{border-left-color:var(--mom)}
+.toc{background:#EDE6D8; border-radius:14px; padding:16px 20px; margin:24px 0 8px}
+.toc summary{font-weight:800; cursor:pointer}
+.toc ol{margin:12px 0 2px; columns:2; column-gap:26px}
+.toc li{margin-bottom:6px; break-inside:avoid}
+.toc a{text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+/* ── tables ─────────────────────────────────────────────────────────────── */
+table{width:100%; border-collapse:collapse; margin:16px 0; font-size:15.5px}
+th,td{text-align:left; vertical-align:top; padding:11px 12px; border-bottom:1px solid var(--strip-shade)}
+th{font-weight:800; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+td:first-child{font-weight:700; white-space:nowrap}
+.wide td:first-child{white-space:normal}
+
+/* ── footer ─────────────────────────────────────────────────────────────── */
+footer{text-align:center; padding:34px 8px 0; color:var(--silver); font-size:14px}
+footer a{color:var(--bulb); text-decoration:none}
+footer a:hover{text-decoration:underline}
+.tr{margin-top:26px; font-size:15px}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  main{padding:26px 20px 32px; border-radius:16px}
+  .toc ol{columns:1}
+  table,tbody,tr,td{display:block; width:100%}
+  thead{display:none}
+  tr{border-bottom:1px solid var(--strip-shade); padding:10px 0}
+  td{border:0; padding:3px 0}
+  td:first-child{white-space:normal; font-size:16px}
+  td[data-label]::before{content:attr(data-label); display:block; font-size:11px;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:800; margin-top:6px}
+}
+@media print{
+  body{background:#fff; color:#000}
+  header,nav.tabs{color:#000}
+  .sign{color:#000; text-shadow:none}
+  h1,.glance li{color:#000}
+  .glance{border-color:#999}
+  main{box-shadow:none; border-radius:0; padding:0}
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="bulbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <p class="sign">Mom or Dad?</p>
+  <p class="kicker">The booth's privacy policy</p>
+  <h1>Privacy Policy</h1>
+  <p class="dates">Effective 22 September 2026 · Last updated 22 September 2026</p>
+  <nav class="tabs">
+    <a href="momordad-privacy.html" aria-current="page">Privacy Policy</a>
+    <a href="momordad-terms.html">Terms of Use</a>
+  </nav>
+</header>
+
+<section class="glance">
+  <h2>At a glance</h2>
+  <ul>
+    <li class="yes"><span>✓</span><div>Every face comparison happens on your iPhone, using Apple's on-device Vision framework.</div></li>
+    <li class="yes"><span>✓</span><div>The app keeps a short numeric code of each photo and your scores <em>on your iPhone</em>, so the same photos give the same answer again. You can delete them in Settings, and they expire after a year.</div></li>
+    <li class="no"><span>✗</span><div>Your photos are never uploaded. We have no servers, no accounts and no way to see them.</div></li>
+    <li class="no"><span>✗</span><div>No analytics, no advertising, no tracking, no third-party SDKs of any kind.</div></li>
+    <li class="no"><span>✗</span><div>Nothing from your camera, your photos or your face is ever used for marketing, profiling or to identify anyone.</div></li>
+  </ul>
+</section>
+
+<main>
+
+<p class="lead">Mom or Dad? is a photo-booth game: you add a photo of yourself, your mother and your father, and the app tells you which parent each of your features leans towards. It is built so that the photos never have to leave your iPhone — and they don't.</p>
+
+<details class="toc">
+  <summary>Contents</summary>
+  <ol>
+    <li><a href="#who">Who we are</a></li>
+    <li><a href="#short">The short version</a></li>
+    <li><a href="#faces">What happens to your photos and faces</a></li>
+    <li><a href="#stored">What is stored on your iPhone</a></li>
+    <li><a href="#leaves">What leaves your iPhone</a></li>
+    <li><a href="#facedata">Face data: our commitments and deletion schedule</a></li>
+    <li><a href="#permissions">Permissions the app asks for</a></li>
+    <li><a href="#children">Children, and photos of other people</a></li>
+    <li><a href="#tracking">No tracking, no ads, no analytics</a></li>
+    <li><a href="#rights">Your choices and your rights</a></li>
+    <li><a href="#regions">Region-specific information</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#thispage">This web page</a></li>
+    <li><a href="#changes">Changes to this policy</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+<h2 id="who"><b>1</b>Who we are</h2>
+<p>Mom or Dad? (“the app”, listed in some App Stores as “Who Do I Look Like? Mom or Dad”, “Mum or Dad” in the UK and “¿A quién me parezco? Mamá/Papá” in Mexico) is made and published by <strong>Fatih Alkan</strong>, an independent app developer based in Türkiye (“we”, “us”). This policy explains how the app handles information, and it covers the iPhone app and this page. You can reach us any time at <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a>.</p>
+
+<h2 id="short"><b>2</b>The short version</h2>
+<p><strong>We do not collect your personal data.</strong> The app has no accounts, no sign-in, no servers and no network code of its own. It never sends your photos, your face, your results or your device information anywhere. The connections that do happen are Apple's: iOS asks the App Store for the subscription prices when you open the app, checks whether your Apple Account is still eligible for the introductory offer, and handles a purchase or a restore. Tapping a link — like the one that opened this page — hands it to Safari.</p>
+<p>Under Apple's definition, data processed only on your device is not “collected”, which is why the app's App Store privacy label says <em>Data Not Collected</em>.</p>
+
+<h2 id="faces"><b>3</b>What happens to your photos and faces</h2>
+
+<h3>Choosing a photo from your library</h3>
+<p>When you tap <em>Choose from photos</em>, iOS opens Apple's system photo picker. The picker runs outside the app: the app receives only the single picture you pick and has no access to the rest of your library. That is why the app never asks for permission to read your photo library — it cannot browse, scan or read it at all.</p>
+
+<h3>Taking a photo with the camera</h3>
+<p>When you tap <em>Take photo</em>, the app explains what the camera is for and then iOS asks for camera permission. The camera is active only while that photo is being taken, it opens on the front camera, and no video or audio is ever recorded. The picture is handed to the app in memory; the app does not save it to your photo library or anywhere else.</p>
+
+<h3>Comparing the faces</h3>
+<p>Everything below runs on your iPhone, inside the app's private sandbox, with no internet connection involved:</p>
+<ul>
+  <li>Apple's <strong>Vision</strong> framework, which is part of iOS, finds the face in each photo and locates landmarks — the eyes, brows, nose, lips and the outline of the face. If a photo contains several faces, the largest one is used.</li>
+  <li>The three faces are rotated and scaled so that the eyes line up in the same place, which is what makes a fair comparison and the split portrait possible.</li>
+  <li>Small crops (eyes, brows, nose, mouth) are compared with Apple's on-device image feature prints; the jaw is compared as a shape; the cheeks are compared as a colour.</li>
+  <li>The app turns those comparisons into the percentages you see, and into the one-line verdict.</li>
+</ul>
+<p>The landmarks, the crops, the feature prints and the aligned images exist only in your iPhone's memory while you are using the app. They go when you tap <em>Start a new strip</em>, when you remove a photo (that photo and everything worked out from the strip), when you withdraw your consent in Settings, and when iOS ends the app. Leaving the app on your Home screen keeps them in memory for as long as iOS keeps the app alive, which is what lets you come back to your strip. They are never written to storage, and never sent anywhere.</p>
+<p>When the app leaves the foreground, iOS photographs the screen to draw the card you see in the app switcher. The app pulls a plain curtain over itself first, so that picture shows the booth's sign instead of anybody's face.</p>
+
+<h3>What the app is <em>not</em> doing</h3>
+<p>The app does not identify, recognise, verify or authenticate anyone. It holds no database of people, it cannot tell who somebody is, and it cannot recognise the same person in a different photo. It only measures how alike three pictures look, and it is not a DNA, genetic, paternity or medical test of any kind.</p>
+<p>“Skin tone” is one of the six things compared. It measures the colour of the cheeks <em>as they appear in the photos you chose</em> — which lighting, the camera and a suntan all change. It is not a measure of ethnicity, race or ancestry, and it is not stored beyond the score it produces.</p>
+
+<h2 id="stored"><b>4</b>What is stored on your iPhone</h2>
+<p>All of it lives in the app's own sandbox on your device, protected by iOS Data Protection. None of it is ours, none of it is sent to us, and deleting the app deletes all of it.</p>
+<table class="wide">
+  <thead><tr><th>What</th><th>Why</th><th>How long</th></tr></thead>
+  <tbody>
+    <tr>
+      <td data-label="What">Saved results</td>
+      <td data-label="Why">For each strip you make: one 64-bit code per photo, the six feature scores, the overall result and the date. The code is a “difference hash” — the aligned face is turned into a tiny 9×8 grey thumbnail and each of the 64 bits records whether one pixel is brighter than the next one along. It is computed from brightness, not from measurements of the face; it cannot be turned back into a picture or a face; at 64 bits it holds far too little to tell people apart, and it is never used to identify anyone or compared with anything other than the strips you made yourself. It is a matching key, so two nearly identical copies of the same photo produce nearly identical codes — which is exactly its job. It exists so that re-running the same three photos gives you the same result — and doesn't use up a free strip.</td>
+      <td data-label="How long">Until you delete them (<em>Settings → Clear saved results</em>, or <em>Withdraw face consent</em>), until the app is deleted, or automatically one year after a strip was made — whichever comes first. An expired strip is ignored straight away and erased from the file the next time the app starts. Only the 300 most recent strips are kept; older ones drop off.</td>
+    </tr>
+    <tr>
+      <td data-label="What">App settings</td>
+      <td data-label="Why">Whether you have seen the intro, whether your first strip is still waiting to be made, your answer to “Who do people say you look like?”, how many free strips you have used (counted on this iPhone, not on your Apple Account), and the date and version of your agreement to face analysis.</td>
+      <td data-label="How long">Until you delete the app. The consent date is removed as soon as you withdraw consent.</td>
+    </tr>
+    <tr>
+      <td data-label="What">A temporary copy while you share</td>
+      <td data-label="Why">The iOS share sheet needs a real file, so when you tap Share the app writes the picture you are sharing into its private temporary folder.</td>
+      <td data-label="How long">Deleted the next time the app is launched fresh, and when you tap <em>Start a new strip</em>. iOS may also clear it sooner.</td>
+    </tr>
+    <tr>
+      <td data-label="What">The app-switcher picture</td>
+      <td data-label="Why">iOS photographs the app's screen when it goes into the background, to draw the card in the app switcher, and keeps that picture inside the app's own container. The app covers its screen first, so the picture holds no faces.</td>
+      <td data-label="How long">Managed by iOS; replaced each time and cleared when the app is closed or deleted.</td>
+    </tr>
+    <tr>
+      <td data-label="What">Pictures you save yourself</td>
+      <td data-label="Why">If you tap <em>Save in HD</em> (a Pro feature), the split portrait is added to your own photo library.</td>
+      <td data-label="How long">It is yours from that moment: it stays until you delete it in the Photos app. The app cannot read it back.</td>
+    </tr>
+  </tbody>
+</table>
+<p>The app's stored data is included in your iPhone's backup (iCloud or your computer) like any other app's data, under Apple's terms and your own backup settings. We have no access to your backups.</p>
+<p><strong>Your photos themselves are never written to the app's storage.</strong> The only image files the app itself writes are the picture you asked to share and the portrait you asked to save.</p>
+
+<h2 id="leaves"><b>5</b>What leaves your iPhone</h2>
+<ul>
+  <li><strong>The app sends us nothing.</strong> We run no servers, and the app has no network code of its own: not your photos, not your results, not a device identifier, not a crash report.</li>
+  <li><strong>What Apple shows us anyway.</strong> Like every developer, we can see Apple's own App Store reports: how many people downloaded, updated, subscribed or cancelled, in aggregate, by country and device type — and, if you have turned on “Share With App Developers” in <em>iOS Settings → Privacy &amp; Security → Analytics &amp; Improvements</em>, Apple's anonymised crash and usage statistics. Apple prepares all of it; it never names you, and it tells us nothing about your photos or your results.</li>
+  <li><strong>Only what you share, when you share it.</strong> If you use the share button, the picture you chose (your photo strip or the split portrait, with the percentages on it) goes to whichever app or person you pick in the iOS share sheet. From that point it is governed by that service's terms and privacy policy, not ours. Shared pictures are newly drawn by the app, so they do not carry the location or camera information that may have been in your original photos.</li>
+  <li><strong>Purchases are handled by Apple.</strong> Subscriptions are bought through Apple's in-app purchase system. Apple processes the payment; we never see your name, your email, your address or your payment details. From Apple's StoreKit the app learns the prices and billing periods of the plans, whether your Apple Account is still eligible for the introductory offer, and whether a subscription is currently active — nothing else, and none of it reaches us. See <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>.</li>
+  <li><strong>The rating prompt</strong> shown by the app is Apple's standard one. Your star rating goes to the App Store and we never learn how you rated. If you go on to write a public review, we see it the way everyone does: Apple publishes it with the nickname you gave Apple and your country, and shows it to us in App Store Connect.</li>
+  <li><strong>If you email us</strong> at <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a>, we receive your email address and whatever you write (please don't send photos — we don't need them). Our mailbox is hosted in Türkiye by our email provider, which stores the message for us and does nothing else with it. We use your message only to answer you, never for marketing, and we delete the correspondence once it is no longer needed. You can ask us to delete it sooner.</li>
+  <li><strong>No one else.</strong> We share no personal data with any third party for our own purposes. The only recipients are Apple, which handles purchases and the App Store under its own privacy policy, and whoever you choose yourself in the share sheet.</li>
+</ul>
+
+<h2 id="facedata"><b>6</b>Face data: our commitments and deletion schedule</h2>
+<p>Some laws treat information derived from a face as especially sensitive, whether or not it can identify anyone. We take that seriously, so these are binding commitments:</p>
+<ul>
+  <li>Face landmarks and the comparisons made from them are used for <strong>one purpose only</strong>: to work out the resemblance between the three photos you chose, on your device, after you have agreed.</li>
+  <li>They are <strong>never</strong> used for identification, verification, authentication, security, marketing, advertising, profiling or mining of any other kind — by us or by anyone else. We never sell, lease, trade, disclose, share or otherwise profit from them.</li>
+  <li>They are <strong>never transmitted</strong>. We never receive them, never possess them and have no technical ability to access, modify or use them. There is no face database anywhere, and no way to match a face across users, photos or devices.</li>
+  <li>The app asks for your <strong>explicit agreement before the first photo is added</strong>, in writing, on screen, and tells you what is kept and for how long. You can withdraw it at any time in <em>Settings → Withdraw face consent</em>, which also deletes every saved result from your iPhone. If we ever change what the app does with faces, it explains the change and asks again.</li>
+  <li>Only you can give that agreement, and only for what happens on your own iPhone. Because nothing about your mother, your father or anyone else you photograph ever reaches us, we hold, control and can do nothing with their faces either — which is also why you must only add photos of people who are happy for you to use them (see the <a href="momordad-terms.html">Terms of Use</a>).</li>
+</ul>
+<h3>Retention and destruction schedule</h3>
+<table class="wide">
+  <thead><tr><th>Data</th><th>Destroyed</th></tr></thead>
+  <tbody>
+    <tr><td data-label="Data">Face landmarks, crops and feature prints</td><td data-label="Destroyed">The feature prints go as soon as the comparison is done. A photo's landmarks and aligned face are held in memory while that photo is loaded — so your strip is still there when you come back to it — and go when you remove the photo, which also clears the close-ups, split portraits and skin-tone samples worked out from it. Everything left goes when you start a new strip, when you withdraw consent, and when iOS ends the app. Never stored.</td></tr>
+    <tr><td data-label="Data">The photos you added</td><td data-label="Destroyed">Held in memory while you use the app; gone when you start a new strip, remove the photo, withdraw consent or iOS ends the app. Never stored.</td></tr>
+    <tr><td data-label="Data">Saved results (64-bit codes + scores)</td><td data-label="Destroyed">When you clear them or withdraw consent in Settings; when you delete the app; automatically one year after the strip was made; or when the 300-strip limit pushes the oldest out.</td></tr>
+    <tr><td data-label="Data">Temporary share copies</td><td data-label="Destroyed">The next time the app is launched fresh, and when you start a new strip.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="permissions"><b>7</b>Permissions the app asks for</h2>
+<p>Nothing is requested when you first open the app. Each permission is explained in the app, in plain words, at the moment the feature needs it — and the app works without any of them.</p>
+<table class="wide">
+  <thead><tr><th>Permission</th><th>When and why</th><th>If you say no</th></tr></thead>
+  <tbody>
+    <tr>
+      <td data-label="Permission">Camera</td>
+      <td data-label="When and why">Only when you tap <em>Take photo</em>, so you can photograph yourself, your mother or your father for the comparison. Used only while that photo is taken; no video, no audio; the photo is compared on your iPhone and is never uploaded or kept by the app.</td>
+      <td data-label="If you say no">Nothing else changes — you can still add photos from your library. You can turn it on later in iOS Settings.</td>
+    </tr>
+    <tr>
+      <td data-label="Permission">Add to Photos</td>
+      <td data-label="When and why">Only when a Pro subscriber taps <em>Save in HD</em>, to put the split portrait into your own library at full quality. This is “add-only” access: the app can add a picture but cannot read, scan or change anything in your library.</td>
+      <td data-label="If you say no">You can still use the share button to send the picture anywhere, including to Photos via the share sheet.</td>
+    </tr>
+    <tr>
+      <td data-label="Permission">Reading your photo library</td>
+      <td data-label="When and why"><strong>Never requested.</strong> Photos are chosen through Apple's system picker, which hands the app only the picture you picked.</td>
+      <td data-label="If you say no">Not applicable — there is nothing to allow.</td>
+    </tr>
+  </tbody>
+</table>
+<p>The app never asks for location, contacts, microphone, notifications, health data, Bluetooth, or permission to track you, because it does not use any of them.</p>
+<p>You can review or change these any time in <em>iOS Settings → Privacy &amp; Security → Camera / Photos</em>, or in <em>iOS Settings → Mom or Dad?</em>. The app's own Settings screen links straight there.</p>
+
+<h2 id="children"><b>8</b>Children, and photos of other people</h2>
+<p>The app is a general-audience app and is not directed to children under 13. The agreement to face analysis should be given by an adult: if the person using the app is under 18 — or under the age their country sets for agreeing to this kind of processing — a parent or guardian should set it up and agree on their behalf. It collects no personal information from anyone — adult or child — because nothing ever leaves the device. If you are a parent or guardian using the app with your child, or comparing a photo of your own child with photos of their parents, those photos are analysed only on your iPhone and are never uploaded, never stored by the app and never used to identify anyone. Nothing you do in the app is reported to us, so there is nothing for us to delete; if you want everything gone from the device, use <em>Settings → Clear saved results</em> or delete the app.</p>
+<p>The same is true for your mother's and father's photos, and anyone else you add: their pictures are analysed on your phone only, nothing about them is retained except the non-reversible code described above, and they are never identified, catalogued or shared by us. Please add photos of other people only if they are happy for you to do so — and if a child is pictured, only if you are their parent or guardian or have that parent's permission. This is also required by our <a href="momordad-terms.html">Terms of Use</a>.</p>
+<p><strong>If you are the person in someone else's photo:</strong> everything about you stayed on their iPhone. We have no copy, no database and no way to find, change or delete anything — only the person holding the phone can, by clearing the saved results or deleting the app. If you are worried about a picture that was shared with you or about you, ask them, and write to us if you would like help understanding what the app does.</p>
+
+<h2 id="tracking"><b>9</b>No tracking, no ads, no analytics</h2>
+<p>The app contains no advertising, no analytics, no crash-reporting service, no attribution or “growth” SDK, and no third-party code at all: every component it uses is part of iOS itself. It does not track you across apps or websites, so iOS never shows you an App Tracking Transparency prompt for it, and there is no advertising identifier involved. The app's privacy manifest declares no tracking and no collected data.</p>
+<p>We do not use your information — because we do not have it — to train any AI model, and no photo, face or result is ever sent to a third-party AI service. All the intelligence in the app is Apple's, running on your device.</p>
+
+<h2 id="rights"><b>10</b>Your choices and your rights</h2>
+<p>Because your information stays on your iPhone, you exercise most of your rights directly, without asking anyone:</p>
+<ul>
+  <li><strong>See what is kept:</strong> section 4 lists everything that is kept, and the app shows you how many saved results are on your iPhone in <em>Settings → Clear saved results</em>.</li>
+  <li><strong>Delete the saved results:</strong> <em>Settings → Clear saved results</em>.</li>
+  <li><strong>Withdraw your agreement to face analysis:</strong> <em>Settings → Withdraw face consent</em>. The app stops analysing faces until you agree again, and every saved result is deleted.</li>
+  <li><strong>Delete everything:</strong> remove the app from your iPhone. That erases the saved results, the settings and any temporary files from the device. A copy may still sit inside an iPhone backup you made earlier, until that backup is replaced or deleted — that backup is yours and Apple's, not ours.</li>
+  <li><strong>Turn off a permission:</strong> iOS Settings, at any time, without losing anything else.</li>
+</ul>
+<p>For the only information we might ever hold — an email you sent us — you may ask us to give you a copy, correct it, delete it, restrict or object to its use, or receive it in a portable form. Write to <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a> and we will answer within 30 days. We never charge for this and never ask you to create an account to do it.</p>
+
+<h2 id="regions"><b>11</b>Region-specific information</h2>
+
+<h3>Europe (GDPR) and the United Kingdom</h3>
+<p>The comparison happens on your iPhone, under your control, and we never receive or access any of it — using the app on your own family photos is your own personal activity, not something we process. To the extent the GDPR applies to that processing at all, our basis is <strong>your consent</strong> (Art. 6(1)(a)), asked for before the first photo and withdrawable at any time in Settings; and, should any of it ever be treated as special-category data, that same <strong>explicit consent</strong> (Art. 9(2)(a)). For providing the app and the subscription we rely on <strong>performance of a contract</strong> (Art. 6(1)(b)); for answering support emails, on our <strong>legitimate interest</strong> in helping you (Art. 6(1)(f)).</p>
+<p>The app does not process biometric data “for the purpose of uniquely identifying a natural person”: it neither identifies nor authenticates anyone. There is no profiling and no automated decision-making with legal or similarly significant effects — the percentages are entertainment.</p>
+<p>Nothing you do in the app is transferred anywhere, so for that there is no international transfer to consider. If you write to us, your email travels to our mailbox in Türkiye — outside the EEA and the UK, and not covered by an adequacy decision — because you chose to write to us; that is the only copy, and we delete it when it is no longer needed. You have the right to lodge a complaint with your local data protection authority.</p>
+
+<h3>Illinois, Texas, Washington and other US biometric laws</h3>
+<p>The app is designed so that no face-derived information is ever in our possession or control: it is created and destroyed on your device, under your control, as set out in the schedule in section 6, which also serves as our public written retention and destruction policy. We do not sell, lease, trade, disclose or otherwise profit from any biometric identifier or biometric information, we never store a face template in any database, and we never use face data to identify anyone. The app asks for your written (electronic) consent before the first analysis, and lets you withdraw it and delete the stored results at any time.</p>
+
+<h3>California</h3>
+<p>We have never sold or shared personal information, and we never will — there is nothing to opt out of. The app itself collects nothing. The only personal information we ever receive is what you put in an email to us: your address and your message, used to answer you and deleted when it is no longer needed. You may ask us to confirm, correct, delete or hand over a copy of that, and we will never discriminate against you for asking.</p>
+
+<h3>Türkiye (KVKK)</h3>
+<p lang="tr">Veri sorumlusu: Fatih Alkan (Türkiye). Uygulama, fotoğraflarınızı ve yüz verilerinizi yalnızca cihazınızda işler; bu veriler bize hiçbir şekilde iletilmez, tarafımızca saklanmaz ve üçüncü kişilerle paylaşılmaz. Uygulamanın arayüzü İngilizcedir: ilk fotoğraftan önce çıkan açık rıza ekranı KVKK m.6 anlamındaki açık rızanızı alır ve bu rızayı uygulamadaki <em>Settings → Withdraw face consent</em> satırından istediğiniz an geri çekebilirsiniz; geri çektiğinizde cihazınızdaki tüm kayıtlı sonuçlar silinir. Tarafımızca işlenen tek veri, bize e-posta gönderdiğinizde e-posta adresiniz ve mesajınızdır; bu veriler yalnızca sorunuzu yanıtlamak için kullanılır, Türkiye'deki posta kutumuzda saklanır ve gerekmediğinde silinir. KVKK m.11 kapsamındaki haklarınız için <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a> adresine yazabilirsiniz.</p>
+
+<h2 id="security"><b>12</b>Security</h2>
+<p>The app stores its files inside the iOS application sandbox, which no other app can read, and the two files it writes — the saved results and the temporary share copy — are marked with complete file protection, so iOS keeps them encrypted whenever your iPhone is locked. Because nothing is transmitted and we hold no database, there is no server for anyone to break into — the strongest security guarantee we can give you is that we never have the data in the first place. If we ever became aware of an incident affecting information we do hold, such as support emails, we would notify the people affected and the relevant authorities as the law requires.</p>
+
+<h2 id="thispage"><b>13</b>This web page</h2>
+<p>This page is hosted on GitHub Pages. GitHub records technical information such as your IP address when it serves the page — see the <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>. We do not receive that information, and the page itself sets no cookies, loads no fonts or scripts from anyone else and contains no analytics or trackers of any kind.</p>
+
+<h2 id="changes"><b>14</b>Changes to this policy</h2>
+<p>If the app changes, this policy changes with it, and the “Last updated” date above changes too. If we ever changed what the app does with faces, the app would explain the change and ask you to agree again before analysing anything. If the app were ever to send anything off your device, we would ask for your permission first, clearly and separately — it would never happen quietly.</p>
+<p>If Mom or Dad? is ever sold or handed to another developer, the only thing that could change hands is our support mailbox: there is no user database to transfer, because everything the app produces stays on your iPhone. We would update this page before any such change took effect.</p>
+
+<h2 id="contact"><b>15</b>Contact</h2>
+<p>Questions, corrections, or a request about your data:</p>
+<p><strong>Fatih Alkan</strong> — developer of Mom or Dad?, Türkiye<br>
+<a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a></p>
+<p>See also the <a href="momordad-terms.html">Terms of Use</a>.</p>
+
+</main>
+
+<footer>
+  <p>Mom or Dad? · <a href="momordad-privacy.html">Privacy Policy</a> · <a href="momordad-terms.html">Terms of Use</a> · <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a></p>
+  <p>© 2026 Fatih Alkan. Just for fun — this compares how faces look, not DNA.</p>
+</footer>
+
+</div>
+</body>
+</html>
