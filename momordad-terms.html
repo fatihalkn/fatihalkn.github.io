@@ -1,1 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Use · Mom or Dad?</title>
+<meta name="description" content="The terms for using the Mom or Dad? iPhone app: what the app is, the rules about photos of other people, and how the Pro subscription works.">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231B1917'/><circle cx='16' cy='13' r='6' fill='%23F3C44F'/><rect x='7' y='22' width='18' height='4' rx='2' fill='%23F4EEE2'/></svg>">
+<style>
+/* Mom or Dad? — the booth's own palette, on paper. Shared by both legal pages. */
+:root{
+  --enamel:#1B1917; --enamel-hi:#2A2622; --line:#3A3531; --curtain:#A3222B;
+  --strip:#F4EEE2; --strip-shade:#CFC6B6; --ink:#1B1917; --muted:#5B544C;
+  --silver:#A59F95; --soft:#D9D2C4; --bulb:#F3C44F; --mom:#E0892F; --dad:#2E7D6B;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--enamel); color:var(--soft);
+  font-family:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px; margin:0 auto; padding:0 16px 64px}
+
+/* ── the booth sign ─────────────────────────────────────────────────────── */
+header{text-align:center; padding:44px 0 28px}
+.bulbs{display:flex; justify-content:center; gap:10px; margin-bottom:18px}
+.bulbs i{width:9px; height:9px; border-radius:50%; background:var(--bulb); opacity:.9;
+  box-shadow:0 0 12px rgba(243,196,79,.65)}
+.bulbs i:nth-child(even){opacity:.45; box-shadow:0 0 8px rgba(243,196,79,.3)}
+.sign{
+  font-family:'Sign',Georgia,serif; font-weight:400; font-size:clamp(26px,7vw,40px);
+  color:var(--bulb); letter-spacing:.5px; margin:0; text-shadow:0 0 26px rgba(243,196,79,.35);
+}
+.kicker{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--silver);
+  font-weight:700; margin:16px 0 0}
+h1{font-weight:800; font-size:clamp(28px,6.4vw,40px); line-height:1.15; color:var(--strip);
+  margin:6px 0 10px; letter-spacing:-.01em}
+.dates{font-size:14px; color:var(--silver); margin:0}
+nav.tabs{display:flex; justify-content:center; gap:8px; margin:26px 0 0; flex-wrap:wrap}
+nav.tabs a{display:inline-block; padding:9px 18px; border-radius:99px; text-decoration:none;
+  font-weight:700; font-size:14px; color:var(--soft); border:1px solid var(--line)}
+nav.tabs a[aria-current]{background:var(--bulb); color:var(--enamel); border-color:var(--bulb)}
+nav.tabs a:hover{border-color:var(--bulb); color:var(--bulb)}
+nav.tabs a[aria-current]:hover{color:var(--enamel)}
+
+/* ── at a glance ────────────────────────────────────────────────────────── */
+.glance{border:1px solid var(--line); border-radius:18px; background:var(--enamel-hi);
+  padding:22px 22px 6px; margin:8px 0 30px}
+.glance h2{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--bulb);
+  margin:0 0 14px; font-weight:800}
+.glance ul{list-style:none; margin:0; padding:0}
+.glance li{display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; font-size:16px;
+  color:var(--strip)}
+.glance li span{flex:0 0 26px; height:26px; border-radius:50%; display:grid; place-items:center;
+  font-size:13px; font-weight:800; margin-top:1px}
+.glance li.yes span{background:var(--bulb); color:var(--enamel)}
+.glance li.no span{background:var(--line); color:var(--strip)}
+
+/* ── the paper document ─────────────────────────────────────────────────── */
+main{background:var(--strip); color:var(--ink); border-radius:20px; padding:34px 30px 40px;
+  box-shadow:0 18px 44px rgba(0,0,0,.45)}
+main h2{font-size:clamp(20px,4.6vw,25px); font-weight:800; line-height:1.25; margin:38px 0 10px;
+  letter-spacing:-.01em; scroll-margin-top:16px}
+main h2:first-child{margin-top:0}
+main h2 b{display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%;
+  background:var(--ink); color:var(--strip); font-size:14px; font-weight:800; margin-right:10px;
+  vertical-align:2px}
+main h3{font-size:17px; font-weight:800; margin:26px 0 6px}
+main p,main li{color:#332F2A}
+main a{color:#8A5A12; text-underline-offset:3px}
+main a:hover{color:var(--curtain)}
+main ul,main ol{padding-left:22px; margin:10px 0}
+main li{margin-bottom:8px}
+main strong{color:var(--ink)}
+hr{border:0; border-top:1px solid var(--strip-shade); margin:30px 0}
+.lead{font-size:19px; line-height:1.55}
+.note{border-left:3px solid var(--curtain); background:#EDE6D8; border-radius:0 12px 12px 0;
+  padding:14px 18px; margin:18px 0; font-size:16px}
+.note.bulb{border-left-color:var(--mom)}
+.toc{background:#EDE6D8; border-radius:14px; padding:16px 20px; margin:24px 0 8px}
+.toc summary{font-weight:800; cursor:pointer}
+.toc ol{margin:12px 0 2px; columns:2; column-gap:26px}
+.toc li{margin-bottom:6px; break-inside:avoid}
+.toc a{text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+/* ── tables ─────────────────────────────────────────────────────────────── */
+table{width:100%; border-collapse:collapse; margin:16px 0; font-size:15.5px}
+th,td{text-align:left; vertical-align:top; padding:11px 12px; border-bottom:1px solid var(--strip-shade)}
+th{font-weight:800; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+td:first-child{font-weight:700; white-space:nowrap}
+.wide td:first-child{white-space:normal}
+
+/* ── footer ─────────────────────────────────────────────────────────────── */
+footer{text-align:center; padding:34px 8px 0; color:var(--silver); font-size:14px}
+footer a{color:var(--bulb); text-decoration:none}
+footer a:hover{text-decoration:underline}
+.tr{margin-top:26px; font-size:15px}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  main{padding:26px 20px 32px; border-radius:16px}
+  .toc ol{columns:1}
+  table,tbody,tr,td{display:block; width:100%}
+  thead{display:none}
+  tr{border-bottom:1px solid var(--strip-shade); padding:10px 0}
+  td{border:0; padding:3px 0}
+  td:first-child{white-space:normal; font-size:16px}
+  td[data-label]::before{content:attr(data-label); display:block; font-size:11px;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:800; margin-top:6px}
+}
+@media print{
+  body{background:#fff; color:#000}
+  header,nav.tabs{color:#000}
+  .sign{color:#000; text-shadow:none}
+  h1,.glance li{color:#000}
+  .glance{border-color:#999}
+  main{box-shadow:none; border-radius:0; padding:0}
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="bulbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <p class="sign">Mom or Dad?</p>
+  <p class="kicker">The booth's house rules</p>
+  <h1>Terms of Use</h1>
+  <p class="dates">Effective 22 September 2026 · Last updated 22 September 2026</p>
+  <nav class="tabs">
+    <a href="momordad-privacy.html">Privacy Policy</a>
+    <a href="momordad-terms.html" aria-current="page">Terms of Use</a>
+  </nav>
+</header>
+
+<section class="glance">
+  <h2>At a glance</h2>
+  <ul>
+    <li class="yes"><span>✓</span><div>Mom or Dad? is a game. It compares how faces look in photos — it is not a DNA, genetic or paternity test, and no result proves anything about anyone's family.</div></li>
+    <li class="yes"><span>✓</span><div>Add only photos you have the right to use, of people who are happy for you to use them.</div></li>
+    <li class="yes"><span>✓</span><div>Pro is a weekly, monthly or yearly subscription that renews automatically until you cancel it in your Apple Account settings.</div></li>
+    <li class="no"><span>✗</span><div>Apple is not a party to this agreement and is not responsible for the app.</div></li>
+  </ul>
+</section>
+
+<main>
+
+<p class="lead">These terms are the agreement between you and <strong>Fatih Alkan</strong>, the independent developer of the Mom or Dad? iPhone app (listed in some App Stores as “Who Do I Look Like? Mom or Dad”, “Mum or Dad” in the UK and “¿A quién me parezco? Mamá/Papá” in Mexico) (“we”, “us”, “the developer”). By downloading or using the app you accept them. If you don't accept them, please don't use the app.</p>
+
+<details class="toc">
+  <summary>Contents</summary>
+  <ol>
+    <li><a href="#agreement">The agreement, and Apple's EULA</a></li>
+    <li><a href="#what">What the app is — and isn't</a></li>
+    <li><a href="#who">Who can use it</a></li>
+    <li><a href="#photos">Your photos and the people in them</a></li>
+    <li><a href="#consent">Face analysis and your consent</a></li>
+    <li><a href="#pro">Mom or Dad? Pro subscriptions</a></li>
+    <li><a href="#conduct">Acceptable use</a></li>
+    <li><a href="#ip">Ownership and licence</a></li>
+    <li><a href="#apple">Apple-required terms</a></li>
+    <li><a href="#warranty">Disclaimer of warranties</a></li>
+    <li><a href="#liability">Limitation of liability</a></li>
+    <li><a href="#changes">Changes, and ending the agreement</a></li>
+    <li><a href="#law">Governing law and disputes</a></li>
+    <li><a href="#general">General</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+<h2 id="agreement"><b>1</b>The agreement, and Apple's EULA</h2>
+<p>The app is licensed, not sold, to you. Your licence is granted under Apple's <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Licensed Application End User License Agreement</a> (the “Standard EULA”), which applies to every app downloaded from the App Store. These Terms of Use add the rules that are specific to Mom or Dad?. Read them together; if a term here ever conflicted with the Standard EULA, the Standard EULA prevails for the licence itself.</p>
+<p>This agreement is concluded between you and the developer only, <strong>not with Apple</strong>. Apple is not responsible for the app or its content. Our <a href="momordad-privacy.html">Privacy Policy</a> is part of this agreement.</p>
+
+<h2 id="what"><b>2</b>What the app is — and isn't</h2>
+<p>Mom or Dad? takes three photos you choose — you, your mother and your father — lines the faces up at the eyes and measures how alike they look, feature by feature. It then prints a photo strip: an overall percentage, six feature verdicts (eyes, brows, nose, smile, face shape and skin tone), close-ups side by side for five of them, and a split portrait.</p>
+<div class="note">
+  <p><strong>It is entertainment.</strong> The app compares how faces <em>look in photographs</em>. It is <strong>not</strong> a DNA, genetic, paternity, maternity or medical test, it does not analyse or infer any biological relationship, and its results are not evidence of anything. Never rely on a result for any decision about parentage, custody, inheritance, immigration, health or any other serious matter.</p>
+</div>
+<p>Results depend entirely on the photos: angle, lighting, expression, age, glasses, makeup, hair and photo quality all change them. Different photos of the same people can give different answers. “Skin tone” compares the colour of the cheeks as they appear in your photos — which lighting and the camera change — and is not a measure of ethnicity, race or ancestry. The same three photos give you the same result for as long as the app still remembers that strip — up to a year, and up to the 300 most recent strips, unless you clear the saved results.</p>
+<p>The app needs a clearly visible, roughly front-facing face in each photo. Sometimes it will not find one, or will pick a different face in a group photo. That is a limitation of the app, not a statement about the photo.</p>
+
+<h2 id="who"><b>3</b>Who can use it</h2>
+<p>The app is made for a general audience and is not directed to children under 13. If you are under 18 — or under the age of majority where you live — you may use the app, agree to face analysis and buy a subscription only with the permission of a parent or guardian, who accepts these terms on your behalf and should set the app up with you. You must also be able to enter into a binding agreement in your country, and not be barred from doing so under any applicable law.</p>
+
+<h2 id="photos"><b>4</b>Your photos and the people in them</h2>
+<p>Your photos stay on your iPhone: we never receive them, never store them and cannot see, review, retrieve or delete them. That also means you are entirely responsible for the photos you add and for what you do with the pictures the app makes. By using the app you confirm that:</p>
+<ul>
+  <li>you own the photos you add, or otherwise have the right to use them in the app;</li>
+  <li>every adult pictured is happy for you to use their photo this way;</li>
+  <li>if a child is pictured, you are their parent or legal guardian, or you have that parent's or guardian's permission;</li>
+  <li>you will not add photos taken without the knowledge of the person pictured, or photos of people you don't know, and you will not use anyone's picture in a way that would embarrass, expose or harm them.</li>
+</ul>
+<p>You keep all rights in your own photos and in the strips and portraits you create with the app. We claim no ownership or licence over them — we never receive them in the first place.</p>
+
+<h2 id="consent"><b>5</b>Face analysis and your consent</h2>
+<p>Before the first photo is added, the app explains what it does with faces and asks you to agree. The analysis uses Apple's on-device Vision framework: the app finds facial landmarks in each photo to line the faces up and compare them. It never identifies, recognises or authenticates anyone, it never creates or stores a face template, and nothing is ever uploaded. It does keep a short, non-reversible code of each photo on your device so that the same photos give the same result; the Privacy Policy describes exactly what that is. You can withdraw your agreement at any time in the app's Settings, which also deletes every saved result from your device. The <a href="momordad-privacy.html">Privacy Policy</a> explains this in detail, including what is stored and for how long.</p>
+
+<h2 id="pro"><b>6</b>Mom or Dad? Pro subscriptions</h2>
+
+<h3>Free and Pro</h3>
+<p>Without a subscription you get the intro and one strip: the headline result, one feature ticket with its close-ups — the other five stay blurred behind a lock — and the split portrait and share card, both carrying the app's watermark. The free strip is counted on the iPhone you are using, not on your Apple Account. Re-running a strip the app still remembers does not use up that free strip.</p>
+<p><strong>Mom or Dad? Pro</strong> unlocks all six feature tickets — five with close-ups side by side, plus the skin-tone swatches — the split portraits in HD without the watermark (including saving them to your photo library), and unlimited new strips. Share cards keep a small “Mom or Dad? on the App Store” badge.</p>
+
+<h3>Plans, billing and renewal</h3>
+<ul>
+  <li>Pro is offered as an <strong>auto-renewing subscription</strong> with a choice of <strong>weekly, monthly or yearly</strong> plans. The exact price of each plan, in your own currency, is shown in the app and again on Apple's purchase sheet before you confirm anything.</li>
+  <li>The yearly plan may include an <strong>introductory price for the first year</strong> if your Apple Account is eligible — Apple decides eligibility, generally for people who have not used an introductory offer in this subscription group before. When an offer applies, the app shows both the offer price and the price that follows it. After the introductory period the subscription renews at the standard price of the plan.</li>
+  <li>Payment is charged to your Apple Account when you confirm the purchase. On Apple's purchase sheet and in your subscription settings the plans sit in the <em>Mom or Dad? Pro</em> group and may appear under their full store names, such as “Face Comparison Pro · Yearly”.</li>
+  <li>The subscription <strong>renews automatically</strong> for the same period at the then-current price, unless you turn renewal off <strong>at least 24 hours before the end of the current period</strong>. Your account is charged for the renewal within 24 hours before the current period ends.</li>
+  <li>The free app itself can be shared with your family through Family Sharing, but the Pro subscription cannot: it applies to the Apple Account that bought it, on that account's devices.</li>
+</ul>
+
+<h3>Managing and cancelling</h3>
+<p>You can cancel at any time, as easily as you subscribed, and without contacting us: open <em>iOS Settings → your name → Subscriptions → Mom or Dad?</em> (or the App Store app → your account → Subscriptions) and turn off renewal. Cancelling stops the next charge; you keep Pro until the end of the period you have already paid for. Deleting the app does not cancel a subscription.</p>
+
+<h3>Refunds and price changes</h3>
+<p>Purchases are made from Apple, so refunds are handled by Apple under its own policies — request one at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a>. We cannot issue refunds for App Store purchases ourselves, though we are always happy to help if something in the app went wrong: write to us. Nothing here limits any statutory right you have as a consumer, including any right of withdrawal in your country. If a price ever changes, Apple notifies you and, where the law or Apple's rules require it, asks for your agreement before the new price applies.</p>
+
+<h3>Restoring</h3>
+<p>If you reinstall the app or get a new device, tap <em>Restore purchases</em> in the app's Settings or on the Pro screen while signed in with the same Apple Account. The app's Settings also has <em>Manage subscription</em>, which opens Apple's own subscription screen.</p>
+
+<h2 id="conduct"><b>7</b>Acceptable use</h2>
+<p>Use the app for fun, and not to hurt anyone. You agree not to:</p>
+<ul>
+  <li>use the app or its results to harass, bully, shame, threaten or deceive anyone, or to make a claim about someone's parentage, fidelity or family relationships;</li>
+  <li>present a result as a factual finding about biological relationship, or as the output of a DNA or paternity test;</li>
+  <li>share a picture of someone else without their permission;</li>
+  <li>use the app for anything unlawful, or in breach of anyone's privacy, publicity or intellectual-property rights;</li>
+  <li>copy, modify, translate, decompile or reverse-engineer the app, or try to extract its source code, except where the law expressly allows it despite this restriction;</li>
+  <li>get around, disable or interfere with the paywall, the free-strip limit, the watermark or any security measure, or use the app with modified or tampered software.</li>
+</ul>
+
+<h2 id="ip"><b>8</b>Ownership and licence</h2>
+<p>The app — its software, design, artwork, sign, wording and the “Mom or Dad?” name — belongs to the developer and is protected by copyright and other laws. Your licence to use it is the personal, non-transferable one described in section 1 and in Apple's Standard EULA; no other rights are granted.</p>
+<p>The family photographs shown in the app's intro, on the welcome screen, in the Pro screen and in the App Store screenshots are licensed stock photographs, used under the Pexels License and shown as an example of what a strip looks like. The people in them are models; they have no connection with us and do not endorse the app. The app's typefaces are used under the SIL Open Font License.</p>
+
+<h2 id="apple"><b>9</b>Apple-required terms</h2>
+<p>These terms apply to your use of the app on Apple devices, as Apple requires:</p>
+<ol>
+  <li><strong>Acknowledgement.</strong> This agreement is between you and the developer only, not with Apple. The developer, not Apple, is solely responsible for the app and its content. This agreement does not provide for usage rules that conflict with the Apple Media Services Terms and Conditions.</li>
+  <li><strong>Scope of licence.</strong> The licence granted to you is a non-transferable licence to use the app on any Apple-branded products that you own or control, as permitted by the Usage Rules in the Apple Media Services Terms and Conditions, except that the app may be accessed and used by other accounts associated with you via Family Sharing or volume purchasing.</li>
+  <li><strong>Maintenance and support.</strong> The developer is solely responsible for any maintenance and support for the app, as specified in these terms or as required by law. Apple has no obligation whatsoever to furnish any maintenance or support for the app.</li>
+  <li><strong>Warranty.</strong> The developer is solely responsible for any product warranties, whether express or implied by law, to the extent they are not effectively disclaimed. If the app fails to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price of the app to you; to the maximum extent permitted by applicable law, Apple has no other warranty obligation whatsoever with respect to the app. Any other claims, losses, liabilities, damages, costs or expenses attributable to a failure to conform to a warranty are the developer's responsibility.</li>
+  <li><strong>Product claims.</strong> The developer, not Apple, is responsible for addressing any claims by you or any third party relating to the app or your possession and use of it, including (i) product liability claims, (ii) any claim that the app fails to conform to any applicable legal or regulatory requirement, and (iii) claims arising under consumer protection, privacy or similar legislation, including in connection with the app's use of any framework on the device.</li>
+  <li><strong>Intellectual property rights.</strong> If a third party claims that the app or your possession and use of it infringes that third party's intellectual property rights, the developer, not Apple, will be solely responsible for the investigation, defence, settlement and discharge of that claim.</li>
+  <li><strong>Legal compliance.</strong> You represent and warrant that (i) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a “terrorist supporting” country, and (ii) you are not listed on any U.S. Government list of prohibited or restricted parties.</li>
+  <li><strong>Developer name and address.</strong> Questions, complaints or claims about the app should be directed to: Fatih Alkan, Türkiye — <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a>.</li>
+  <li><strong>Third-party terms.</strong> You must comply with applicable third-party terms of agreement when using the app, including the Apple Media Services Terms and Conditions.</li>
+  <li><strong>Third-party beneficiary.</strong> Apple and Apple's subsidiaries are third-party beneficiaries of this agreement, and upon your acceptance of it Apple will have the right (and will be deemed to have accepted the right) to enforce it against you as a third-party beneficiary.</li>
+</ol>
+
+<h2 id="warranty"><b>10</b>Disclaimer of warranties</h2>
+<p>To the fullest extent permitted by law, the app is provided “as is” and “as available”, without warranties of any kind, whether express or implied, including any implied warranty of merchantability, fitness for a particular purpose or non-infringement. We do not warrant that the app will be uninterrupted or error-free, that it will run on every device or iOS version, or that any result it produces is accurate, meaningful or correct — it is a game. Some jurisdictions do not allow the exclusion of certain warranties, so parts of this section may not apply to you, and your mandatory statutory rights as a consumer are unaffected.</p>
+
+<h2 id="liability"><b>11</b>Limitation of liability</h2>
+<p>To the extent permitted by law, the developer will not be liable for indirect, incidental, special or consequential damages, or for loss of data, profits or goodwill, arising out of your use of the app, including anything that happens because of a result the app produced or a picture you shared. Our total liability for any claim relating to the app is limited to the amount you paid for it in the twelve months before the claim arose.</p>
+<p>Nothing in these terms limits or excludes liability that cannot be limited or excluded by law — including liability for death or personal injury caused by negligence, for fraud, for intent or gross negligence, or under mandatory consumer protection law.</p>
+
+<h2 id="changes"><b>12</b>Changes, and ending the agreement</h2>
+<p>We may update the app, add or remove features, and update these terms — for example to reflect a change in the app, in Apple's rules or in the law. The “Last updated” date above always shows the current version. A change that affects what the app does with faces is explained in the app, which asks you to agree again. For any other change, continuing to use the app means you accept the new terms; if you don't want them, you can stop using the app and cancel any subscription, and nothing you have already paid for is affected.</p>
+<p>You may end this agreement at any time by deleting the app (cancel your subscription separately, as described in section 6). We may end it if you seriously or repeatedly break these terms. Sections 4, 7, 8, 9, 10, 11, 13 and 14 survive the end of the agreement.</p>
+
+<h2 id="law"><b>13</b>Governing law and disputes</h2>
+<p>These terms are governed by the laws of the Republic of Türkiye, without regard to its conflict-of-law rules — except that the licence to use the app is governed as set out in Apple's Standard EULA, and except where the mandatory consumer law of the country you live in says otherwise. If you are a consumer, nothing here deprives you of the protection of those mandatory rules, and you may bring proceedings in the courts of your own country. Before starting any dispute, please write to us — almost everything can be sorted out by email.</p>
+
+<h2 id="general"><b>14</b>General</h2>
+<p>These terms, together with Apple's Standard EULA and our <a href="momordad-privacy.html">Privacy Policy</a>, are the entire agreement between you and the developer about the app. If any provision is found unenforceable, the rest stays in force. Not enforcing a term is not a waiver of it. You may not transfer your rights under these terms; we may transfer ours if the app changes hands, without affecting your rights.</p>
+
+<h2 id="contact"><b>15</b>Contact</h2>
+<p><strong>Fatih Alkan</strong> — developer of Mom or Dad?, Türkiye<br>
+<a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a></p>
+<p>See also the <a href="momordad-privacy.html">Privacy Policy</a>.</p>
+
+</main>
+
+<footer>
+  <p>Mom or Dad? · <a href="momordad-privacy.html">Privacy Policy</a> · <a href="momordad-terms.html">Terms of Use</a> · <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a></p>
+  <p>© 2026 Fatih Alkan. Just for fun — this compares how faces look, not DNA.</p>
+</footer>
+
+</div>
+</body>
+</html>
 
