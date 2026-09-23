@@ -130,7 +130,7 @@ footer a:hover{text-decoration:underline}
   <p class="sign">Mom or Dad?</p>
   <p class="kicker">The booth's privacy policy</p>
   <h1>Privacy Policy</h1>
-  <p class="dates">Effective 22 September 2026 · Last updated 22 September 2026</p>
+  <p class="dates">Effective 22 September 2026 · Last updated 23 September 2026</p>
   <nav class="tabs">
     <a href="momordad-privacy.html" aria-current="page">Privacy Policy</a>
     <a href="momordad-terms.html">Terms of Use</a>
@@ -143,7 +143,7 @@ footer a:hover{text-decoration:underline}
     <li class="yes"><span>✓</span><div>Every face comparison happens on your iPhone, using Apple's on-device Vision framework.</div></li>
     <li class="yes"><span>✓</span><div>The app keeps a short numeric code of each photo and your scores <em>on your iPhone</em>, so the same photos give the same answer again. You can delete them in Settings, and they expire after a year.</div></li>
     <li class="no"><span>✗</span><div>Your photos are never uploaded. We have no servers, no accounts and no way to see them.</div></li>
-    <li class="no"><span>✗</span><div>No analytics, no advertising, no tracking, no third-party SDKs of any kind.</div></li>
+    <li class="no"><span>✗</span><div>No analytics, no advertising, no tracking. One outside service handles the subscription (RevenueCat) — it never sees your photos.</div></li>
     <li class="no"><span>✗</span><div>Nothing from your camera, your photos or your face is ever used for marketing, profiling or to identify anyone.</div></li>
   </ul>
 </section>
@@ -177,8 +177,8 @@ footer a:hover{text-decoration:underline}
 <p>Mom or Dad? (“the app”, listed in some App Stores as “Who Do I Look Like? Mom or Dad”, “Mum or Dad” in the UK and “¿A quién me parezco? Mamá/Papá” in Mexico) is made and published by <strong>Fatih Alkan</strong>, an independent app developer based in Türkiye (“we”, “us”). This policy explains how the app handles information, and it covers the iPhone app and this page. You can reach us any time at <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a>.</p>
 
 <h2 id="short"><b>2</b>The short version</h2>
-<p><strong>We do not collect your personal data.</strong> The app has no accounts, no sign-in, no servers and no network code of its own. It never sends your photos, your face, your results or your device information anywhere. The connections that do happen are Apple's: iOS asks the App Store for the subscription prices when you open the app, checks whether your Apple Account is still eligible for the introductory offer, and handles a purchase or a restore. Tapping a link — like the one that opened this page — hands it to Safari.</p>
-<p>Under Apple's definition, data processed only on your device is not “collected”, which is why the app's App Store privacy label says <em>Data Not Collected</em>.</p>
+<p><strong>We do not collect your personal data.</strong> The app has no accounts, no sign-in and no servers of its own. It never sends your photos, your face or your results anywhere. Two connections do happen, both about the subscription: Apple's App Store (prices, the introductory offer, a purchase or a restore) and <strong>RevenueCat</strong>, the service that manages subscriptions for us. Tapping a link — like the one that opened this page — hands it to Safari.</p>
+<p>Everything to do with your photos and faces is processed only on your device, which under Apple's definition is not “collected”. The one thing that is collected is your subscription status, and the App Store privacy label declares it as <em>Purchases</em> — not linked to your identity and never used to track you.</p>
 
 <h2 id="faces"><b>3</b>What happens to your photos and faces</h2>
 
@@ -240,13 +240,14 @@ footer a:hover{text-decoration:underline}
 
 <h2 id="leaves"><b>5</b>What leaves your iPhone</h2>
 <ul>
-  <li><strong>The app sends us nothing.</strong> We run no servers, and the app has no network code of its own: not your photos, not your results, not a device identifier, not a crash report.</li>
+  <li><strong>Nothing about your photos leaves the device.</strong> We run no servers of our own, and the app has no code of its own that sends anything: not your photos, not your faces, not your results, not a crash report.</li>
+  <li><strong>The subscription goes through RevenueCat.</strong> To know whether you are a subscriber, the app uses <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">RevenueCat</a> (RevenueCat, Inc., United States), which receives an anonymous customer id the app generates, the purchase and renewal details Apple reports for that id, and basic technical facts such as your country, device model, iOS version and app version. It never receives your photos, your faces, your results or your name — we don't have those either. We use it only to unlock Pro and to see aggregate subscription numbers, never to identify you or to advertise to you. If you want that record deleted, write to us and we will ask RevenueCat to delete it.</li>
   <li><strong>What Apple shows us anyway.</strong> Like every developer, we can see Apple's own App Store reports: how many people downloaded, updated, subscribed or cancelled, in aggregate, by country and device type — and, if you have turned on “Share With App Developers” in <em>iOS Settings → Privacy &amp; Security → Analytics &amp; Improvements</em>, Apple's anonymised crash and usage statistics. Apple prepares all of it; it never names you, and it tells us nothing about your photos or your results.</li>
   <li><strong>Only what you share, when you share it.</strong> If you use the share button, the picture you chose (your photo strip or the split portrait, with the percentages on it) goes to whichever app or person you pick in the iOS share sheet. From that point it is governed by that service's terms and privacy policy, not ours. Shared pictures are newly drawn by the app, so they do not carry the location or camera information that may have been in your original photos.</li>
   <li><strong>Purchases are handled by Apple.</strong> Subscriptions are bought through Apple's in-app purchase system. Apple processes the payment; we never see your name, your email, your address or your payment details. From Apple's StoreKit the app learns the prices and billing periods of the plans, whether your Apple Account is still eligible for the introductory offer, and whether a subscription is currently active — nothing else, and none of it reaches us. See <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>.</li>
   <li><strong>The rating prompt</strong> shown by the app is Apple's standard one. Your star rating goes to the App Store and we never learn how you rated. If you go on to write a public review, we see it the way everyone does: Apple publishes it with the nickname you gave Apple and your country, and shows it to us in App Store Connect.</li>
   <li><strong>If you email us</strong> at <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a>, we receive your email address and whatever you write (please don't send photos — we don't need them). Our mailbox is hosted in Türkiye by our email provider, which stores the message for us and does nothing else with it. We use your message only to answer you, never for marketing, and we delete the correspondence once it is no longer needed. You can ask us to delete it sooner.</li>
-  <li><strong>No one else.</strong> We share no personal data with any third party for our own purposes. The only recipients are Apple, which handles purchases and the App Store under its own privacy policy, and whoever you choose yourself in the share sheet.</li>
+  <li><strong>No one else.</strong> Apart from Apple and RevenueCat above, we share no personal data with anyone, and neither of them ever receives a photo, a face or a result. The only other recipient is whoever you choose yourself in the share sheet.</li>
 </ul>
 
 <h2 id="facedata"><b>6</b>Face data: our commitments and deletion schedule</h2>
@@ -281,7 +282,7 @@ footer a:hover{text-decoration:underline}
     </tr>
     <tr>
       <td data-label="Permission">Add to Photos</td>
-      <td data-label="When and why">Only when a Pro subscriber taps <em>Save in HD</em>, to put the split portrait into your own library at full quality. This is “add-only” access: the app can add a picture but cannot read, scan or change anything in your library.</td>
+      <td data-label="When and why">Only when you ask the app to keep a picture — a split portrait or a photo strip — so it can be added to your own library at full quality. This is “add-only” access: the app can add a picture but cannot read, scan or change anything in your library.</td>
       <td data-label="If you say no">You can still use the share button to send the picture anywhere, including to Photos via the share sheet.</td>
     </tr>
     <tr>
@@ -300,7 +301,7 @@ footer a:hover{text-decoration:underline}
 <p><strong>If you are the person in someone else's photo:</strong> everything about you stayed on their iPhone. We have no copy, no database and no way to find, change or delete anything — only the person holding the phone can, by clearing the saved results or deleting the app. If you are worried about a picture that was shared with you or about you, ask them, and write to us if you would like help understanding what the app does.</p>
 
 <h2 id="tracking"><b>9</b>No tracking, no ads, no analytics</h2>
-<p>The app contains no advertising, no analytics, no crash-reporting service, no attribution or “growth” SDK, and no third-party code at all: every component it uses is part of iOS itself. It does not track you across apps or websites, so iOS never shows you an App Tracking Transparency prompt for it, and there is no advertising identifier involved. The app's privacy manifest declares no tracking and no collected data.</p>
+<p>The app contains no advertising, no analytics of your behaviour, no crash-reporting service and no attribution or “growth” SDK. The only third-party code in it is RevenueCat's subscription SDK, described above; everything else is part of iOS itself. Nothing tracks you across apps or websites, so iOS never shows you an App Tracking Transparency prompt for this app, and no advertising identifier is involved.</p>
 <p>We do not use your information — because we do not have it — to train any AI model, and no photo, face or result is ever sent to a third-party AI service. All the intelligence in the app is Apple's, running on your device.</p>
 
 <h2 id="rights"><b>10</b>Your choices and your rights</h2>
@@ -312,32 +313,32 @@ footer a:hover{text-decoration:underline}
   <li><strong>Delete everything:</strong> remove the app from your iPhone. That erases the saved results, the settings and any temporary files from the device. A copy may still sit inside an iPhone backup you made earlier, until that backup is replaced or deleted — that backup is yours and Apple's, not ours.</li>
   <li><strong>Turn off a permission:</strong> iOS Settings, at any time, without losing anything else.</li>
 </ul>
-<p>For the only information we might ever hold — an email you sent us — you may ask us to give you a copy, correct it, delete it, restrict or object to its use, or receive it in a portable form. Write to <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a> and we will answer within 30 days. We never charge for this and never ask you to create an account to do it.</p>
+<p>For the information we can actually reach — your subscription record at RevenueCat and any email you sent us — you may ask us to give you a copy, correct it, delete it, restrict or object to its use, or receive it in a portable form. Write to <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a> and we will answer within 30 days. We never charge for this and never ask you to create an account to do it.</p>
 
 <h2 id="regions"><b>11</b>Region-specific information</h2>
 
 <h3>Europe (GDPR) and the United Kingdom</h3>
 <p>The comparison happens on your iPhone, under your control, and we never receive or access any of it — using the app on your own family photos is your own personal activity, not something we process. To the extent the GDPR applies to that processing at all, our basis is <strong>your consent</strong> (Art. 6(1)(a)), asked for before the first photo and withdrawable at any time in Settings; and, should any of it ever be treated as special-category data, that same <strong>explicit consent</strong> (Art. 9(2)(a)). For providing the app and the subscription we rely on <strong>performance of a contract</strong> (Art. 6(1)(b)); for answering support emails, on our <strong>legitimate interest</strong> in helping you (Art. 6(1)(f)).</p>
 <p>The app does not process biometric data “for the purpose of uniquely identifying a natural person”: it neither identifies nor authenticates anyone. There is no profiling and no automated decision-making with legal or similarly significant effects — the percentages are entertainment.</p>
-<p>Nothing you do in the app is transferred anywhere, so for that there is no international transfer to consider. If you write to us, your email travels to our mailbox in Türkiye — outside the EEA and the UK, and not covered by an adequacy decision — because you chose to write to us; that is the only copy, and we delete it when it is no longer needed. You have the right to lodge a complaint with your local data protection authority.</p>
+<p>Nothing you do with photos or faces is transferred anywhere, so for that there is no international transfer to consider. Two things do leave the EEA/UK: your subscription record reaches <strong>RevenueCat, Inc.</strong> in the United States, which acts as our processor under its data processing terms and the European Commission's Standard Contractual Clauses; and, if you write to us, your email reaches our mailbox in Türkiye, which has no adequacy decision — that is the only copy and we delete it when it is no longer needed. You have the right to lodge a complaint with your local data protection authority.</p>
 
 <h3>Illinois, Texas, Washington and other US biometric laws</h3>
 <p>The app is designed so that no face-derived information is ever in our possession or control: it is created and destroyed on your device, under your control, as set out in the schedule in section 6, which also serves as our public written retention and destruction policy. We do not sell, lease, trade, disclose or otherwise profit from any biometric identifier or biometric information, we never store a face template in any database, and we never use face data to identify anyone. The app asks for your written (electronic) consent before the first analysis, and lets you withdraw it and delete the stored results at any time.</p>
 
 <h3>California</h3>
-<p>We have never sold or shared personal information, and we never will — there is nothing to opt out of. The app itself collects nothing. The only personal information we ever receive is what you put in an email to us: your address and your message, used to answer you and deleted when it is no longer needed. You may ask us to confirm, correct, delete or hand over a copy of that, and we will never discriminate against you for asking.</p>
+<p>We have never sold or shared personal information, and we never will — there is nothing to opt out of. Nothing from your photos, faces or results is collected at all. What we do receive is your subscription record through RevenueCat (an anonymous customer id and the purchase details, used to unlock Pro and to count subscriptions) and anything you put in an email to us. You may ask us to confirm, correct, delete or hand over a copy of either, and we will never discriminate against you for asking.</p>
 
 <h3>Türkiye (KVKK)</h3>
 <p lang="tr">Veri sorumlusu: Fatih Alkan (Türkiye). Uygulama, fotoğraflarınızı ve yüz verilerinizi yalnızca cihazınızda işler; bu veriler bize hiçbir şekilde iletilmez, tarafımızca saklanmaz ve üçüncü kişilerle paylaşılmaz. Uygulamanın arayüzü İngilizcedir: ilk fotoğraftan önce çıkan açık rıza ekranı KVKK m.6 anlamındaki açık rızanızı alır ve bu rızayı uygulamadaki <em>Settings → Withdraw face consent</em> satırından istediğiniz an geri çekebilirsiniz; geri çektiğinizde cihazınızdaki tüm kayıtlı sonuçlar silinir. Tarafımızca işlenen tek veri, bize e-posta gönderdiğinizde e-posta adresiniz ve mesajınızdır; bu veriler yalnızca sorunuzu yanıtlamak için kullanılır, Türkiye'deki posta kutumuzda saklanır ve gerekmediğinde silinir. KVKK m.11 kapsamındaki haklarınız için <a href="mailto:support@alkanfatih.com">support@alkanfatih.com</a> adresine yazabilirsiniz.</p>
 
 <h2 id="security"><b>12</b>Security</h2>
-<p>The app stores its files inside the iOS application sandbox, which no other app can read, and the two files it writes — the saved results and the temporary share copy — are marked with complete file protection, so iOS keeps them encrypted whenever your iPhone is locked. Because nothing is transmitted and we hold no database, there is no server for anyone to break into — the strongest security guarantee we can give you is that we never have the data in the first place. If we ever became aware of an incident affecting information we do hold, such as support emails, we would notify the people affected and the relevant authorities as the law requires.</p>
+<p>The app stores its files inside the iOS application sandbox, which no other app can read, and the two files it writes — the saved results and the temporary share copy — are marked with complete file protection, so iOS keeps them encrypted whenever your iPhone is locked. We run no servers and hold no database of our own: your photos, faces and results are never transmitted, so the strongest guarantee we can give is that we never have them in the first place. The subscription record lives with RevenueCat under its own security programme, and support emails with our mail provider. If we ever became aware of an incident affecting information we do hold, we would notify the people affected and the relevant authorities as the law requires.</p>
 
 <h2 id="thispage"><b>13</b>This web page</h2>
 <p>This page is hosted on GitHub Pages. GitHub records technical information such as your IP address when it serves the page — see the <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>. We do not receive that information, and the page itself sets no cookies, loads no fonts or scripts from anyone else and contains no analytics or trackers of any kind.</p>
 
 <h2 id="changes"><b>14</b>Changes to this policy</h2>
-<p>If the app changes, this policy changes with it, and the “Last updated” date above changes too. If we ever changed what the app does with faces, the app would explain the change and ask you to agree again before analysing anything. If the app were ever to send anything off your device, we would ask for your permission first, clearly and separately — it would never happen quietly.</p>
+<p>If the app changes, this policy changes with it, and the “Last updated” date above changes too. If we ever changed what the app does with faces, the app would explain the change and ask you to agree again before analysing anything. Beyond the subscription described in section 5, if the app were ever to send anything else off your device, we would ask for your permission first, clearly and separately — it would never happen quietly.</p>
 <p>If Mom or Dad? is ever sold or handed to another developer, the only thing that could change hands is our support mailbox: there is no user database to transfer, because everything the app produces stays on your iPhone. We would update this page before any such change took effect.</p>
 
 <h2 id="contact"><b>15</b>Contact</h2>
