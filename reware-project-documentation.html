@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -268,13 +267,13 @@ footer b { color: var(--fg); font-family: var(--display); }
       <p class="prose muted">Real screens of the shipped app, shown here with the sample sweater. Under each one: the REWARE screens it covers.</p>
     </div>
     <div class="gallery">
-      <figure><img src="assets/ss-rack.jpg" alt="Stitch Switch rack screen with Snap a garment"><figcaption><b>The rack</b>Choose a garment to transform.<span class="maps"> Covers screen 9.</span></figcaption></figure>
-      <figure><img src="assets/ss-read.jpg" alt="Reading screen: what the AI saw and one measurement"><figcaption><b>Reading the photo</b>AI reads type, fabric and condition; one tape measurement.<span class="maps"> Covers screens 8, 11, 12.</span></figcaption></figure>
-      <figure><img src="assets/ss-pick.jpg" alt="Three transformations that fit this sweater"><figcaption><b>Three ideas that fit</b>Picked for this garment, with the reason.<span class="maps"> Covers screen 13.</span></figcaption></figure>
-      <figure><img src="assets/ss-reveal.jpg" alt="AI preview of the user's own sweater as a cropped vest"><figcaption><b>Your garment, after</b>An AI preview of the person's own piece.<span class="maps"> Covers screens 13, 15.</span></figcaption></figure>
-      <figure><img src="assets/ss-pattern.jpg" alt="Pattern screen with cut plan, pieces and PDF button"><figcaption><b>The sized pattern</b>Cut lines (here on a sketch), pieces, printable PDF at 100%.<span class="maps"> Covers screen 16.</span></figcaption></figure>
-      <figure><img src="assets/ss-guide.jpg" alt="Step 3 of 9 with a picture of the user's own sweater"><figcaption><b>Step by step</b>Every step with a picture of the user's own garment.<span class="maps"> Covers screen 16.</span></figcaption></figure>
-      <figure><img src="assets/ss-flips.jpg" alt="My flips screen with saved projects"><figcaption><b>Saved projects</b>Progress kept per garment.<span class="maps"> Covers screen 20.</span></figcaption></figure>
+      <figure><img src="css/assets/ss-rack.jpg" alt="Stitch Switch rack screen with Snap a garment"><figcaption><b>The rack</b>Choose a garment to transform.<span class="maps"> Covers screen 9.</span></figcaption></figure>
+      <figure><img src="css/assets/ss-read.jpg" alt="Reading screen: what the AI saw and one measurement"><figcaption><b>Reading the photo</b>AI reads type, fabric and condition; one tape measurement.<span class="maps"> Covers screens 8, 11, 12.</span></figcaption></figure>
+      <figure><img src="css/assets/ss-pick.jpg" alt="Three transformations that fit this sweater"><figcaption><b>Three ideas that fit</b>Picked for this garment, with the reason.<span class="maps"> Covers screen 13.</span></figcaption></figure>
+      <figure><img src="css/assets/ss-reveal.jpg" alt="AI preview of the user's own sweater as a cropped vest"><figcaption><b>Your garment, after</b>An AI preview of the person's own piece.<span class="maps"> Covers screens 13, 15.</span></figcaption></figure>
+      <figure><img src="css/assets/ss-pattern.jpg" alt="Pattern screen with cut plan, pieces and PDF button"><figcaption><b>The sized pattern</b>Cut lines (here on a sketch), pieces, printable PDF at 100%.<span class="maps"> Covers screen 16.</span></figcaption></figure>
+      <figure><img src="css/assets/ss-guide.jpg" alt="Step 3 of 9 with a picture of the user's own sweater"><figcaption><b>Step by step</b>Every step with a picture of the user's own garment.<span class="maps"> Covers screen 16.</span></figcaption></figure>
+      <figure><img src="css/assets/ss-flips.jpg" alt="My flips screen with saved projects"><figcaption><b>Saved projects</b>Progress kept per garment.<span class="maps"> Covers screen 20.</span></figcaption></figure>
     </div>
     <div class="note" style="margin-top:22px">
       <span class="hand">Your first correction is already on the list.</span>
@@ -519,7 +518,7 @@ S.forEach((s, i) => {
   const b = document.createElement('button');
   b.type = 'button'; b.className = 'tile'; b.dataset.st = s.st; b.dataset.i = i;
   b.setAttribute('aria-label', `Screen ${s.n}, ${s.en}, ${STATUS[s.st]}`);
-  b.innerHTML = `<img src="assets/screen-${String(s.n).padStart(2,'0')}.jpg" alt="" loading="lazy"><div class="row"><span class="n">${String(s.n).padStart(2,'0')}</span><span class="chip ${s.st}">${STATUS[s.st]}</span></div><div class="t">${s.de}</div>`;
+  b.innerHTML = `<img src="css/assets/screen-${String(s.n).padStart(2,'0')}.jpg" alt="" loading="lazy"><div class="row"><span class="n">${String(s.n).padStart(2,'0')}</span><span class="chip ${s.st}">${STATUS[s.st]}</span></div><div class="t">${s.de}</div>`;
   b.addEventListener('click', () => open(i));
   grid.appendChild(b);
 });
@@ -537,14 +536,14 @@ const sheet = document.getElementById('sheet');
 let cur = 0;
 function open(i) {
   cur = i; const s = S[i];
-  document.getElementById('sheetImg').src = `assets/screen-${String(s.n).padStart(2,'0')}.jpg`;
+  document.getElementById('sheetImg').src = `css/assets/screen-${String(s.n).padStart(2,'0')}.jpg`;
   document.getElementById('sheetImg').alt = `REWARE screen ${s.n}: ${s.de}`;
   const chip = document.getElementById('sheetChip'); chip.className = `chip ${s.st}`; chip.textContent = STATUS[s.st];
   document.getElementById('sheetN').textContent = `Screen ${s.n} of 20 · ${s.ph}`;
   document.getElementById('sheetTitle').textContent = s.en;
   document.getElementById('sheetDe').textContent = s.de;
   let kv = `<div><span class="k today">What exists today</span><span>${s.today}</span>`;
-  if (s.shot) kv += `<div class="ssrow" style="margin-top:8px"><img src="assets/${s.shot}" alt="Stitch Switch screenshot"><span class="muted" style="font-size:.92rem">${s.shotCap}</span></div>`;
+  if (s.shot) kv += `<div class="ssrow" style="margin-top:8px"><img src="css/assets/${s.shot}" alt="Stitch Switch screenshot"><span class="muted" style="font-size:.92rem">${s.shotCap}</span></div>`;
   kv += `</div><div><span class="k build">What we build</span><span>${s.build}</span></div>`;
   if (s.decide) kv += `<div><span class="k decide">Your decision</span><span>${s.decide}</span></div>`;
   document.getElementById('sheetKv').innerHTML = kv;
