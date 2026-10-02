@@ -1,1 +1,583 @@
 
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="REWARE × Stitch Switch: the 20 REWARE screens mapped to what works today, what we adapt and what we build, with phases and timeline.">
+<style>:root{color-scheme:light}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>REWARE × Stitch Switch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Caveat:wght@600&display=swap">
+<style>
+/* Layout: a paper plan in REWARE's own colours. One column of reading width; the 20-screen journey and the
+   screenshot gallery break out wider. Status is carried by three colours that mean one thing each. */
+:root {
+  --bg: #F6F3EC;          /* REWARE paper */
+  --surface: #FFFDF8;     /* cards */
+  --surface-2: #ECEAE0;   /* muted panels */
+  --line: #D9D4C6;
+  --fg: #1F2A24;          /* green-black ink */
+  --fg-2: #5C675F;
+  --accent: #2E6B4E;      /* REWARE green */
+  --accent-ink: #FFFFFF;
+  --accent-tint: #E2ECE4;
+  --today: #2E6B4E;       /* works today */
+  --today-tint: #DDEBE1;
+  --adapt: #A9742F;       /* adapt what exists */
+  --adapt-tint: #F3E7D1;
+  --build: #3E5F84;       /* build new */
+  --build-tint: #DEE6F0;
+  --shadow: 0 10px 30px rgba(31, 42, 36, .12);
+  --display: "Outfit", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+  --hand: "Caveat", "Bradley Hand", "Segoe Script", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161B18; --surface: #1F2521; --surface-2: #272E29; --line: #39423C;
+    --fg: #ECEAE3; --fg-2: #AEB5AF; --accent: #7FB89A; --accent-ink: #10180F; --accent-tint: #243B2F;
+    --today: #7FB89A; --today-tint: #22372B; --adapt: #D9A95E; --adapt-tint: #3A2F1C; --build: #8FB0D6; --build-tint: #1F3044;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .45); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161B18; --surface: #1F2521; --surface-2: #272E29; --line: #39423C;
+  --fg: #ECEAE3; --fg-2: #AEB5AF; --accent: #7FB89A; --accent-ink: #10180F; --accent-tint: #243B2F;
+  --today: #7FB89A; --today-tint: #22372B; --adapt: #D9A95E; --adapt-tint: #3A2F1C; --build: #8FB0D6; --build-tint: #1F3044;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .45); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.55; margin: 0; }
+img { max-width: 100%; display: block; }
+a { color: var(--accent); }
+h1, h2, h3, h4 { font-family: var(--display); line-height: 1.12; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.55rem, 4vw, 2.2rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+h4 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 16px; }
+.prose { max-width: 66ch; }
+.eyebrow { font-family: var(--display); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.muted { color: var(--fg-2); }
+.hand { font-family: var(--hand); font-size: 1.6rem; color: var(--accent); line-height: 1.1; }
+
+/* Top bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; }
+.brand { font-family: var(--display); font-weight: 700; font-size: 1rem; white-space: nowrap; }
+.brand span { color: var(--accent); }
+.bar nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.bar nav a { font-family: var(--display); font-size: .85rem; font-weight: 600; text-decoration: none; color: var(--fg-2); padding: 8px 10px; border-radius: 999px; white-space: nowrap; }
+.bar nav a:hover, .bar nav a:focus-visible { background: var(--surface-2); color: var(--fg); outline: none; }
+
+/* Hero */
+.hero { padding-block: 44px 28px; display: grid; gap: 22px; }
+.hero .lede { font-size: 1.2rem; max-width: 60ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat b { font-family: var(--display); font-size: 2rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat small { color: var(--fg-2); font-size: .9rem; }
+.stat.today b { color: var(--today); } .stat.adapt b { color: var(--adapt); } .stat.build b { color: var(--build); }
+
+section { padding-block: 40px; border-top: 1px solid var(--line); }
+.sec-head { display: grid; gap: 10px; margin-bottom: 22px; }
+
+/* Status chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--display); font-size: .74rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.chip.today { color: var(--today); background: var(--today-tint); }
+.chip.adapt { color: var(--adapt); background: var(--adapt-tint); }
+.chip.build { color: var(--build); background: var(--build-tint); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.filters button { font-family: var(--display); font-weight: 600; font-size: .9rem; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Journey grid */
+.journey { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 10px; display: grid; gap: 8px; text-align: left; color: inherit; font: inherit; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.tile:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.tile img { border-radius: 10px; width: 100%; aspect-ratio: 230 / 520; object-fit: cover; }
+.tile .n { font-family: var(--display); font-weight: 700; font-size: .85rem; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.tile .t { font-family: var(--display); font-weight: 600; font-size: .95rem; line-height: 1.2; }
+.tile .row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.tile[hidden] { display: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 18px; font-size: .95rem; color: var(--fg-2); }
+.legend div { display: flex; align-items: center; gap: 8px; }
+
+/* Detail sheet */
+dialog.sheet { border: none; padding: 0; background: var(--surface); color: var(--fg); border-radius: 22px 22px 0 0; width: 100%; max-width: 100%; margin: auto 0 0; max-height: 92dvh; box-shadow: var(--shadow); overflow: auto; }
+dialog.sheet::backdrop { background: rgba(20, 30, 24, .55); }
+@media (min-width: 760px) { dialog.sheet { border-radius: 22px; max-width: 820px; margin: auto; } }
+.sheet-in { display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 20px; }
+@media (max-width: 759px) { .sheet-in { grid-template-columns: 1fr; } .sheet-in .shot { max-width: 46%; } }
+.sheet-in .shot img { border-radius: 12px; border: 1px solid var(--line); }
+.sheet-body { display: grid; gap: 14px; min-width: 0; }
+.sheet-body .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sheet-body .de { font-family: var(--hand); font-size: 1.5rem; color: var(--fg-2); line-height: 1.1; }
+.kv { display: grid; gap: 10px; }
+.kv > div { display: grid; gap: 4px; padding: 12px 14px; border-radius: 12px; background: var(--surface-2); }
+.kv .k { font-family: var(--display); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-2); font-weight: 600; }
+.kv .k.today { color: var(--today); } .kv .k.build { color: var(--build); } .kv .k.decide { color: var(--adapt); }
+.ssrow { display: flex; gap: 12px; align-items: flex-start; }
+.ssrow img { width: 110px; border-radius: 10px; border: 1px solid var(--line); flex: none; }
+.close { font: inherit; font-family: var(--display); font-weight: 600; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.close:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sheet-nav { display: flex; justify-content: space-between; gap: 10px; padding: 0 20px 20px; }
+.sheet-nav button { font: inherit; font-family: var(--display); font-weight: 600; background: var(--surface-2); border: 1px solid var(--line); color: var(--fg); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.sheet-nav button:disabled { opacity: .4; cursor: default; }
+
+/* Today gallery */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.gallery figure { margin: 0; display: grid; gap: 8px; }
+.gallery img { border-radius: 14px; border: 1px solid var(--line); width: 100%; }
+.gallery figcaption { font-size: .92rem; line-height: 1.35; }
+.gallery figcaption b { font-family: var(--display); display: block; font-weight: 600; }
+.gallery figcaption .maps { color: var(--fg-2); }
+.note { border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; display: grid; gap: 6px; max-width: 72ch; }
+.note .hand { font-size: 1.35rem; }
+
+/* Architecture */
+.arch { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 12px; align-items: stretch; }
+@media (max-width: 759px) { .arch { grid-template-columns: 1fr; } .arch .arrow { transform: rotate(90deg); justify-self: center; } }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.box.core { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.box h4 { display: flex; align-items: center; gap: 8px; }
+.box ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: .97rem; }
+.box .tag { font-family: var(--display); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-2); font-weight: 600; }
+.box .tag.today { color: var(--today); } .box .tag.build { color: var(--build); }
+.arrow { align-self: center; color: var(--fg-2); font-family: var(--display); font-weight: 700; font-size: 1.4rem; }
+.arch-foot { margin-top: 14px; font-size: .97rem; max-width: 72ch; display: grid; gap: 8px; }
+
+/* Plan */
+.phases { display: grid; gap: 12px; }
+details.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+details.phase summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 16px 18px; }
+details.phase summary::-webkit-details-marker { display: none; }
+details.phase summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.ph-n { font-family: var(--display); font-weight: 700; color: var(--accent-ink); background: var(--accent); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 1rem; }
+.ph-n.p0 { background: var(--surface-2); color: var(--fg); border: 1px solid var(--line); }
+.ph-title { display: grid; gap: 2px; min-width: 0; }
+.ph-title b { font-family: var(--display); font-weight: 600; font-size: 1.1rem; }
+.ph-title small { color: var(--fg-2); }
+.ph-when { font-family: var(--display); font-weight: 600; font-size: .9rem; color: var(--fg-2); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ph-body { padding: 0 18px 18px; display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.cols h4 { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-2); margin-bottom: 6px; }
+.cols ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; font-size: .97rem; }
+.screens-in { display: flex; flex-wrap: wrap; gap: 6px; }
+.screens-in span { font-family: var(--display); font-size: .8rem; font-weight: 600; background: var(--surface-2); border-radius: 8px; padding: 3px 8px; font-variant-numeric: tabular-nums; }
+
+/* Pace slider */
+.pace { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 14px; margin-top: 18px; }
+.pace .head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: baseline; }
+.pace output { font-family: var(--display); font-weight: 700; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.pace output small { font-size: .9rem; color: var(--fg-2); font-weight: 600; }
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+.pace .ticks { display: flex; justify-content: space-between; font-size: .8rem; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.timeline { display: grid; gap: 8px; }
+.tl-row { display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: center; font-size: .95rem; }
+.tl-row .lab { font-family: var(--display); font-weight: 600; }
+.tl-bar { height: 14px; border-radius: 999px; background: var(--surface-2); position: relative; overflow: hidden; }
+.tl-bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; background: var(--accent); opacity: .85; transition: width .25s ease; }
+.tl-bar.p2 i { background: var(--build); } .tl-bar.p3 i { background: var(--adapt); }
+.tl-row .val { font-variant-numeric: tabular-nums; color: var(--fg-2); white-space: nowrap; }
+.pace .sum { font-size: .97rem; }
+.pace .sum b { font-family: var(--display); }
+
+/* Working together */
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.rhythm { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.rhythm div { background: var(--surface-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 2px; }
+.rhythm b { font-family: var(--display); font-weight: 600; }
+.rhythm small { color: var(--fg-2); }
+
+/* Questions */
+.qs { display: grid; gap: 10px; counter-reset: q; }
+.q { display: grid; grid-template-columns: 34px 1fr; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.q::before { counter-increment: q; content: counter(q); font-family: var(--display); font-weight: 700; color: var(--accent); font-size: 1.2rem; }
+.q b { font-family: var(--display); font-weight: 600; display: block; margin-bottom: 2px; }
+
+/* Next */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; counter-reset: s; }
+.steps div { background: var(--accent-tint); border-radius: 14px; padding: 16px; display: grid; gap: 4px; }
+.steps div::before { counter-increment: s; content: counter(s); font-family: var(--display); font-weight: 700; color: var(--accent); font-size: 1.4rem; }
+.steps b { font-family: var(--display); font-weight: 600; }
+footer { padding-block: 34px 48px; border-top: 1px solid var(--line); color: var(--fg-2); font-size: .95rem; display: grid; gap: 6px; }
+footer b { color: var(--fg); font-family: var(--display); }
+@media (prefers-reduced-motion: reduce) { .tile, .tl-bar i { transition: none; } }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <div class="brand">RE<span>WARE</span> × Stitch Switch</div>
+    <nav aria-label="Sections">
+      <a href="#journey">Journey</a><a href="#today">Works today</a><a href="#fit">How it fits</a><a href="#plan">Plan</a><a href="#together">Together</a><a href="#questions">Questions</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Prepared for Juanita Guerra Arellano · REWARE Graz · 2 October 2026</div>
+    <h1>Your 20 screens, and how we build them together.</h1>
+    <p class="lede">You designed the whole REWARE journey, from the first welcome to the last seam. This page walks through every screen and shows what already works today in Stitch Switch, what we adapt, and what we build new, in a clear order.</p>
+    <div class="stats">
+      <div class="stat today"><b id="cToday">4</b><small>screens work today in Stitch Switch</small></div>
+      <div class="stat adapt"><b id="cAdapt">8</b><small>screens adapt what exists</small></div>
+      <div class="stat build"><b id="cBuild">8</b><small>screens we build new</small></div>
+      <div class="stat"><b>3</b><small>phases after the pilot</small></div>
+    </div>
+    <p class="hand">Aus Alt wird Neu, Schritt für Schritt.</p>
+  </div>
+
+  <section id="journey">
+    <div class="sec-head">
+      <div class="eyebrow">The journey</div>
+      <h2>Every screen, with its status</h2>
+      <p class="prose">Tap a screen to see what exists today, what we build, and which phase it belongs to. The captions are yours, in German.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter screens">
+      <button type="button" data-filter="all" aria-pressed="true">All 20</button>
+      <button type="button" data-filter="today" aria-pressed="false">Works today</button>
+      <button type="button" data-filter="adapt" aria-pressed="false">Adapt</button>
+      <button type="button" data-filter="build" aria-pressed="false">Build new</button>
+    </div>
+    <div class="journey" id="grid"></div>
+    <div class="legend">
+      <div><span class="chip today">Works today</span> the Stitch Switch engine already does this</div>
+      <div><span class="chip adapt">Adapt</span> exists in a different form; we reshape it to your design</div>
+      <div><span class="chip build">Build new</span> not in Stitch Switch; we build it for REWARE</div>
+    </div>
+  </section>
+
+  <section id="today">
+    <div class="sec-head">
+      <div class="eyebrow">What works today</div>
+      <h2>The heart of REWARE already runs</h2>
+      <p class="prose">From the photo to the sized pattern and the step-by-step guide, Stitch Switch does this today, in the App Store. The AI only reads the photo and draws the pictures; the pattern itself comes from fixed drafting rules and the tape measurement, so the same garment and the same numbers always give the same pattern, and the person can correct the reading if the AI got it wrong. The rules were checked by computer over 3,936 measurement combinations; the pilot is their first test by a practitioner, which is why it comes first.</p>
+      <p class="prose muted">Real screens of the shipped app, shown here with the sample sweater. Under each one: the REWARE screens it covers.</p>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/ss-rack.jpg" alt="Stitch Switch rack screen with Snap a garment"><figcaption><b>The rack</b>Choose a garment to transform.<span class="maps"> Covers screen 9.</span></figcaption></figure>
+      <figure><img src="assets/ss-read.jpg" alt="Reading screen: what the AI saw and one measurement"><figcaption><b>Reading the photo</b>AI reads type, fabric and condition; one tape measurement.<span class="maps"> Covers screens 8, 11, 12.</span></figcaption></figure>
+      <figure><img src="assets/ss-pick.jpg" alt="Three transformations that fit this sweater"><figcaption><b>Three ideas that fit</b>Picked for this garment, with the reason.<span class="maps"> Covers screen 13.</span></figcaption></figure>
+      <figure><img src="assets/ss-reveal.jpg" alt="AI preview of the user's own sweater as a cropped vest"><figcaption><b>Your garment, after</b>An AI preview of the person's own piece.<span class="maps"> Covers screens 13, 15.</span></figcaption></figure>
+      <figure><img src="assets/ss-pattern.jpg" alt="Pattern screen with cut plan, pieces and PDF button"><figcaption><b>The sized pattern</b>Cut lines (here on a sketch), pieces, printable PDF at 100%.<span class="maps"> Covers screen 16.</span></figcaption></figure>
+      <figure><img src="assets/ss-guide.jpg" alt="Step 3 of 9 with a picture of the user's own sweater"><figcaption><b>Step by step</b>Every step with a picture of the user's own garment.<span class="maps"> Covers screen 16.</span></figcaption></figure>
+      <figure><img src="assets/ss-flips.jpg" alt="My flips screen with saved projects"><figcaption><b>Saved projects</b>Progress kept per garment.<span class="maps"> Covers screen 20.</span></figcaption></figure>
+    </div>
+    <div class="note" style="margin-top:22px">
+      <span class="hand">Your first correction is already on the list.</span>
+      <p>In your very first test you saw that a shirt cut through front and back together, as one straight line, comes out shorter at the back once it is worn. Front and back need their own lines. That change goes into the next build of the drafting rules for every transformation that crops a top straight across both layers: the T-shirt, shirt, sweatshirt and sweater crops, the sweater vest and the dress top. This is how the pilot should work: you find what no computer check can see, and the rules are corrected in the next build.</p>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="sec-head">
+      <div class="eyebrow">How it fits together</div>
+      <h2>Your app in front, the engine behind it</h2>
+      <p class="prose">REWARE gets its own app, built in Flutter so that one codebase serves iPhone and Android. Reading a garment, drafting the pattern and drawing the pictures live in a service behind the app. The community layer is REWARE's own data. App and service are built as one product by one hand, so the measurement screens, the cut plan and the PDF all come from the same rules.</p>
+    </div>
+    <div class="arch">
+      <div class="box">
+        <span class="tag build">Phase 1 · new</span>
+        <h4>REWARE app</h4>
+        <ul>
+          <li>Your 20 screens, in your design and in German</li>
+          <li>iPhone and Android from one Flutter codebase</li>
+          <li>Accounts, saved projects, profile (phase 2)</li>
+          <li>Holds no AI keys; talks only to the REWARE service</li>
+        </ul>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box core">
+        <span class="tag today">The engine · built today</span>
+        <h4>REWARE service</h4>
+        <ul>
+          <li>Garment reading from a photo</li>
+          <li>Ideas that fit this garment, with the AI preview</li>
+          <li>Drafting engine: 41 transformations, 9 garment types, sized to the measurements</li>
+          <li>PDF at 100% with test squares, tiled when larger than the paper</li>
+          <li>Step pictures of the person's own garment</li>
+        </ul>
+        <span class="tag build" style="margin-top:6px">The service around it · phase 1</span>
+        <ul>
+          <li>Today the engine lives inside the iOS app, and the AI key with it</li>
+          <li>Phase 1 moves both behind a hosted service that REWARE owns, with budget caps you can see (the proxy is written, not yet deployed)</li>
+        </ul>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box">
+        <span class="tag build">Phase 2 · REWARE's own</span>
+        <h4>Community layer</h4>
+        <ul>
+          <li>Tailors and ateliers near you, with contact details</li>
+          <li>Juanita's Nähbox coaching and workshops</li>
+          <li>Partner fabric shops</li>
+          <li>Curated by you, shown by the app</li>
+        </ul>
+      </div>
+    </div>
+    <div class="arch-foot muted">
+      <p>The AI models behind reading and pictures are Google's and can be swapped; the data the app exchanges with the service (reading, measurements, pieces, steps) stays the same. Each AI picture costs a few cents at Google's list price, which matters for a one-time app price (question 2 below).</p>
+      <p>From phase 1 the Google AI, Apple, Google Play and hosting accounts are REWARE's and billed to REWARE at cost; during the pilot the usage runs on Stitch Switch. Accounts and projects live on a server in the EU, with REWARE as the data controller; photos go to the AI only for the seconds of the reading, on the paid business tier, and are not kept there.</p>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="sec-head">
+      <div class="eyebrow">The plan</div>
+      <h2>Pilot first, then three phases</h2>
+      <p class="prose">Each phase ends with something you can hold: a tested pattern, an app on your phone, a feature your community can use. The order follows your journey: the engine and the core screens first, the community around them second, the creative extras third.</p>
+    </div>
+    <div class="phases">
+      <details class="phase" open>
+        <summary><span class="ph-n p0">0</span><span class="ph-title"><b>Pilot in your workshop</b><small>Real garments, printed patterns, your judgement</small></span><span class="ph-when">October 2026</span></summary>
+        <div class="ph-body">
+          <div class="cols">
+            <div><h4>What happens</h4><ul><li>Five transformations, one garment each first; a second size where your October allows</li><li>Print at 100%, measure the test square, cut and sew as instructed</li><li>Score each run: print scale, pieces fit the garment, finished size, fit on the body, clarity for a beginner</li></ul></div>
+            <div><h4>What you get</h4><ul><li>Free full access to Stitch Switch until 2 November 2026</li><li>Corrections to the rules of the five pilot transformations in the next build, usually within the week</li><li>A written summary of what worked and what changed</li><li>For Creative Insights on 13 October: Stitch Switch running live on your phone and the demo videos made from your own garments. The REWARE app itself comes after the pilot.</li></ul></div>
+            <div><h4>What I need from you</h4><ul><li>Garments and workshop time</li><li>Your notes on every hesitation</li><li>Photos of the finished pieces</li><li>Anything beyond the five transformations goes into phase 1</li></ul></div>
+          </div>
+          <div class="cols">
+            <div><h4>What REWARE sets up now</h4><ul><li>An Apple developer account (needs a D-U-N-S number; allow two to four weeks) and a Google Play developer account, both in REWARE's name</li><li>A Google AI billing account and a code repository in REWARE's name</li><li>I send step-by-step instructions for each</li></ul></div>
+          </div>
+          <div class="screens-in"><span>no cost</span><span>already running</span></div>
+        </div>
+      </details>
+      <details class="phase">
+        <summary><span class="ph-n">1</span><span class="ph-title"><b>Core: the REWARE app with the engine inside</b><small>From "Jetzt geht's los" to "Anleitung &amp; Schnittmuster"</small></span><span class="ph-when" data-when="1">220–300 h</span></summary>
+        <div class="ph-body">
+          <div class="cols">
+            <div><h4>Deliverables</h4><ul><li>Flutter app for iPhone and Android in your design</li><li>German as the first language, English second</li><li>The engine as a hosted service: reading, ideas, drafting, PDF, step pictures, with keys and budgets in REWARE's hands</li><li>Body measurements saved once in a profile</li><li>Conformance test: the service gives the same pieces and steps as the iOS app on the same 3,936-combination grid the catalogue was checked on</li><li>Test builds on your phone every two weeks from the second month (TestFlight and Google Play internal test)</li></ul></div>
+            <div><h4>First month: a defined delivery</h4><ul><li>The drafting engine answering as a service for the five pilot transformations, with a script that checks its pieces and steps match the iOS app</li><li>The first REWARE screen in Flutter on an iPhone and an Android phone: photo in, reading out</li><li>If it is not there, you can stop after the first month</li></ul></div>
+            <div><h4>Your part</h4><ul><li>Final say on every screen's wording and design, within the twenty screens as drawn; a screen changed after it is built is new work, estimated before it starts</li><li>Which ten transformations ship first</li><li>Pattern review from the pilot</li></ul></div>
+          </div>
+          <div class="screens-in"><span>1</span><span>4</span><span>7</span><span>8</span><span>9</span><span>10 photos</span><span>11</span><span>12</span><span>13</span><span>15</span><span>16</span></div>
+        </div>
+      </details>
+      <details class="phase">
+        <summary><span class="ph-n">2</span><span class="ph-title"><b>Community: accounts, tailors, Nähbox, partners</b><small>The part only REWARE can offer</small></span><span class="ph-when" data-when="2">180–260 h</span></summary>
+        <div class="ph-body">
+          <div class="cols">
+            <div><h4>Deliverables</h4><ul><li>Accounts and the REWARE community profile, on a server in the EU</li><li>Tailors and ateliers near you: list, distance, contact details</li><li>Juanita's Nähbox: coaching and workshop booking</li><li>Partner fabric shops</li><li>A simple admin page for tailors, partners and workshops</li><li>The one-time purchase on both stores</li><li>Web landing page with the store badges</li><li>Projects saved to the account, "Meine Projekte"</li></ul></div>
+            <div><h4>Your part</h4><ul><li>The lists of tailors, ateliers and partners you trust, before the phase starts</li><li>How bookings should reach you (your calendar, a form, or in-app)</li><li>AGB and privacy texts from your legal adviser</li><li>Community rules</li></ul></div>
+          </div>
+          <div class="screens-in"><span>2</span><span>3</span><span>5</span><span>6</span><span>17</span><span>18</span><span>19</span><span>20</span></div>
+        </div>
+      </details>
+      <details class="phase">
+        <summary><span class="ph-n">3</span><span class="ph-title"><b>Growth: ideas in words, combinations, your own designs</b><small>Where REWARE becomes creative</small></span><span class="ph-when" data-when="3">160–240 h</span></summary>
+        <div class="ph-body">
+          <div class="cols">
+            <div><h4>Deliverables</h4><ul><li>"Hast du schon eine Idee?": describe the wish in words or upload a sketch, and the app finds the closest tested transformation</li><li>A first set of five combination designs (two or three garments into one), each with its own drafting rules</li><li>Design adjustments: colours, details, fabric combinations, with a redrawn preview, within what the pattern rules allow</li><li>Up to five of your own designs in the catalogue, with your name on them; further designs estimated per design</li><li>A map for the tailors and partners</li><li>My suggestion, not in your screens: an impact card after every finished piece, with water, CO₂, textile kept out of the bin, money and hours, from figures and sources you approve</li></ul></div>
+            <div><h4>Your part</h4><ul><li>Designs you want in the catalogue</li><li>Which wishes beginners most often bring to you</li><li>The figures and sources you trust for the impact card</li></ul></div>
+          </div>
+          <div class="screens-in"><span>10 idea</span><span>11 combos</span><span>13 designers</span><span>14</span><span>17 map</span><span>20 community</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="pace">
+      <div class="head">
+        <div><h3>How fast do you want to go?</h3><p class="muted">The work stays the same; the hours per month set the calendar. 40 hours a month is the pace in my proposal; more by agreement.</p></div>
+        <output id="hpmOut" for="hpm">40 <small>hours / month</small></output>
+      </div>
+      <input type="range" id="hpm" min="40" max="60" step="10" value="40" aria-label="Hours per month">
+      <div class="ticks"><span>40</span><span>50</span><span>60</span></div>
+      <div class="timeline">
+        <div class="tl-row"><span class="lab">Phase 1</span><div class="tl-bar p1"><i id="b1"></i></div><span class="val" id="v1"></span></div>
+        <div class="tl-row"><span class="lab">Phase 2</span><div class="tl-bar p2"><i id="b2"></i></div><span class="val" id="v2"></span></div>
+        <div class="tl-row"><span class="lab">Phase 3</span><div class="tl-bar p3"><i id="b3"></i></div><span class="val" id="v3"></span></div>
+      </div>
+      <p class="sum" id="sum"></p>
+      <p class="muted" style="font-size:.9rem">Estimates from the screens as drawn; refined after the pilot and after we agree the first ten transformations. The calendar assumes answers from your side within a week and the community lists before phase 2 starts. Changes to the screens or new features after the estimate are scoped and estimated separately. Phases can also run with a pause between them.</p>
+    </div>
+  </section>
+
+  <section id="together">
+    <div class="sec-head">
+      <div class="eyebrow">Working together</div>
+      <h2>Your craft, my code, one product</h2>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h3>What you bring</h3>
+        <ul>
+          <li>Teaching people to make, repair and transform clothes since 2012</li>
+          <li>The judgement that tells a good pattern from one that only looks right</li>
+          <li>Your design for every screen, and the REWARE brand</li>
+          <li>Graz: the tailors, the shops, the workshops, the community</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What I bring</h3>
+        <ul>
+          <li>The engine: 41 transformations, drafting rules, PDF at 100%, the AI pipeline, built and shipped in the App Store</li>
+          <li>A way of working that corrects what you find in the next build</li>
+          <li>Native iOS is my home. REWARE would be my first Flutter project; that is exactly why the first month proves the engine as a service and the first screen on both phones before you commit further</li>
+          <li>We work in writing, English or German through translation, which is also why every decision has a record; for a meeting that must be spoken, a translator joins</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin:22px 0 10px">The rhythm</h3>
+    <div class="rhythm">
+      <div><b>Every week</b><small>A written report and a short screen recording of what changed</small></div>
+      <div><b>Every two weeks</b><small>A test build on your phone, iPhone and Android, from the second month</small></div>
+      <div><b>Questions</b><small>A written answer within one working day, Monday to Friday</small></div>
+      <div><b>From day one</b><small>Work visible in a shared repository, every change written down; code and app ownership transfer under the agreement we sign. App Store and Google Play accounts in REWARE's name</small></div>
+      <div><b>After each phase</b><small>Fixes to what was delivered are part of the phase; support and updates after the last phase are agreed separately</small></div>
+      <div><b>Stopping</b><small>Either side can stop at the end of any month with written notice; whatever has been delivered stays with REWARE and keeps running</small></div>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="sec-head">
+      <div class="eyebrow">Your decisions</div>
+      <h2>Six questions that shape phase 1</h2>
+      <p class="prose">None of these needs an answer today. They are the choices that change what we build first.</p>
+    </div>
+    <div class="qs">
+      <div class="q"><div><b>Accounts in phase 1 or phase 2?</b>Stitch Switch keeps everything on the phone, so people start without signing up. REWARE's screens begin with an account. Starting without one gets the core into hands sooner; adding it in phase 2 keeps the first version simpler.</div></div>
+      <div class="q"><div><b>The one-time price and the AI cost.</b>Every reading, preview and step picture costs a few cents at Google's list price, and the stores keep their share of the price. With a one-time price we either set a fair number of projects per person and sell extra project packs, or REWARE covers the usage. Both work; it is a business choice, and I will put real numbers next to it once we agree the first transformations.</div></div>
+      <div class="q"><div><b>Which ten transformations first?</b>The engine has 41. The ten you teach most often ship first; the pilot tests five of them.</div></div>
+      <div class="q"><div><b>Tailors: a trusted list, or ratings?</b>Your screen shows star ratings. We can start with a trusted list without ratings, or allow ratings only from verified bookings. Public ratings of small ateliers need moderation and a legal footing in Austria.</div></div>
+      <div class="q"><div><b>German first?</b>Your screens are German. The app ships in German first, with English second, and other languages when REWARE grows beyond Graz.</div></div>
+      <div class="q"><div><b>Flutter from day one, or iOS first?</b>Flutter gives iPhone and Android from one codebase, and you have already started building in it. The other road is the native iOS app first, with Android through the same service later. Both work with the plan above; the first month is built to show you which feels right on your phone.</div></div>
+    </div>
+  </section>
+
+  <section id="next">
+    <div class="sec-head">
+      <div class="eyebrow">Next steps</div>
+      <h2>Four steps from here</h2>
+    </div>
+    <div class="steps">
+      <div><b>Your feedback on this plan</b><span class="muted">Anything missing, in the wrong order, or not how you imagined it.</span></div>
+      <div><b>Pilot results</b><span class="muted">Your scores and notes from the workshop.</span></div>
+      <div><b>The agreement</b><span class="muted">The transfer of Stitch Switch, how we work together, and the terms, in writing before any money moves.</span></div>
+      <div><b>Start phase 1</b><span class="muted">First month with a defined delivery.</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <b>Prepared by Fatih Alkan, developer of Stitch Switch, for REWARE Graz.</b>
+    <span>All screen designs on this page are by Juanita Guerra Arellano. Your designs, your brand and your name stay yours; I use them only inside REWARE, and the screens I build from them belong to REWARE. Hours are estimates. Commercial terms are discussed separately and are not part of this page.</span>
+    <span>Confidential: prepared for REWARE Graz, please do not forward.</span>
+  </footer>
+</main>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheetTitle">
+  <div class="sheet-in">
+    <div class="shot"><img id="sheetImg" src="" alt=""></div>
+    <div class="sheet-body">
+      <div class="top"><span class="chip" id="sheetChip"></span><button type="button" class="close" id="sheetClose">Close</button></div>
+      <div><div class="n muted" id="sheetN"></div><h3 id="sheetTitle"></h3><div class="de" id="sheetDe"></div></div>
+      <div class="kv" id="sheetKv"></div>
+    </div>
+  </div>
+  <div class="sheet-nav"><button type="button" id="prevBtn">← Previous</button><button type="button" id="nextBtn">Next →</button></div>
+</dialog>
+
+<script>
+const STATUS = { today: 'Works today', adapt: 'Adapt', build: 'Build new' };
+const S = [
+ {n:1, de:'Startseite', en:'Start screen', st:'build', ph:'Phase 1', today:'Stitch Switch opens on its own rack. REWARE opens on your brand: the denim jacket, "Reduce · Reuse · Refashion".', build:'Your start screen as drawn, in Flutter, on iPhone and Android.'},
+ {n:2, de:'App herunterladen', en:'Download page', st:'build', ph:'Phase 2', today:'Stitch Switch has an App Store listing for iOS only. A Google Play listing is new.', build:'A web landing page with both store badges, plus the two store listings with screenshots in your design.'},
+ {n:3, de:'Preis · einmalig', en:'One-time price', st:'adapt', ph:'Phase 2', today:'Stitch Switch sells a subscription on iOS through Apple. The store set-up carries over; the purchase screen in Flutter is new.', build:'A one-time purchase on the App Store and Google Play at the price on your screen; the number is yours to set after question 2. The stores keep their share.', decide:'Your price screen promises five things. All functions, design ideas and instructions come in phase 1; local makers and workshops in phase 2; the personal wardrobe is not in the plan yet. "Meine Projekte" per account can be that wardrobe, or we add a wardrobe screen in phase 2. Your call.'},
+ {n:4, de:'Willkommen', en:'Welcome', st:'adapt', ph:'Phase 1', today:'A four-page onboarding that teaches what the app does.', build:'The same idea in REWARE’s words and illustrations: "Gemeinsam machen wir mehr aus dem, was du schon hast."'},
+ {n:5, de:'Konto erstellen', en:'Create account', st:'build', ph:'Phase 2', today:'Stitch Switch keeps everything on the phone; there is no account.', build:'Accounts with name, phone, e-mail, city and date of birth, stored on a REWARE server in the EU, with the AGB and privacy consent.', decide:'Phase 1 can run without accounts so people start faster; see question 1.'},
+ {n:6, de:'Konto bestätigt', en:'Account confirmed', st:'build', ph:'Phase 2', today:'No account today.', build:'Confirmation and hand-over to the profile set-up, together with screen 5.'},
+ {n:7, de:'Deine Maße', en:'Your measurements', st:'adapt', ph:'Phase 1', today:'The app asks for one tape measurement of the garment and, for pieces worn on the body, the wearer’s waist, hips or head.', build:'A body profile saved once (height, chest, waist, hips) and reused for every project, exactly as you drew it.', shot:'ss-read.jpg', shotCap:'Today: one measurement, with the instruction on screen.'},
+ {n:8, de:'Beispiel Körpermaße', en:'How to measure', st:'adapt', ph:'Phase 1', today:'Every measurement has a one-line instruction: "Lay it flat. Measure straight across, armpit to armpit." or "Around your waist, where the piece will sit. Snug, not tight." The garment measurement is shown as an animated tape on a sketch. There is no body illustration yet.', build:'Your illustration and the four-point guide for the body measurements.'},
+ {n:9, de:'Jetzt geht’s los', en:'Let’s go', st:'today', ph:'Phase 1', today:'The rack: "Snap a garment", with the garment types the engine knows.', build:'Your version of the screen; the behaviour is the same.', shot:'ss-rack.jpg', shotCap:'Today: the rack.'},
+ {n:10, de:'Fotos hochladen / Idee', en:'Upload photos or an idea', st:'adapt', ph:'Phase 1 photos · Phase 3 idea', today:'Photo upload and camera work today.', build:'"Beschreibe deine Idee": the person writes the wish in words or uploads a sketch, and the app finds the closest tested transformation. That is phase 3, because every idea must map to a pattern that really works.'},
+ {n:11, de:'Kleidung fotografieren', en:'Photograph garments', st:'adapt', ph:'Phase 1 · combinations in phase 3', today:'One garment per project, read from one photo.', build:'Two or three garments combined into one design, like the jacket, T-shirt and jeans becoming one bag: a first set of five combination designs with their own drafting rules, in phase 3.', shot:'ss-read.jpg', shotCap:'Today: what the AI saw, and a chance to correct it.'},
+ {n:12, de:'Auswahl bestätigen', en:'Confirm the selection', st:'today', ph:'Phase 1 · list for several garments in phase 3', today:'The reading screen shows what the AI saw: type, fabric, colours, condition. The person can change the type before going on.', build:'Phase 1 confirms one garment in your layout; the list for several garments comes with the combinations in phase 3.'},
+ {n:13, de:'2 Design-Vorschläge', en:'Design suggestions', st:'adapt', ph:'Phase 1 · your designs in phase 3', today:'Three ideas that fit this garment, each with a reason, shown with example pictures. The AI preview of the person’s own garment is drawn for the idea they choose, one at a time, in about fifteen seconds.', build:'Your two-card layout. Suggestions from your designers in the same list, with your name on them, and designs drawn from several garments: phase 3.', shot:'ss-reveal.jpg', shotCap:'Today: the person’s own sweater as a cropped vest.'},
+ {n:14, de:'Dein Design anpassen', en:'Adjust the design', st:'build', ph:'Phase 3', today:'The person chooses between transformations; each step picture can be redrawn with one tap. Colour, detail and fabric options do not exist yet.', build:'Colours, details and fabric combinations with a redrawn preview, within what the pattern rules allow.'},
+ {n:15, de:'Bist du zufrieden?', en:'Happy with it?', st:'today', ph:'Phase 1', today:'"Your flip" shows the preview; "Get the pattern" goes on to the pattern.', build:'Your confirmation screen, "Aus Alt wird Neu".', shot:'ss-reveal.jpg', shotCap:'Today: preview, then the pattern.'},
+ {n:16, de:'Anleitung & Schnittmuster', en:'Instructions and pattern', st:'today', ph:'Phase 1', today:'The sized pattern: cut lines on the person’s photo when the whole garment is in frame, otherwise on a sketch; a piece list with seam allowances; a printable PDF at 100% with test squares; and a step-by-step guide with a picture of the person’s own garment at every step. The PDF is printed or shared as a file.', build:'Your two-tab layout and "Als PDF in deiner Bibliothek". The engine stays as it is.', shot:'ss-pattern.jpg', shotCap:'Today: cut plan, pieces, PDF.'},
+ {n:17, de:'Schneider:innen in der Nähe', en:'Tailors nearby', st:'build', ph:'Phase 2 · map in phase 3', today:'Nothing like it in Stitch Switch.', build:'A list of trusted tailors and ateliers with distance and contact details, curated by REWARE through a simple admin page. A map can follow in phase 3.', decide:'Trusted list without ratings, or ratings only from verified bookings? See question 4.'},
+ {n:18, de:'Juanita’s Nähbox', en:'Coaching and workshops', st:'build', ph:'Phase 2', today:'Nothing like it in Stitch Switch.', build:'"Jetzt Termin buchen": a booking that reaches you the way you prefer, your calendar, a form, or in-app later.'},
+ {n:19, de:'Partner-Stoffgeschäfte', en:'Partner fabric shops', st:'build', ph:'Phase 2', today:'Nothing like it in Stitch Switch.', build:'A partner directory with what each shop offers and how far it is, curated by REWARE.'},
+ {n:20, de:'Fertig!', en:'Done', st:'adapt', ph:'Phase 2 · community and impact card in phase 3', today:'Projects are saved with their progress, under "My flips".', build:'The finish screen with your message, "Jede Naht erzählt eine Geschichte", projects in the account, and the Community and Profile tabs.', shot:'ss-flips.jpg', shotCap:'Today: saved projects.'},
+];
+
+const grid = document.getElementById('grid');
+S.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'tile'; b.dataset.st = s.st; b.dataset.i = i;
+  b.setAttribute('aria-label', `Screen ${s.n}, ${s.en}, ${STATUS[s.st]}`);
+  b.innerHTML = `<img src="assets/screen-${String(s.n).padStart(2,'0')}.jpg" alt="" loading="lazy"><div class="row"><span class="n">${String(s.n).padStart(2,'0')}</span><span class="chip ${s.st}">${STATUS[s.st]}</span></div><div class="t">${s.de}</div>`;
+  b.addEventListener('click', () => open(i));
+  grid.appendChild(b);
+});
+document.getElementById('cToday').textContent = S.filter(s => s.st === 'today').length;
+document.getElementById('cAdapt').textContent = S.filter(s => s.st === 'adapt').length;
+document.getElementById('cBuild').textContent = S.filter(s => s.st === 'build').length;
+
+document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', x === btn ? 'true' : 'false'));
+  const f = btn.dataset.filter;
+  grid.querySelectorAll('.tile').forEach(t => { t.hidden = !(f === 'all' || t.dataset.st === f); });
+}));
+
+const sheet = document.getElementById('sheet');
+let cur = 0;
+function open(i) {
+  cur = i; const s = S[i];
+  document.getElementById('sheetImg').src = `assets/screen-${String(s.n).padStart(2,'0')}.jpg`;
+  document.getElementById('sheetImg').alt = `REWARE screen ${s.n}: ${s.de}`;
+  const chip = document.getElementById('sheetChip'); chip.className = `chip ${s.st}`; chip.textContent = STATUS[s.st];
+  document.getElementById('sheetN').textContent = `Screen ${s.n} of 20 · ${s.ph}`;
+  document.getElementById('sheetTitle').textContent = s.en;
+  document.getElementById('sheetDe').textContent = s.de;
+  let kv = `<div><span class="k today">What exists today</span><span>${s.today}</span>`;
+  if (s.shot) kv += `<div class="ssrow" style="margin-top:8px"><img src="assets/${s.shot}" alt="Stitch Switch screenshot"><span class="muted" style="font-size:.92rem">${s.shotCap}</span></div>`;
+  kv += `</div><div><span class="k build">What we build</span><span>${s.build}</span></div>`;
+  if (s.decide) kv += `<div><span class="k decide">Your decision</span><span>${s.decide}</span></div>`;
+  document.getElementById('sheetKv').innerHTML = kv;
+  document.getElementById('prevBtn').disabled = i === 0;
+  document.getElementById('nextBtn').disabled = i === S.length - 1;
+  if (!sheet.open) sheet.showModal();
+  sheet.scrollTop = 0;
+}
+document.getElementById('sheetClose').addEventListener('click', () => sheet.close());
+document.getElementById('prevBtn').addEventListener('click', () => open(Math.max(0, cur - 1)));
+document.getElementById('nextBtn').addEventListener('click', () => open(Math.min(S.length - 1, cur + 1)));
+sheet.addEventListener('click', e => { if (e.target === sheet) sheet.close(); });
+
+/* Pace slider: hours per phase → months */
+const H = { 1: [220, 300], 2: [180, 260], 3: [160, 240] };
+const hpm = document.getElementById('hpm');
+function fmt(m) { return (Math.round(m * 2) / 2).toFixed(1).replace('.0', ''); }
+function pace() {
+  const h = +hpm.value;
+  document.getElementById('hpmOut').innerHTML = `${h} <small>hours / month</small>`;
+  const maxMonths = H[1][1] / 40 + 0.5;
+  let total = [0, 0];
+  for (const p of [1, 2, 3]) {
+    const lo = H[p][0] / h, hi = H[p][1] / h; total[0] += lo; total[1] += hi;
+    document.getElementById('b' + p).style.width = Math.min(100, hi / maxMonths * 100) + '%';
+    document.getElementById('v' + p).textContent = `${fmt(lo)}–${fmt(hi)} months`;
+  }
+  const w = Math.round(h / 4.33);
+  document.getElementById('sum').innerHTML = `At <b>${h} hours a month</b> (about ${w} hours a week), all three phases need about <b>${fmt(total[0])} to ${fmt(total[1])} months</b> of work at this pace. Phase 1 alone, the app with the engine inside, needs about <b>${fmt(H[1][0]/h)} to ${fmt(H[1][1]/h)} months</b>.`;
+  try { localStorage.setItem('reware-hpm', h); } catch (e) {}
+}
+try { const v = localStorage.getItem('reware-hpm'); if (v && +v >= 40 && +v <= 60) hpm.value = v; } catch (e) {}
+hpm.addEventListener('input', pace); pace();
+</script>
+</body>
+</html>
