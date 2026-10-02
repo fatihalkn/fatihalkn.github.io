@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="REWARE clickable prototype: all 20 screens in Juanita's design, designs made from the pieces of two or three garments.">
+<style>:root{color-scheme:light}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>REWARE Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Caveat:wght@600;700&display=swap">
+<style>
+/* Layout: a phone on a cream desk. Desktop: phone frame + a screen list beside it. Phone: the app fills the screen.
+   Tokens come straight from Juanita's REWARE screens: cream paper, deep green, kraft heart, denim. */
+:root {
+  --bg: #EFEBE2; --paper: #F6F3EC; --card: #FFFDF8; --card-2: #EEEBE2; --line: #DED8CB;
+  --ink: #1F2A24; --ink-2: #5C675F; --ink-3: #8A928C;
+  --green: #2E6B4E; --green-deep: #245540; --green-tint: #E2ECE4; --sage: #BFD3C4;
+  --denim: #3E5F84; --denim-light: #9DB4CF; --kraft: #B8865A; --kraft-deep: #8E6440; --kraft-tint: #F1E6D6;
+  --bezel: #15181A; --shadow: 0 30px 60px rgba(31, 42, 36, .22);
+  --desk-ink: #1F2A24;
+  --display: "Outfit", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+  --hand: "Caveat", "Bradley Hand", "Segoe Script", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #14181A; --desk-ink: #ECEAE3; --shadow: 0 30px 60px rgba(0, 0, 0, .6); color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #14181A; --desk-ink: #ECEAE3; --shadow: 0 30px 60px rgba(0, 0, 0, .6); color-scheme: dark; }
+/* The app itself keeps its own light look in both themes (it is a prototype of a light app); only the desk around it darkens. */
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--desk-ink); font-family: var(--body); }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+.stage { min-height: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px; padding: 24px 16px; }
+.side { max-width: 360px; justify-self: end; display: grid; gap: 14px; }
+.side .eyebrow { font-family: var(--display); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--green); font-weight: 600; }
+:root:not([data-theme="light"]) .side .eyebrow { color: #7FB89A; }
+.side h1 { font-family: var(--display); font-size: 1.9rem; line-height: 1.1; margin: 0; text-wrap: balance; }
+.side p { margin: 0; font-size: 1rem; line-height: 1.5; opacity: .85; }
+.side .list { display: grid; gap: 4px; max-height: 42vh; overflow: auto; padding-right: 4px; }
+.side .list button { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: center; text-align: left; background: transparent; border: 1px solid transparent; color: inherit; padding: 6px 8px; border-radius: 10px; font-family: var(--display); font-weight: 500; font-size: .9rem; }
+.side .list button b { font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums; }
+:root:not([data-theme="light"]) .side .list button b { color: #7FB89A; }
+.side .list button:hover { background: rgba(46, 107, 78, .12); }
+.side .list button[aria-current="true"] { background: var(--green); color: #fff; }
+.side .list button[aria-current="true"] b { color: #fff; }
+.side small { opacity: .7; font-size: .85rem; line-height: 1.4; }
+
+/* Phone */
+.phone { width: 392px; height: 846px; max-height: calc(100vh - 48px); background: var(--bezel); border-radius: 46px; padding: 12px; box-shadow: var(--shadow); position: relative; justify-self: center; }
+.screen { width: 100%; height: 100%; border-radius: 36px; overflow: hidden; background: var(--paper); position: relative; }
+.island { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 110px; height: 32px; background: var(--bezel); border-radius: 20px; z-index: 5; }
+.status { height: 50px; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 28px 6px; font-family: var(--display); font-weight: 600; font-size: .9rem; color: var(--ink); position: relative; z-index: 4; }
+.status .r { display: flex; gap: 5px; align-items: center; }
+.status .sig { display: inline-flex; gap: 2px; align-items: flex-end; height: 11px; }
+.status .sig i { width: 3px; background: var(--ink); border-radius: 1px; }
+.status .bat { width: 24px; height: 11px; border: 1.5px solid var(--ink); border-radius: 3px; position: relative; }
+.status .bat::after { content: ""; position: absolute; inset: 2px; right: 4px; background: var(--ink); border-radius: 1px; }
+.app { position: absolute; inset: 0; }
+
+/* Screens */
+.scr { position: absolute; inset: 0; display: none; flex-direction: column; background: var(--paper); color: var(--ink); overflow: hidden; }
+.scr.active { display: flex; }
+.scr.enter { animation: slideIn .34s cubic-bezier(.2, .8, .2, 1); }
+.scr.enter-back { animation: slideBack .3s cubic-bezier(.2, .8, .2, 1); }
+@keyframes slideIn { from { transform: translateX(36px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes slideBack { from { transform: translateX(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
+.pad { padding-top: 50px; }
+.top { display: flex; align-items: center; justify-content: space-between; padding: 8px 18px 0; min-height: 44px; }
+.top .ico { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; display: grid; place-items: center; color: var(--ink); }
+.top .ico:hover { background: rgba(31, 42, 36, .06); }
+.top .ico svg { width: 22px; height: 22px; }
+.top .mid { display: grid; justify-items: center; gap: 3px; }
+.top .stepl { font-family: var(--display); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+.prog { width: 120px; height: 4px; background: var(--card-2); border-radius: 2px; overflow: hidden; }
+.prog i { display: block; height: 100%; background: var(--green); width: calc(var(--p) * 100%); transition: width .5s cubic-bezier(.2, .8, .2, 1); }
+.body { flex: 1; overflow-y: auto; padding: 8px 22px 16px; display: flex; flex-direction: column; gap: 14px; scrollbar-width: none; }
+.body::-webkit-scrollbar { display: none; }
+.body > * { flex: none; }
+.foot { padding: 10px 22px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; justify-items: center; }
+.center { text-align: center; align-items: center; }
+h2.t { font-family: var(--display); font-size: 1.7rem; font-weight: 700; line-height: 1.12; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+h2.t.big { font-size: 2rem; }
+p.sub { margin: 0; color: var(--ink-2); font-size: 1rem; line-height: 1.45; }
+.logo { font-family: var(--display); font-weight: 700; font-size: 1.6rem; letter-spacing: -.02em; color: var(--green); line-height: 1; }
+.logo em { font-style: normal; color: var(--kraft-deep); }
+.logo.xl { font-size: 2.6rem; }
+.btn { width: 100%; max-width: 320px; border: none; background: var(--green); color: #fff; font-family: var(--display); font-weight: 600; font-size: 1.02rem; padding: 15px 20px; border-radius: 14px; box-shadow: 0 6px 16px rgba(46, 107, 78, .28); transition: transform .12s ease, box-shadow .12s ease; display: inline-flex; justify-content: center; align-items: center; gap: 8px; }
+.btn:hover { transform: translateY(-1px); } .btn:active { transform: translateY(1px); box-shadow: 0 2px 6px rgba(46, 107, 78, .25); }
+.btn.outline { background: var(--card); color: var(--green); border: 1.5px solid var(--green); box-shadow: none; }
+.btn svg { width: 20px; height: 20px; }
+.link { background: none; border: none; color: var(--green); font-family: var(--display); font-weight: 600; font-size: .95rem; text-decoration: underline; text-underline-offset: 3px; padding: 4px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+.hand { font-family: var(--hand); color: var(--green); font-size: 2rem; line-height: 1; }
+.hand.k { color: var(--kraft-deep); }
+.chip { display: inline-flex; align-items: center; gap: 6px; background: var(--green-tint); color: var(--green-deep); font-family: var(--display); font-weight: 600; font-size: .78rem; padding: 5px 10px; border-radius: 999px; white-space: nowrap; }
+.chip.k { background: var(--kraft-tint); color: var(--kraft-deep); }
+.rise { animation: rise .7s cubic-bezier(.2, .8, .2, 1) both; animation-delay: var(--d, 0s); }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.leaf { position: absolute; width: 90px; height: 90px; color: var(--sage); opacity: .9; pointer-events: none; animation: sway 6s ease-in-out infinite; transform-origin: 20% 90%; }
+.leaf.r { transform: scaleX(-1); animation: swayR 6s ease-in-out infinite; animation-delay: -3s; transform-origin: 80% 90%; }
+@keyframes sway { 0%, 100% { rotate: -3deg; } 50% { rotate: 4deg; } }
+@keyframes swayR { 0%, 100% { rotate: 3deg; } 50% { rotate: -4deg; } }
+.note { font-size: .78rem; color: var(--ink-3); line-height: 1.35; }
+
+/* 1 Start */
+#s1 { background: #243547; color: #fff; }
+#s1 .bg { position: absolute; inset: 0; background: url("img/hero.jpg") center 20% / cover; animation: drift 14s ease-in-out infinite alternate; transform-origin: 50% 30%; }
+@keyframes drift { from { transform: scale(1); } to { transform: scale(1.07); } }
+#s1 .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 24, 36, .25) 0%, rgba(16, 24, 36, .1) 35%, rgba(16, 24, 36, .82) 100%); }
+#s1 .body { position: relative; justify-content: flex-end; padding-bottom: 8px; gap: 10px; }
+#s1 .logo { color: #fff; font-size: 2.9rem; } #s1 .logo em { color: #E2C9A3; }
+#s1 .claim { color: #fff; font-size: 1.2rem; font-weight: 600; font-family: var(--display); }
+#s1 .hand { color: #F3E4CB; font-size: 2.2rem; }
+#s1 .patch { position: absolute; right: 22px; top: 96px; display: grid; gap: 10px; justify-items: center; }
+.heart { width: 74px; height: 66px; position: relative; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .35)); }
+.heart::before, .heart::after { content: ""; position: absolute; top: 0; width: 37px; height: 60px; background: var(--kraft); border-radius: 37px 37px 0 0; left: 37px; transform: rotate(-45deg); transform-origin: 0 100%; }
+.heart::after { left: 0; transform: rotate(45deg); transform-origin: 100% 100%; }
+.heart .stitch { position: absolute; inset: 6px; border: 2px dashed rgba(255, 255, 255, .7); border-radius: 50% 50% 0 0 / 60% 60% 0 0; opacity: 0; animation: stitch 1.2s .4s forwards; }
+@keyframes stitch { to { opacity: 1; } }
+.label { background: #F4F1EA; color: #1F2A24; font-family: var(--display); font-weight: 700; font-size: .62rem; letter-spacing: .06em; padding: 8px 10px; border-radius: 4px; text-align: center; line-height: 1.25; box-shadow: 0 6px 10px rgba(0, 0, 0, .3); transform: rotate(-4deg); border: 1px dashed rgba(31, 42, 36, .35); }
+#s1 .foot { position: relative; }
+#s1 .btn { background: #fff; color: var(--green); box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
+
+/* 2 Download */
+.badge { display: flex; align-items: center; gap: 10px; background: #111; color: #fff; border-radius: 10px; padding: 8px 14px; width: 190px; font-family: var(--display); line-height: 1.05; border: 1px solid #333; }
+.badge small { display: block; font-size: .6rem; letter-spacing: .04em; opacity: .85; }
+.badge b { font-size: 1.05rem; font-weight: 600; }
+.badge svg { width: 24px; height: 24px; }
+.globe { width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #8FB89F, var(--green) 70%); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .5); }
+.leafline { color: var(--sage); }
+
+/* 3 Price */
+.mini { width: 190px; margin: 0 auto; background: #fff; border: 5px solid #1b1b1b; border-radius: 22px; padding: 10px 8px; display: grid; gap: 6px; position: relative; }
+.mini .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.mini .row img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; }
+.mini .bar { height: 8px; background: var(--green-tint); border-radius: 4px; }
+.price { position: absolute; right: -26px; top: 36px; width: 84px; height: 84px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; text-align: center; font-family: var(--display); line-height: 1; box-shadow: 0 8px 18px rgba(46, 107, 78, .35); animation: pop .6s .3s cubic-bezier(.2, .8, .2, 1) both; }
+.price small { font-size: .62rem; font-weight: 600; } .price b { font-size: 1.5rem; font-weight: 700; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.checks { display: grid; gap: 9px; justify-self: center; text-align: left; }
+.checks div { display: flex; gap: 10px; align-items: center; font-size: .98rem; }
+.checks svg { width: 20px; height: 20px; color: var(--green); flex: none; }
+
+/* 4 / 6 / 15 / 20 illustration */
+.bloom { position: relative; width: 190px; height: 190px; margin: 6px auto; }
+.bloom .ring { position: absolute; inset: 0; border-radius: 50%; background: var(--green-tint); animation: breathe 6s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.bloom .core { position: absolute; inset: 34px; border-radius: 50%; background: var(--green); display: grid; place-items: center; color: #fff; }
+.bloom .core svg { width: 64px; height: 64px; }
+.bloom .leaf { width: 70px; height: 70px; }
+.checkmark path { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw .7s .35s cubic-bezier(.2, .8, .2, 1) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.dots { display: flex; gap: 6px; justify-content: center; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); } .dots i.on { background: var(--green); }
+
+/* 5 Account */
+.field { display: grid; gap: 4px; }
+.field input, .field .in { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font: inherit; font-size: 1rem; color: var(--ink); }
+.field input::placeholder { color: var(--ink-3); }
+.field input:focus { outline: 2px solid var(--green); outline-offset: 1px; border-color: var(--green); }
+.inrow { display: flex; align-items: center; gap: 8px; }
+.flag { width: 22px; height: 15px; border-radius: 3px; background: linear-gradient(180deg, #D7232F 0 33%, #fff 33% 66%, #D7232F 66%); border: 1px solid rgba(0, 0, 0, .1); flex: none; }
+.check-row { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--ink-2); }
+.cb { width: 20px; height: 20px; border-radius: 5px; background: var(--green); display: grid; place-items: center; color: #fff; flex: none; }
+.cb svg { width: 14px; height: 14px; }
+
+/* 7 / 8 Measurements */
+.measure { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: center; }
+.sil { width: 100%; height: auto; }
+.mfield { display: grid; grid-template-columns: 1fr 64px; align-items: center; gap: 8px; font-size: .9rem; }
+.mfield input { width: 64px; text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 9px 6px; font: inherit; font-weight: 600; color: var(--ink); }
+.mfield input:focus { outline: 2px solid var(--green); border-color: var(--green); }
+.tape { height: 10px; background: repeating-linear-gradient(90deg, var(--kraft) 0 2px, transparent 2px 10px); border-radius: 2px; animation: tape 1.2s cubic-bezier(.2, .8, .2, 1) both; opacity: .8; }
+@keyframes tape { from { width: 0; } to { width: 100%; } }
+.steps { display: grid; gap: 8px; }
+.steps div { display: flex; gap: 10px; align-items: center; font-size: .95rem; }
+.steps b { width: 26px; height: 26px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-family: var(--display); font-size: .85rem; flex: none; }
+
+/* 9 / 10 / 11 garments */
+.fan { position: relative; height: 230px; margin: 4px 0; }
+.fan img { position: absolute; width: 120px; height: 160px; object-fit: cover; border-radius: 12px; box-shadow: 0 12px 24px rgba(31, 42, 36, .22); border: 3px solid #fff; }
+.fan .a { left: 12px; top: 40px; transform: rotate(-9deg); } .fan .b { left: 115px; top: 18px; } .fan .c { right: 12px; top: 44px; transform: rotate(9deg); }
+.fan .spark { position: absolute; color: var(--kraft); font-family: var(--display); font-weight: 700; }
+.hanger { width: 60px; height: 60px; color: var(--ink-2); margin: 0 auto; }
+.seg { display: flex; background: var(--card-2); border-radius: 12px; padding: 4px; gap: 4px; }
+.seg button { flex: 1; border: none; background: transparent; border-radius: 9px; padding: 9px 6px; font-family: var(--display); font-weight: 600; font-size: .85rem; color: var(--ink-2); }
+.seg button[aria-pressed="true"] { background: var(--green); color: #fff; }
+.thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.thumbs .th { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 1; background: var(--card-2); }
+.thumbs .th img { width: 100%; height: 100%; object-fit: cover; }
+.thumbs .cap { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(31, 42, 36, .55); color: #fff; font-family: var(--display); font-size: .7rem; font-weight: 600; padding: 4px 6px; }
+.thumbs .x { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; border: none; padding: 0; }
+.thumbs .x svg { width: 12px; height: 12px; }
+.add { border: 1.5px dashed var(--ink-3); border-radius: 12px; display: flex; align-items: center; gap: 10px; padding: 12px; color: var(--ink-2); font-size: .9rem; background: transparent; width: 100%; text-align: left; }
+.add .plus { width: 44px; height: 44px; border-radius: 10px; background: var(--card-2); display: grid; place-items: center; color: var(--ink); font-size: 1.4rem; font-family: var(--display); }
+.idea { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; color: var(--ink); font-size: .95rem; line-height: 1.4; }
+.idea .ph { color: var(--ink-3); }
+.photo-stage { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 1 / 1; background: var(--card-2); }
+.photo-stage img { width: 100%; height: 100%; object-fit: cover; }
+.photo-stage .count { position: absolute; top: 12px; left: 12px; }
+.photo-stage .frame { position: absolute; inset: 18px; border: 2px solid rgba(255, 255, 255, .85); border-radius: 12px; pointer-events: none; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; padding: 22px; }
+.fab { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); width: 64px; height: 64px; border-radius: 50%; background: #fff; display: grid; place-items: center; color: var(--ink); box-shadow: 0 10px 20px rgba(0, 0, 0, .25); border: none; }
+.fab svg { width: 28px; height: 28px; }
+.shots { display: flex; gap: 8px; }
+.shots img { width: 54px; height: 54px; object-fit: cover; border-radius: 10px; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(31, 42, 36, .2); }
+
+/* 12 Selection + reading */
+.item { display: grid; grid-template-columns: 84px 1fr auto; gap: 12px; align-items: center; padding: 10px; }
+.item .pic { position: relative; overflow: hidden; border-radius: 10px; width: 84px; height: 100px; }
+.item img { width: 100%; height: 100%; object-fit: cover; }
+.item .name { font-family: var(--display); font-weight: 600; }
+.item .meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.item .meta span { background: var(--green-tint); color: var(--green-deep); font-size: .72rem; font-weight: 600; padding: 3px 7px; border-radius: 6px; opacity: 0; transform: translateY(4px); transition: opacity .4s, transform .4s; }
+.item .meta span.k { background: var(--kraft-tint); color: var(--kraft-deep); }
+.item.read .meta span { opacity: 1; transform: none; }
+.scan { position: absolute; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, #fff, transparent); box-shadow: 0 0 12px #fff; top: -4px; opacity: 0; }
+.item.scanning .scan { animation: scan 1s ease-in-out 1; opacity: 1; }
+@keyframes scan { from { top: -4px; } to { top: 100%; } }
+.item .x2 { width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; border: none; display: grid; place-items: center; padding: 0; }
+.item .x2 svg { width: 13px; height: 13px; }
+.ai-note { font-size: .78rem; color: var(--ink-3); margin-top: 4px; }
+
+/* 13 Designs + generation overlay */
+.gen { position: absolute; inset: 0; background: var(--paper); z-index: 3; display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center; padding: 20px; }
+.gen.off { display: none; }
+.gen .stage3 { position: relative; width: 240px; height: 200px; }
+.gen .bagline { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -40%); width: 120px; height: 120px; color: var(--green); opacity: 0; animation: fade .5s 1.1s forwards; }
+.gen .bagline svg { width: 100%; height: 100%; }
+.gen .pc { position: absolute; width: 70px; height: 84px; object-fit: cover; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 10px 20px rgba(31, 42, 36, .25); animation: fly 1.4s .3s cubic-bezier(.2, .8, .2, 1) forwards; }
+.gen .pc.p1 { left: 0; top: 10px; --tx: 78px; --ty: 44px; --r: -8deg; }
+.gen .pc.p2 { left: 85px; top: 0; --tx: 0px; --ty: 54px; --r: 4deg; }
+.gen .pc.p3 { right: 0; top: 10px; --tx: -78px; --ty: 44px; --r: 8deg; }
+@keyframes fly { to { transform: translate(var(--tx), var(--ty)) scale(.55) rotate(var(--r)); opacity: .35; } }
+@keyframes fade { to { opacity: 1; } }
+.gen .t { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+.gen .bar { width: 160px; height: 6px; background: var(--card-2); border-radius: 3px; overflow: hidden; }
+.gen .bar i { display: block; height: 100%; width: 0; background: var(--green); animation: load 2.2s cubic-bezier(.2, .8, .2, 1) forwards; }
+@keyframes load { to { width: 100%; } }
+.designs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.design { padding: 10px; display: grid; gap: 8px; position: relative; transition: transform .15s ease, box-shadow .15s ease; cursor: pointer; border: 1px solid var(--line); }
+.design.sel { border-color: var(--green); box-shadow: 0 0 0 2px var(--green-tint); }
+.design img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; }
+.design .k { font-size: .72rem; color: var(--ink-2); font-weight: 600; }
+.design .n { font-family: var(--display); font-weight: 600; font-size: .92rem; line-height: 1.15; }
+.design .fav { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255, 255, 255, .92); border: none; display: grid; place-items: center; color: var(--ink-2); padding: 0; }
+.design .fav svg { width: 16px; height: 16px; }
+.design .fav.on { color: #C4443B; }
+.design .fav.on svg { fill: currentColor; }
+.design .src { display: flex; gap: 4px; }
+.design .src img { width: 22px; height: 22px; border-radius: 50%; aspect-ratio: 1; border: 1.5px solid #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .2); }
+
+/* 14 Design: parts mapping */
+.tabs { display: flex; gap: 6px; }
+.tabs button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 14px; font-family: var(--display); font-weight: 600; font-size: .85rem; color: var(--ink-2); }
+.tabs button[aria-pressed="true"] { background: var(--green); color: #fff; border-color: var(--green); }
+.preview { border-radius: 18px; overflow: hidden; aspect-ratio: 1 / 1; background: var(--card-2); position: relative; }
+.preview img { width: 100%; height: 100%; object-fit: cover; transition: filter .4s ease; }
+.preview .chip { position: absolute; left: 10px; top: 10px; }
+.parts { display: grid; gap: 8px; }
+.part { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; padding: 8px 10px; }
+.part .pn { font-family: var(--display); font-weight: 600; font-size: .88rem; display: flex; align-items: center; gap: 8px; }
+.part .pn i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; border: 1px solid rgba(0, 0, 0, .12); }
+.part .opts { display: flex; gap: 4px; }
+.part .opts button { width: 32px; height: 32px; border-radius: 50%; border: 2px solid transparent; padding: 0; overflow: hidden; background: var(--card-2); }
+.part .opts button[aria-pressed="true"] { border-color: var(--green); }
+.part .opts img { width: 100%; height: 100%; object-fit: cover; }
+.schem { width: 170px; height: auto; margin: 0 auto; filter: drop-shadow(0 10px 16px rgba(31, 42, 36, .18)); }
+.swatches { display: flex; gap: 10px; justify-content: center; }
+.swatches button { width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line); padding: 0; }
+.swatches button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--green); }
+.toggles { display: grid; gap: 8px; }
+.tg { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-size: .95rem; }
+.sw { width: 44px; height: 26px; border-radius: 13px; background: var(--line); position: relative; border: none; padding: 0; transition: background .2s; }
+.sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); }
+.sw[aria-pressed="true"] { background: var(--green); } .sw[aria-pressed="true"]::after { transform: translateX(18px); }
+
+/* 15 Satisfied */
+.write { clip-path: inset(0 100% 0 0); animation: write 1.4s .5s cubic-bezier(.2, .8, .2, 1) forwards; display: inline-block; }
+@keyframes write { to { clip-path: inset(0 0 0 0); } }
+
+/* 16 Guide */
+.step { display: grid; grid-template-columns: 88px 1fr; gap: 12px; align-items: start; }
+.step img { width: 88px; height: 88px; object-fit: cover; border-radius: 12px; }
+.step .num { width: 24px; height: 24px; border-radius: 50%; background: var(--green); color: #fff; font-family: var(--display); font-weight: 700; font-size: .8rem; display: inline-grid; place-items: center; margin-right: 8px; vertical-align: middle; }
+.step .tt { font-family: var(--display); font-weight: 600; }
+.step .d { font-size: .86rem; color: var(--ink-2); line-height: 1.38; margin-top: 4px; }
+.cutplan { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cutplan .g { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 3 / 4; }
+.cutplan img { width: 100%; height: 100%; object-fit: cover; }
+.cutplan svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cutplan rect { fill: rgba(255, 255, 255, .18); stroke: #fff; stroke-width: 1.8; stroke-dasharray: 5 4; animation: dash 14s linear infinite; }
+.cutplan text { fill: #fff; font-family: Outfit, sans-serif; font-weight: 700; font-size: 10px; }
+.cutplan .cap { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(31, 42, 36, .6); color: #fff; font-family: var(--display); font-size: .68rem; font-weight: 600; padding: 3px 6px; }
+@keyframes dash { to { stroke-dashoffset: -180; } }
+.pieces { display: grid; gap: 6px; }
+.piece-row { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: center; padding: 8px 10px; font-size: .9rem; }
+.piece-row b { width: 24px; height: 24px; border-radius: 6px; background: var(--kraft-tint); color: var(--kraft-deep); display: grid; place-items: center; font-family: var(--display); font-size: .8rem; }
+.piece-row .nm { font-family: var(--display); font-weight: 600; }
+.piece-row .fr { font-size: .78rem; color: var(--ink-2); }
+.piece-row .dim { font-family: var(--display); font-weight: 600; font-size: .85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.spec { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; font-size: .9rem; padding: 12px 14px; }
+.spec b { font-family: var(--display); font-weight: 600; }
+.spec span { color: var(--ink-2); }
+
+/* 17 Map */
+.map { position: relative; height: 190px; border-radius: 16px; overflow: hidden; background: #E7EEE5; background-image: linear-gradient(rgba(46, 107, 78, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(46, 107, 78, .12) 1px, transparent 1px); background-size: 34px 34px; }
+.map .road { position: absolute; background: #fff; border-radius: 3px; }
+.map .river { position: absolute; left: 44%; top: -10px; bottom: -10px; width: 22px; background: #CFE0D6; border-radius: 12px; transform: rotate(8deg); }
+.map .city { position: absolute; left: 48%; top: 52%; font-family: var(--display); font-weight: 700; color: var(--ink-2); }
+.pin { position: absolute; width: 26px; height: 32px; color: var(--green); animation: drop .6s cubic-bezier(.2, .8, .2, 1) both; animation-delay: var(--d, 0s); }
+.pin svg { width: 100%; height: 100%; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .25)); }
+@keyframes drop { from { transform: translateY(-30px); opacity: 0; } to { transform: none; opacity: 1; } }
+.place { display: grid; grid-template-columns: 40px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; }
+.place .av { width: 40px; height: 40px; border-radius: 50%; background: var(--card-2); display: grid; place-items: center; color: var(--ink-2); overflow: hidden; }
+.place .av svg { width: 20px; height: 20px; }
+.place .nm { font-family: var(--display); font-weight: 600; font-size: .95rem; }
+.place .ds { font-size: .8rem; color: var(--ink-2); }
+.stars { color: var(--kraft); font-size: .8rem; letter-spacing: 1px; }
+.place .go { color: var(--ink-3); }
+
+/* 18 Nähbox */
+.arch { width: 210px; height: 230px; margin: 0 auto; border-radius: 105px 105px 16px 16px; overflow: hidden; position: relative; box-shadow: 0 16px 30px rgba(31, 42, 36, .2); }
+.arch img { width: 100%; height: 100%; object-fit: cover; }
+.jlogo { font-family: var(--hand); font-weight: 700; font-size: 2rem; color: var(--ink); line-height: 1; }
+.jlogo span { color: #D23B6E; }
+.thread { color: var(--kraft); width: 90px; height: 24px; margin: 0 auto; }
+.thread path { stroke-dasharray: 160; stroke-dashoffset: 160; animation: draw3 1.6s .3s ease-out forwards; }
+@keyframes draw3 { to { stroke-dashoffset: 0; } }
+
+/* 19 Partners */
+.partner { display: grid; grid-template-columns: 60px 1fr auto; gap: 12px; align-items: center; padding: 8px 12px 8px 8px; }
+.partner .av { width: 60px; height: 60px; border-radius: 10px; background: var(--green-tint); color: var(--green-deep); display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 1.3rem; }
+.partner .nm { font-family: var(--display); font-weight: 600; font-size: .95rem; }
+.partner .ds { font-size: .8rem; color: var(--ink-2); }
+
+/* 20 Done */
+.planet { width: 150px; height: 150px; margin: 0 auto; position: relative; }
+.planet .orb { position: absolute; inset: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8FB89F, var(--green) 65%, var(--green-deep)); box-shadow: 0 16px 30px rgba(46, 107, 78, .35); animation: breathe 6s ease-in-out infinite; }
+.planet .orb::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 60% 60%, rgba(255, 255, 255, .25), transparent 50%); }
+.planet .leaf { width: 64px; height: 64px; }
+.impact { padding: 12px 14px; display: grid; gap: 8px; width: 100%; }
+.impact .k { font-family: var(--display); font-weight: 600; font-size: .85rem; display: flex; justify-content: space-between; gap: 8px; }
+.impact .k span { color: var(--kraft-deep); font-size: .72rem; white-space: nowrap; }
+.impact .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.impact .row div { background: var(--green-tint); border-radius: 10px; padding: 8px 6px; text-align: center; }
+.impact b { display: block; font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: var(--green-deep); font-variant-numeric: tabular-nums; }
+.impact small { font-size: .7rem; color: var(--ink-2); }
+.proj { display: grid; grid-template-columns: 56px 1fr; gap: 10px; align-items: center; padding: 8px; }
+.proj img { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; }
+.proj .nm { font-family: var(--display); font-weight: 600; font-size: .9rem; }
+.proj .ds { font-size: .78rem; color: var(--ink-2); }
+.tabbar { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); background: var(--card); padding: 8px 6px calc(10px + env(safe-area-inset-bottom, 0px)); }
+.tabbar button { border: none; background: none; display: grid; justify-items: center; gap: 2px; font-family: var(--display); font-size: .66rem; font-weight: 600; color: var(--ink-2); }
+.tabbar button svg { width: 22px; height: 22px; }
+.tabbar button.on { color: var(--green); }
+
+/* Toast + map dialog + mobile */
+.toast { position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%) translateY(10px); background: var(--ink); color: #fff; font-family: var(--display); font-weight: 600; font-size: .9rem; padding: 10px 16px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; z-index: 9; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translateX(-50%); }
+.mobile-nav { display: none; }
+dialog.map { border: none; padding: 0; border-radius: 22px 22px 0 0; width: 100%; max-width: 100%; margin: auto 0 0; background: var(--paper); color: var(--ink); max-height: 80dvh; overflow: auto; }
+dialog.map::backdrop { background: rgba(20, 30, 24, .5); }
+dialog.map .in { padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 8px; }
+dialog.map h3 { font-family: var(--display); margin: 0 0 6px; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+dialog.map h3 button { border: none; background: var(--card-2); border-radius: 999px; padding: 6px 12px; font-family: var(--display); font-weight: 600; }
+dialog.map .list { display: grid; gap: 4px; }
+dialog.map .list button { display: grid; grid-template-columns: 30px 1fr; gap: 8px; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-family: var(--display); font-weight: 500; color: var(--ink); }
+dialog.map .list button b { color: var(--green); }
+dialog.map .list button[aria-current="true"] { background: var(--green); color: #fff; border-color: var(--green); }
+dialog.map .list button[aria-current="true"] b { color: #fff; }
+
+@media (max-width: 860px) {
+  .stage { display: block; padding: 0; min-height: 100dvh; }
+  .side, .spacer { display: none; }
+  .phone { width: 100%; height: 100dvh; max-height: none; border-radius: 0; padding: 0; box-shadow: none; }
+  .screen { border-radius: 0; }
+  .island, .status { display: none; }
+  .pad { padding-top: calc(env(safe-area-inset-top, 0px) + 8px); }
+  .mobile-nav { display: flex; position: absolute; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 8; gap: 6px; align-items: center; background: var(--ink); color: #fff; border: none; border-radius: 999px; padding: 8px 14px; font-family: var(--display); font-weight: 600; font-size: .85rem; box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
+  .mobile-nav svg { width: 16px; height: 16px; }
+  .foot { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
+  .tabbar { padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px)); }
+  .toast { bottom: 118px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+  .write { clip-path: none; } .checkmark path { stroke-dashoffset: 0; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hanger" viewBox="0 0 64 64"><path d="M32 12a5 5 0 1 1 5 5c-3 0-5 2-5 5v4L6 40v6h52v-6L32 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 26 32"><path d="M13 1C6.4 1 1 6.3 1 12.8 1 21 13 31 13 31s12-10 12-18.2C25 6.3 19.6 1 13 1z" fill="currentColor"/><circle cx="13" cy="12.5" r="4.5" fill="#fff"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7h6l2 2h10v10H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5M15 19c.4-2 1.6-3.2 3.2-3.2 1.3 0 2.3.7 2.8 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 19.5c.9-3.6 3.5-5.5 7-5.5s6.1 1.9 7 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 10h16M8 4v4M16 4v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 90 90"><path d="M12 78C14 42 40 14 80 10c2 40-18 66-54 68-4-8-8-10-14 0z" fill="currentColor"/><path d="M14 76C30 56 48 40 70 22" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 120 120"><path d="M30 42h60l6 62H24z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M42 42V30a18 18 0 0 1 36 0v12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="stage">
+  <aside class="side">
+    <div class="eyebrow">REWARE · clickable prototype</div>
+    <h1>Your 20 screens, tap by tap.</h1>
+    <p>Built from your designs, in your colours. Two or three garments go in, and the designs are made from their pieces, exactly as in your screens 11 to 16. The three garments are real photos; their readings come from the real reading model; the design previews and step pictures were generated from those three photos; the pattern follows the engine's tote rules. Tailors and shops are the examples from your screens. Not generated: the colour filters (a prototype effect) and the impact figures (rough estimates).</p>
+    <div class="list" id="sideList" aria-label="Screens"></div>
+    <small>Prototype v2 · 2 October 2026 · Fatih Alkan for REWARE Graz. Tap the buttons in the phone, or jump from this list. Arrow keys also work.</small>
+  </aside>
+
+  <div class="phone">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="status"><span>9:41</span><span class="r"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:11px"></i></span><span class="bat"></span></span></div>
+      <div class="app" id="app">
+
+        <!-- 1 Startseite -->
+        <section class="scr pad" id="s1" data-n="1">
+          <div class="bg"></div>
+          <div class="patch rise" style="--d:.2s"><div class="label">GOOD<br>CLOTHES<br>BRIGHTER<br>FUTURE</div></div>
+          <div class="body">
+            <div class="logo rise">Rew<em>are</em></div>
+            <div class="claim rise" style="--d:.1s">Deine Kleidung.<br>Neue Möglichkeiten.</div>
+            <div class="hand rise" style="--d:.25s">Reduce · Reuse · Refashion</div>
+          </div>
+          <div class="foot"><button class="btn" data-go="2">Los geht's</button></div>
+        </section>
+
+        <!-- 2 App herunterladen -->
+        <section class="scr pad" id="s2" data-n="2">
+          <div class="body center" style="justify-content:center;gap:18px">
+            <svg class="leafline rise" width="46" height="46" viewBox="0 0 90 90"><use href="#i-leaf"/></svg>
+            <div class="logo xl rise" style="--d:.05s">Rew<em>are</em></div>
+            <h2 class="t rise" style="--d:.1s;font-size:1.35rem;color:var(--green)">Deine Kleidung.<br>Neue Möglichkeiten.</h2>
+            <p class="sub rise" style="--d:.15s">Jetzt App herunterladen und Teil der Veränderung werden.</p>
+            <div class="rise" style="--d:.2s;display:grid;gap:10px;justify-items:center">
+              <button class="badge" data-go="3"><svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.9-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.8-.4 6.9 1.2 9.1.8 1.1 1.7 2.3 2.9 2.3 1.2 0 1.6-.8 3-.8s1.8.8 3 .7c1.3 0 2-1.1 2.8-2.2.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.6-1-2.6-3.6zM14.1 5.8c.6-.8 1.1-1.9.9-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.5 2.8-1.3z" fill="#fff"/></svg><span><small>Laden im</small><b>App Store</b></span></button>
+              <button class="badge" data-go="3"><svg viewBox="0 0 24 24"><path d="M5 3.5v17l9.5-8.5z" fill="#34A853"/><path d="M5 3.5l9.5 8.5 2.7-2.4z" fill="#4285F4"/><path d="M5 20.5l9.5-8.5 2.7 2.4z" fill="#EA4335"/><path d="M17.2 9.6l3.3 1.9c.7.4.7 1.1 0 1.5l-3.3 1.9-2.7-2.4z" fill="#FBBC04"/></svg><span><small>JETZT BEI</small><b>Google Play</b></span></button>
+            </div>
+            <div class="rise" style="--d:.3s;display:grid;gap:8px;justify-items:center">
+              <div class="globe"></div>
+              <p class="sub" style="font-size:.85rem">Weniger Konsum.<br>Mehr Kreativität.<br>Eine bessere Zukunft.</p>
+            </div>
+          </div>
+          <div class="foot"><button class="btn outline" data-go="3">Weiter</button></div>
+        </section>
+
+        <!-- 3 Preis -->
+        <section class="scr pad" id="s3" data-n="3">
+          <div class="body center" style="gap:16px">
+            <div class="rise"><div class="logo">Rew<em>are</em></div><p class="sub" style="font-size:.85rem">Kreativ. Nachhaltig. Du.</p></div>
+            <div class="mini rise" style="--d:.1s">
+              <div class="bar" style="width:60%"></div>
+              <div class="row"><img src="img/kind-shirt.jpg" alt=""><img src="img/kind-tee.jpg" alt=""><img src="img/kind-jeans.jpg" alt=""></div>
+              <div class="bar"></div><div class="bar" style="width:70%"></div>
+              <div class="price"><small>Nur</small><b>5 €</b><small>einmalig</small></div>
+            </div>
+            <div class="checks rise" style="--d:.2s">
+              <div><svg class="i"><use href="#i-check"/></svg>Alle Funktionen</div>
+              <div><svg class="i"><use href="#i-check"/></svg>Design-Ideen &amp; Anleitungen</div>
+              <div><svg class="i"><use href="#i-check"/></svg>Persönlicher Kleiderschrank</div>
+              <div><svg class="i"><use href="#i-check"/></svg>Lokale Maker &amp; Workshops</div>
+              <div><svg class="i"><use href="#i-check"/></svg>Teil einer nachhaltigen Community</div>
+            </div>
+          </div>
+          <div class="foot"><button class="btn" data-go="4">Jetzt starten</button><p class="sub" style="font-size:.85rem;text-align:center">Eine kleine Investition.<br>Ein großer Unterschied.</p></div>
+        </section>
+
+        <!-- 4 Willkommen -->
+        <section class="scr pad" id="s4" data-n="4">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><span></span></div>
+          <div class="body center" style="justify-content:center;gap:18px">
+            <h2 class="t big rise">Willkommen<br>in Reware!</h2>
+            <div class="bloom rise" style="--d:.1s"><div class="ring"></div><div class="core"><svg class="i" style="width:64px;height:64px;stroke-width:1.6"><use href="#i-heart"/></svg></div><svg class="leaf" style="left:-16px;top:60px"><use href="#i-leaf"/></svg><svg class="leaf r" style="right:-16px;top:40px"><use href="#i-leaf"/></svg></div>
+            <p class="sub rise" style="--d:.2s">Schön, dass du hier bist.<br>Gemeinsam machen wir mehr<br>aus dem, was du schon hast.</p>
+            <div class="dots rise" style="--d:.25s"><i class="on"></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="foot"><button class="btn" data-go="5">Los geht's</button></div>
+        </section>
+
+        <!-- 5 Konto erstellen -->
+        <section class="scr pad" id="s5" data-n="5">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="logo" style="font-size:1.2rem">Rew<em>are</em></span><span style="width:36px"></span></div>
+          <div class="body" style="gap:10px">
+            <h2 class="t rise">Konto erstellen</h2>
+            <p class="sub rise" style="--d:.05s">Werde Teil der Reware Community.</p>
+            <div class="field rise" style="--d:.1s"><input id="f1" placeholder="Vorname" autocomplete="off"></div>
+            <div class="field rise" style="--d:.12s"><input id="f2" placeholder="Nachname" autocomplete="off"></div>
+            <div class="field rise" style="--d:.14s"><div class="in inrow"><span class="flag"></span><span style="color:var(--ink-2)">+43</span><input id="f3" placeholder="Telefonnummer" style="border:none;padding:0;flex:1;background:transparent" autocomplete="off"></div></div>
+            <div class="field rise" style="--d:.16s"><input id="f4" placeholder="E-Mail" autocomplete="off"></div>
+            <div class="field rise" style="--d:.18s"><input id="f5" placeholder="Stadt" autocomplete="off"></div>
+            <div class="field rise" style="--d:.2s"><div class="in inrow" style="justify-content:space-between;color:var(--ink-3)">Geburtsdatum<svg class="i" style="color:var(--ink-2)"><use href="#i-cal"/></svg></div></div>
+            <div class="check-row rise" style="--d:.22s"><span class="cb"><svg class="i"><use href="#i-check"/></svg></span><span>Ich akzeptiere die <u>AGB</u> und Datenschutzbestimmungen.</span></div>
+          </div>
+          <div class="foot"><button class="btn" data-go="6">Konto erstellen</button><button class="link">Bereits ein Konto? Jetzt anmelden</button></div>
+        </section>
+
+        <!-- 6 Konto bestätigt -->
+        <section class="scr pad" id="s6" data-n="6">
+          <div class="body center" style="justify-content:center;gap:18px;position:relative">
+            <svg class="leaf" style="left:10px;bottom:90px"><use href="#i-leaf"/></svg><svg class="leaf r" style="right:10px;bottom:120px"><use href="#i-leaf"/></svg>
+            <div class="bloom rise" style="width:160px;height:160px"><div class="ring"></div><div class="core"><svg class="checkmark" viewBox="0 0 24 24" style="width:64px;height:64px"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+            <h2 class="t rise" style="--d:.15s">Dein Konto wurde<br>erfolgreich erstellt!</h2>
+            <p class="sub rise" style="--d:.25s">Willkommen in der Reware<br>Community.<br>Jetzt richten wir dein Profil ein.</p>
+          </div>
+          <div class="foot"><button class="btn" data-go="7">Weiter</button></div>
+        </section>
+
+        <!-- 7 Deine Maße -->
+        <section class="scr pad" id="s7" data-n="7">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><span></span></div>
+          <div class="body" style="gap:12px">
+            <h2 class="t rise">Deine Maße</h2>
+            <p class="sub rise" style="--d:.05s">Damit die Vorschläge perfekt zu dir passen.</p>
+            <div class="measure rise" style="--d:.1s">
+              <svg class="sil" viewBox="0 0 120 260" aria-hidden="true">
+                <path d="M60 6c-9 0-15 7-15 17 0 8 4 14 9 17v8c-12 3-22 9-26 20l-7 42 9 2 6-30c1 10 1 20-1 30-3 16-3 36-1 55l3 85h16l2-78 5-30 5 30 2 78h16l3-85c2-19 2-39-1-55-2-10-2-20-1-30l6 30 9-2-7-42c-4-11-14-17-26-20v-8c5-3 9-9 9-17 0-10-6-17-15-17z" fill="#E9D5BE"/>
+                <g stroke="var(--kraft-deep)" stroke-width="1.6" stroke-dasharray="4 3" fill="none"><line x1="34" y1="86" x2="86" y2="86"/><line x1="40" y1="116" x2="80" y2="116"/><line x1="33" y1="146" x2="87" y2="146"/><line x1="8" y1="6" x2="8" y2="254"/></g>
+                <g fill="var(--ink-2)" font-family="Outfit, sans-serif" font-size="8" font-weight="600"><text x="90" y="89">Brust</text><text x="84" y="119">Taille</text><text x="91" y="149">Hüfte</text></g>
+              </svg>
+              <div style="display:grid;gap:10px">
+                <label class="mfield">Körpergröße (cm)<input placeholder="cm"></label>
+                <label class="mfield">Brust (cm)<input placeholder="cm"></label>
+                <label class="mfield">Taille (cm)<input value="72"></label>
+                <label class="mfield">Hüfte (cm)<input value="96"></label>
+              </div>
+            </div>
+            <div class="tape rise" style="--d:.2s"></div>
+          </div>
+          <div class="foot"><button class="btn" data-go="8">Maße speichern</button><p class="sub" style="font-size:.8rem;text-align:center">Du kannst die Maße später jederzeit anpassen.</p></div>
+        </section>
+
+        <!-- 8 Beispiel Körpermaße -->
+        <section class="scr pad" id="s8" data-n="8">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><span></span></div>
+          <div class="body" style="gap:12px">
+            <div class="rise" style="display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:10px">
+              <svg class="sil" viewBox="0 0 120 260" aria-hidden="true" style="max-height:250px">
+                <path d="M60 6c-9 0-15 7-15 17 0 8 4 14 9 17v8c-12 3-22 9-26 20l-7 42 9 2 6-30c1 10 1 20-1 30-3 16-3 36-1 55l3 85h16l2-78 5-30 5 30 2 78h16l3-85c2-19 2-39-1-55-2-10-2-20-1-30l6 30 9-2-7-42c-4-11-14-17-26-20v-8c5-3 9-9 9-17 0-10-6-17-15-17z" fill="#E9D5BE"/>
+                <path d="M34 70c6-6 14-9 26-9s20 3 26 9l-2 48c-8 4-16 6-24 6s-16-2-24-6z" fill="#2B2B2B"/>
+                <path d="M38 124c8 4 14 6 22 6s14-2 22-6l-1 26 2 100H64l-4-80-4 80H41l2-100z" fill="#2B2B2B"/>
+                <g stroke="#fff" stroke-width="1.8" fill="none"><line x1="34" y1="86" x2="86" y2="86"/><line x1="40" y1="116" x2="80" y2="116"/><line x1="33" y1="146" x2="87" y2="146"/></g>
+                <g stroke="var(--kraft-deep)" stroke-width="1.6" fill="none" stroke-dasharray="3 3"><line x1="34" y1="86" x2="86" y2="86"/><line x1="40" y1="116" x2="80" y2="116"/><line x1="33" y1="146" x2="87" y2="146"/></g>
+                <g fill="var(--ink)" font-family="Outfit, sans-serif" font-size="8.5" font-weight="700"><text x="90" y="89">Brust</text><text x="84" y="119">Taille</text><text x="91" y="149">Hüfte</text></g>
+                <line x1="10" y1="6" x2="10" y2="254" stroke="var(--ink-2)" stroke-width="1.2"/><text x="2" y="140" fill="var(--ink-2)" font-size="7" font-family="Outfit, sans-serif" transform="rotate(-90 6 140)">Körpergröße</text>
+              </svg>
+              <div class="card" style="padding:12px;display:grid;gap:8px">
+                <b style="font-family:var(--display)">So misst du richtig:</b>
+                <div class="steps">
+                  <div><b>1</b><span>Brust – an der stärksten Stelle</span></div>
+                  <div><b>2</b><span>Taille – an der schmalsten Stelle</span></div>
+                  <div><b>3</b><span>Hüfte – an der stärksten Stelle</span></div>
+                  <div><b>4</b><span>Körpergröße – von Kopf bis Fuß</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="sub rise" style="--d:.15s;font-size:.85rem">Mit deinen Maßen werden alle Vorschläge auf dich zugeschnitten.</p>
+          </div>
+          <div class="foot"><button class="btn" data-go="9">Verstanden</button></div>
+        </section>
+
+        <!-- 9 Jetzt geht's los -->
+        <section class="scr pad" id="s9" data-n="9">
+          <div class="top"><span style="width:36px"></span><span class="mid"><span class="logo" style="font-size:1.2rem">Rew<em>are</em></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body center" style="gap:12px;justify-content:center">
+            <h2 class="t big rise">Jetzt geht's los!</h2>
+            <svg class="hanger rise" style="--d:.1s" viewBox="0 0 64 64"><use href="#i-hanger"/></svg>
+            <p class="sub rise" style="--d:.15s">Suche deine Kleidung,<br>die du transformieren möchtest.</p>
+            <div class="fan rise" style="--d:.2s;width:100%">
+              <span class="spark" style="left:50%;top:0;transform:translateX(-50%)">✦</span>
+              <img class="a" src="img/kind-shirt.jpg" alt=""><img class="b" src="img/kind-tee.jpg" alt=""><img class="c" src="img/kind-jeans.jpg" alt="">
+              <span class="spark" style="left:6px;top:20px">✦</span><span class="spark" style="right:8px;top:14px">✦</span>
+            </div>
+          </div>
+          <div class="foot"><button class="btn" data-go="10">Meine Kleidung auswählen</button></div>
+        </section>
+
+        <!-- 10 Hast du schon eine Idee? -->
+        <section class="scr pad" id="s10" data-n="10">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 1 von 6</span><span class="prog"><i style="--p:.16"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:12px">
+            <h2 class="t rise">Hast du schon eine Idee?</h2>
+            <p class="sub rise" style="--d:.05s">Lade Fotos deiner Kleidungsstücke hoch oder zeige uns deine Skizze.</p>
+            <div class="seg rise" style="--d:.1s"><button type="button" aria-pressed="true" data-segtab="foto">Fotos hochladen</button><button type="button" aria-pressed="false" data-segtab="skizze">Zeichnung hochladen</button></div>
+            <div class="thumbs rise" style="--d:.15s">
+              <div class="th"><img src="img/kind-shirt.jpg" alt=""><span class="cap">Jeanskleid</span><button class="x" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+              <div class="th"><img src="img/kind-tee.jpg" alt=""><span class="cap">T-Shirt</span><button class="x" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+              <div class="th"><img src="img/kind-jeans.jpg" alt=""><span class="cap">Jeans</span><button class="x" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+            </div>
+            <button class="add rise" style="--d:.2s" type="button" data-go="11"><span class="plus">+</span>Weiteres Foto hinzufügen</button>
+            <div class="idea rise" style="--d:.25s"><span class="ph">Beschreibe deine Idee (optional) …</span><br>Eine Tasche für die Stadt, aus allen drei Teilen.</div>
+          </div>
+          <div class="foot"><button class="btn" data-go="11">Weiter</button></div>
+        </section>
+
+        <!-- 11 Deine Kleidung ist der Anfang -->
+        <section class="scr pad" id="s11" data-n="11">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 2 von 6</span><span class="prog"><i style="--p:.33"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:12px">
+            <h2 class="t rise" style="font-size:1.7rem">Deine Kleidung<br>ist der Anfang.</h2>
+            <p class="sub rise" style="--d:.05s">Fotografiere 2 oder 3 Kleidungsstücke, die du transformieren möchtest.</p>
+            <div class="photo-stage rise" style="--d:.1s"><img id="camImg" src="img/kind-shirt.jpg" alt="Jeanskleid vor der Kamera"><div class="frame"></div><span class="chip count" id="camCount">1 von 3</span><button class="fab" id="snapBtn" aria-label="Foto machen"><svg class="i"><use href="#i-cam"/></svg></button></div>
+            <div class="shots rise" style="--d:.15s" id="shots"></div>
+          </div>
+          <div class="foot"><button class="btn" id="snapMain" data-shoot>Foto machen</button><button class="link" data-go="12">Oder wähle aus deiner Galerie.</button></div>
+        </section>
+
+        <!-- 12 Deine Auswahl -->
+        <section class="scr pad" id="s12" data-n="12">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 3 von 6</span><span class="prog"><i style="--p:.5"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:10px">
+            <h2 class="t rise">Deine Auswahl</h2>
+            <p class="sub rise" style="--d:.05s">Diese Kleidungsstücke wurden hochgeladen.</p>
+            <div class="card item rise" style="--d:.1s" data-read="0"><div class="pic"><img src="img/kind-shirt.jpg" alt="Jeanskleid"><div class="scan"></div></div><div><div class="name">Jeanskleid</div><div class="meta"><span>Denim</span><span>mittelschwer</span><span class="k">nicht dehnbar</span><span>Kragen</span><span>Brusttasche</span><span>Knöpfe</span></div><div class="ai-note">Wird gelesen …</div></div><button class="x2" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+            <div class="card item rise" style="--d:.15s" data-read="1"><div class="pic"><img src="img/kind-tee.jpg" alt="T-Shirt"><div class="scan"></div></div><div><div class="name">T-Shirt</div><div class="meta"><span>Baumwolljersey</span><span>mittelschwer</span><span class="k">dehnbar</span><span>Rundhals</span><span>gerader Saum</span></div><div class="ai-note">Wird gelesen …</div></div><button class="x2" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+            <div class="card item rise" style="--d:.2s" data-read="2"><div class="pic"><img src="img/kind-jeans.jpg" alt="Jeans"><div class="scan"></div></div><div><div class="name">Jeans</div><div class="meta"><span>Denim</span><span>schwer</span><span class="k">nicht dehnbar</span><span>Reißverschluss</span><span>Gürtelschlaufen</span><span>Taschen</span></div><div class="ai-note">Wird gelesen …</div></div><button class="x2" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+            <p class="note rise" style="--d:.25s">Die KI erkennt Stoff, Gewicht und Dehnbarkeit, damit jedes Teil zum richtigen Zweck kommt: Denim trägt, Jersey schmiegt sich an.</p>
+          </div>
+          <div class="foot"><button class="btn" data-go="13" id="toDesigns">Weiter</button><button class="link" data-go="11">Weitere Stücke hinzufügen</button></div>
+        </section>
+
+        <!-- 13 Deine Designs -->
+        <section class="scr pad" id="s13" data-n="13">
+          <div class="gen" id="gen"><div class="stage3"><img class="pc p1" src="img/kind-shirt.jpg" alt=""><img class="pc p2" src="img/kind-tee.jpg" alt=""><img class="pc p3" src="img/kind-jeans.jpg" alt=""><div class="bagline"><svg viewBox="0 0 120 120"><use href="#i-bag"/></svg></div></div><div class="t">Deine Teile werden kombiniert …</div><div class="bar"><i></i></div><p class="sub" style="font-size:.85rem">KI und Designer:innen entwerfen Vorschläge aus genau deinen Stoffen.</p></div>
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 4 von 6</span><span class="prog"><i style="--p:.66"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:12px">
+            <h2 class="t rise">Deine Designs</h2>
+            <p class="sub rise" style="--d:.05s">Unsere KI und Designer:innen haben 2 kreative Vorschläge für dich erstellt, aus den Teilen deiner drei Stücke.</p>
+            <div class="designs">
+              <div class="card design sel rise" style="--d:.1s" data-design="tote"><button class="fav on" aria-label="Favorit"><svg class="i"><use href="#i-heart"/></svg></button><img src="img/design-tote.jpg" alt="Tasche aus Jeanskleid, T-Shirt und Jeans"><div><div class="k">Design 1 · Tasche</div><div class="n">„City Companion“</div></div><div class="src"><img src="img/kind-shirt.jpg" alt=""><img src="img/kind-tee.jpg" alt=""><img src="img/kind-jeans.jpg" alt=""></div></div>
+              <div class="card design rise" style="--d:.18s" data-design="vest"><button class="fav" aria-label="Favorit"><svg class="i"><use href="#i-heart"/></svg></button><img src="img/design-vest.jpg" alt="Weste aus Jeanskleid, T-Shirt und Jeans"><div><div class="k">Design 2 · Weste</div><div class="n">„New Favorite“</div></div><div class="src"><img src="img/kind-shirt.jpg" alt=""><img src="img/kind-tee.jpg" alt=""><img src="img/kind-jeans.jpg" alt=""></div></div>
+            </div>
+            <p class="note rise" style="--d:.25s">KI-Vorschau aus deinen drei Fotos: dieselben Stoffe, Farben und Details.</p>
+            <div class="dots rise" style="--d:.25s"><i class="on"></i><i></i><i></i></div>
+          </div>
+          <div class="foot"><button class="btn" data-go="14">Design auswählen</button><button class="link" data-go="14">Designs anpassen</button></div>
+        </section>
+
+        <!-- 14 Dein Design -->
+        <section class="scr pad" id="s14" data-n="14">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 5 von 6</span><span class="prog"><i style="--p:.83"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:12px">
+            <h2 class="t rise">Dein Design</h2>
+            <p class="sub rise" style="--d:.05s">Du kannst Details anpassen.</p>
+            <div class="tabs rise" style="--d:.1s"><button type="button" aria-pressed="true" data-dtab="teile">Teile</button><button type="button" aria-pressed="false" data-dtab="farben">Farben</button><button type="button" aria-pressed="false" data-dtab="details">Details</button></div>
+            <div class="preview rise" style="--d:.15s"><img id="prev" src="img/design-tote.jpg" alt="Vorschau: Tasche City Companion"><span class="chip" id="prevChip">Tasche „City Companion“</span></div>
+            <div id="pane-teile" class="rise" style="--d:.2s;display:grid;gap:10px">
+              <svg class="schem" viewBox="0 0 160 150" aria-hidden="true">
+                <path id="sch-strap" d="M52 52V34a28 28 0 0 1 56 0v18" fill="none" stroke="var(--denim-light)" stroke-width="9" stroke-linecap="round"/>
+                <path id="sch-front" d="M28 52h104l8 86H20z" fill="var(--denim)" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M36 62h88l6 68H30z" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <rect id="sch-band" x="28" y="52" width="104" height="13" fill="#F4F1EA" stroke="#CFC8B8" stroke-width="1"/>
+                <path id="sch-heart" d="M80 106s-13-8.5-13-17a6.5 6.5 0 0 1 13-3 6.5 6.5 0 0 1 13 3c0 8.5-13 17-13 17z" fill="var(--kraft)"/>
+              </svg>
+              <div class="parts" id="parts">
+                <div class="card part" data-part="front"><span class="pn"><i style="background:var(--denim)"></i>Vorderseite</span><span class="opts"><button type="button" aria-pressed="true" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+                <div class="card part" data-part="back"><span class="pn"><i style="background:var(--denim-light)"></i>Rückseite</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+                <div class="card part" data-part="strap"><span class="pn"><i style="background:var(--denim-light)"></i>Henkel</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+                <div class="card part" data-part="band"><span class="pn"><i style="background:#F4F1EA"></i>Blende &amp; Innentasche</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+              </div>
+              <p class="note">Tippe an, welches Stück welches Teil liefert. Das Schnittmuster folgt deiner Zuordnung.</p>
+            </div>
+            <div id="pane-farben" class="swatches" hidden>
+              <button type="button" aria-pressed="true" data-filter="none" style="background:#3E5F84" aria-label="Original"></button>
+              <button type="button" aria-pressed="false" data-filter="sepia(.35) saturate(.9)" style="background:#8E6440" aria-label="Warm"></button>
+              <button type="button" aria-pressed="false" data-filter="hue-rotate(60deg) saturate(.9)" style="background:#2E6B4E" aria-label="Grün"></button>
+              <button type="button" aria-pressed="false" data-filter="grayscale(.6) contrast(1.05)" style="background:#6E7278" aria-label="Gedeckt"></button>
+            </div>
+            <p class="note" id="farbenNote" hidden>Prototyp-Effekt: Farbfilter auf der Vorschau, keine KI-Ausgabe.</p>
+            <div id="pane-details" class="toggles" hidden>
+              <div class="card tg"><span>Herz-Patch aus Kraftleder</span><button class="sw" type="button" aria-pressed="true" aria-label="Herz-Patch"></button></div>
+              <div class="card tg"><span>Innentasche aus T-Shirt</span><button class="sw" type="button" aria-pressed="true" aria-label="Innentasche"></button></div>
+              <div class="card tg"><span>Boden 8 cm (steht von allein)</span><button class="sw" type="button" aria-pressed="true" aria-label="Boden"></button></div>
+              <div class="card tg"><span>Druckknopfleiste als Deko behalten</span><button class="sw" type="button" aria-pressed="true" aria-label="Knopfleiste"></button></div>
+            </div>
+          </div>
+          <div class="foot"><button class="btn" data-go="15">Änderungen übernehmen</button><button class="link" data-go="13">Zurück zu den Designs</button></div>
+        </section>
+
+        <!-- 15 Bist du zufrieden? -->
+        <section class="scr pad" id="s15" data-n="15">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 6 von 6</span><span class="prog"><i style="--p:1"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body center" style="justify-content:center;gap:18px">
+            <h2 class="t big rise">Bist du zufrieden?</h2>
+            <p class="sub rise" style="--d:.05s">Dann geht's weiter zu deiner<br>Anleitung und deinem Schnittmuster.</p>
+            <div class="bloom rise" style="--d:.1s;width:150px;height:150px"><div class="ring"></div><div class="core"><svg class="checkmark" viewBox="0 0 24 24" style="width:60px;height:60px"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+            <div class="rise" style="--d:.3s"><span class="hand write" style="font-size:2.6rem">Aus Alt <span class="k">wird Neu</span> <span style="color:#2E6B4E">♥</span></span></div>
+          </div>
+          <div class="foot"><button class="btn" data-go="16">Weiter</button><button class="link" data-go="14">Zurück zum Design</button></div>
+        </section>
+
+        <!-- 16 Deine Anleitung -->
+        <section class="scr pad" id="s16" data-n="16">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:12px">
+            <h2 class="t rise">Deine Anleitung</h2>
+            <p class="sub rise" style="--d:.05s">Schritt für Schritt zu deinem neuen Lieblingsstück.</p>
+            <div class="seg rise" style="--d:.1s"><button type="button" aria-pressed="true" data-gtab="anleitung">Anleitung</button><button type="button" aria-pressed="false" data-gtab="muster">Schnittmuster</button></div>
+            <div id="pane-anleitung" style="display:grid;gap:14px">
+              <div class="step rise" style="--d:.12s"><img src="img/step-cut.jpg" alt=""><div><span class="num">1</span><span class="tt">Zuschneiden</span><div class="d">Teile mit Schneiderkreide anzeichnen: A auf dem Rücken des Jeanskleids, B und C auf den Hosenbeinen, D und E auf dem T-Shirt. 1 cm Nahtzugabe ist schon enthalten. Ausschneiden.</div></div></div>
+              <div class="step rise" style="--d:.18s"><img src="img/step-sew.jpg" alt=""><div><span class="num">2</span><span class="tt">Nähen</span><div class="d">Vorder- und Rückseite rechts auf rechts stecken, Seiten und Boden 1 cm breit mit Jeansnadel 100/16 steppen, Kanten versäubern. Henkel längs falten, bügeln, beidseitig knappkantig absteppen.</div></div></div>
+              <div class="step rise" style="--d:.24s"><img src="img/step-detail.jpg" alt=""><div><span class="num">3</span><span class="tt">Detailarbeiten</span><div class="d">Boden 8 cm abnähen. Blende aus Jersey an die obere Kante, Henkel 3 cm unter die Blende stecken und mit einem Kreuzkasten sichern. Innentasche und Herz-Patch aufnähen.</div></div></div>
+              <div class="step rise" style="--d:.3s"><img src="img/step-done.jpg" alt=""><div><span class="num">4</span><span class="tt">Fertig!</span><div class="d">Wenden, Ecken ausformen, obere Kante bügeln. Deine Tasche „City Companion“ ist fertig.</div></div></div>
+            </div>
+            <div id="pane-muster" hidden style="display:grid;gap:12px">
+              <div class="cutplan">
+                <div class="g"><img src="img/kind-shirt.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="18" y="30" width="54" height="60"/><text x="40" y="64">A</text></svg><span class="cap">Jeanskleid</span></div>
+                <div class="g"><img src="img/kind-tee.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="22" y="56" width="46" height="12"/><text x="42" y="66">D</text><rect x="26" y="74" width="30" height="26"/><text x="38" y="92">E</text></svg><span class="cap">T-Shirt</span></div>
+                <div class="g"><img src="img/kind-jeans.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="8" y="34" width="34" height="70"/><text x="22" y="72">B</text><rect x="50" y="24" width="14" height="88"/><text x="54" y="70">C</text></svg><span class="cap">Jeans</span></div>
+              </div>
+              <div class="pieces">
+                <div class="card piece-row"><b>A</b><div><div class="nm">Vorderseite · 1×</div><div class="fr">Jeanskleid, Rücken, Knopfleiste bleibt vorne</div></div><span class="dim">36 × 40 cm</span></div>
+                <div class="card piece-row"><b>B</b><div><div class="nm">Rückseite · 1×</div><div class="fr">Jeans, Hosenbein, an der Innennaht geöffnet</div></div><span class="dim">36 × 40 cm</span></div>
+                <div class="card piece-row"><b>C</b><div><div class="nm">Henkel · 2×</div><div class="fr">Jeans, zweites Hosenbein</div></div><span class="dim">64 × 12 cm</span></div>
+                <div class="card piece-row"><b>D</b><div><div class="nm">Blende oben · 2×</div><div class="fr">T-Shirt, Vorderseite</div></div><span class="dim">36 × 6 cm</span></div>
+                <div class="card piece-row"><b>E</b><div><div class="nm">Innentasche · 1×</div><div class="fr">T-Shirt, Rückseite</div></div><span class="dim">18 × 16 cm</span></div>
+              </div>
+              <div class="card spec"><b>Fertig</b><span>ca. 34 × 36 cm, Boden 8 cm</span><b>Henkel</b><span>64 cm, 3 cm breit</span><b>Nadel</b><span>Jeansnadel 100/16</span><b>Druck</b><span>A4, 100 %, Testquadrat 5 cm</span></div>
+              <p class="note">Maße nach den Regeln des Stitch Switch Motors für Denim-Taschen; die Zuordnung der Teile kommt aus deinem Design.</p>
+            </div>
+          </div>
+          <div class="foot"><button class="btn" data-toast="Prototyp: hier wird das PDF gespeichert"><svg class="i"><use href="#i-down"/></svg>Speichern</button><button class="link" data-go="17">Nicht selbst machen? Hilfe in deiner Nähe</button></div>
+        </section>
+
+        <!-- 17 Schneider:innen -->
+        <section class="scr pad" id="s17" data-n="17">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:12px">
+            <h2 class="t rise">Nicht selbst machen?</h2>
+            <p class="sub rise" style="--d:.05s">Kein Problem! Hier findest du Schneider:innen in deiner Nähe, die dir bei der Umsetzung helfen.</p>
+            <div class="map rise" style="--d:.1s">
+              <div class="river"></div>
+              <div class="road" style="left:0;right:0;top:46%;height:8px;transform:rotate(-6deg)"></div><div class="road" style="top:0;bottom:0;left:30%;width:7px;transform:rotate(12deg)"></div><div class="road" style="top:0;bottom:0;left:68%;width:6px;transform:rotate(-14deg)"></div>
+              <span class="city">Graz</span>
+              <div class="pin" style="left:26%;top:22%;--d:.2s"><svg><use href="#i-pin"/></svg></div>
+              <div class="pin" style="left:58%;top:16%;--d:.35s"><svg><use href="#i-pin"/></svg></div>
+              <div class="pin" style="left:38%;top:58%;--d:.5s"><svg><use href="#i-pin"/></svg></div>
+              <div class="pin" style="left:72%;top:60%;--d:.65s"><svg><use href="#i-pin"/></svg></div>
+            </div>
+            <div class="card place rise" style="--d:.2s"><div class="av"><svg class="i"><use href="#i-user"/></svg></div><div><div class="nm">Änderungsschneiderei Müller</div><div class="ds">1,2 km <span class="stars">★★★★★</span> (12)</div></div><svg class="i go"><use href="#i-chev"/></svg></div>
+            <div class="card place rise" style="--d:.25s"><div class="av"><svg class="i"><use href="#i-user"/></svg></div><div><div class="nm">Atelier Nadel &amp; Faden</div><div class="ds">2,4 km <span class="stars">★★★★☆</span> (8)</div></div><svg class="i go"><use href="#i-chev"/></svg></div>
+            <div class="card place rise" style="--d:.3s"><div class="av"><svg class="i"><use href="#i-user"/></svg></div><div><div class="nm">Schneiderei Kreativ</div><div class="ds">3,1 km <span class="stars">★★★★☆</span> (15)</div></div><svg class="i go"><use href="#i-chev"/></svg></div>
+            <p class="note">Beispiele aus deinem Entwurf; echte Einträge pflegt REWARE.</p>
+          </div>
+          <div class="foot"><button class="btn" data-go="18">Kontaktdetails anzeigen</button></div>
+        </section>
+
+        <!-- 18 Juanita's Nähbox -->
+        <section class="scr pad" id="s18" data-n="18">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body center" style="gap:12px">
+            <h2 class="t rise" style="text-align:left;align-self:stretch">Unterstützung<br>gewünscht?</h2>
+            <p class="sub rise" style="--d:.05s;text-align:left;align-self:stretch">Buche ein <b>Einzelcoaching</b> oder <b>einen Workshop</b> bei Juanita's Nähbox.</p>
+            <svg class="thread rise" style="--d:.1s" viewBox="0 0 90 24"><path d="M2 14c12-14 18 12 30 2s18-14 26-2 18 6 30-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M62 10l4-4 4 4-4 4z" fill="currentColor" opacity=".7"/></svg>
+            <div class="arch rise" style="--d:.15s"><img src="img/juanita.jpg" alt="Juanita in ihrem Atelier"></div>
+            <div class="jlogo rise" style="--d:.25s">Juanita's Nähbox <span>♥</span></div>
+            <p class="sub rise" style="--d:.3s;font-size:.9rem">Nähen verbindet Menschen.</p>
+            <div class="checks rise" style="--d:.35s">
+              <div><svg class="i"><use href="#i-check"/></svg>Persönliche Begleitung</div>
+              <div><svg class="i"><use href="#i-check"/></svg>Tipps &amp; Tricks</div>
+              <div><svg class="i"><use href="#i-check"/></svg>Inspiration &amp; Community</div>
+            </div>
+          </div>
+          <div class="foot"><button class="btn" data-toast="Prototyp: Terminanfrage" data-go="19" data-delay="700">Jetzt Termin buchen</button></div>
+        </section>
+
+        <!-- 19 Partner-Stoffgeschäfte -->
+        <section class="scr pad" id="s19" data-n="19">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body" style="gap:10px">
+            <h2 class="t rise">Materialien benötigt?</h2>
+            <p class="sub rise" style="--d:.05s">Unsere Partner-Stoffgeschäfte in deiner Nähe.</p>
+            <div class="card partner rise" style="--d:.1s"><span class="av">S</span><div><div class="nm">Stoffe &amp; Mehr Graz</div><div class="ds">Stoffe, Kurzwaren, Nähzubehör · 1,5 km</div></div><svg class="i go" style="color:var(--ink-3)"><use href="#i-chev"/></svg></div>
+            <div class="card partner rise" style="--d:.15s"><span class="av">T</span><div><div class="nm">Textilwerkstatt Graz</div><div class="ds">Nachhaltige Stoffe und Restposten · 2,3 km</div></div><svg class="i go" style="color:var(--ink-3)"><use href="#i-chev"/></svg></div>
+            <div class="card partner rise" style="--d:.2s"><span class="av">K</span><div><div class="nm">Kreativ Stoffe</div><div class="ds">Bio-Stoffe, Upcycling-Materialien · 3,0 km</div></div><svg class="i go" style="color:var(--ink-3)"><use href="#i-chev"/></svg></div>
+            <div class="card partner rise" style="--d:.25s"><span class="av">S</span><div><div class="nm">Samen Köller</div><div class="ds">Naturmaterialien und Zubehör · 4,1 km</div></div><svg class="i go" style="color:var(--ink-3)"><use href="#i-chev"/></svg></div>
+            <p class="note">Beispiele aus deinem Entwurf; echte Partner pflegt REWARE.</p>
+          </div>
+          <div class="foot"><button class="btn" data-go="20">Alle Partner anzeigen</button></div>
+        </section>
+
+        <!-- 20 Fertig! -->
+        <section class="scr pad" id="s20" data-n="20">
+          <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="logo" style="font-size:1.2rem">Rew<em>are</em></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
+          <div class="body center" style="gap:12px">
+            <svg class="leafline rise" width="40" height="40" viewBox="0 0 90 90"><use href="#i-leaf"/></svg>
+            <h2 class="t big rise" style="--d:.05s">Du machst<br>den Unterschied.</h2>
+            <p class="sub rise" style="--d:.1s">Weniger Konsum.<br>Mehr Kreativität.<br>Eine bessere Zukunft.</p>
+            <div class="planet rise" style="--d:.15s"><div class="orb"></div><svg class="leaf" style="left:-18px;bottom:-6px"><use href="#i-leaf"/></svg><svg class="leaf r" style="right:-18px;bottom:-6px"><use href="#i-leaf"/></svg></div>
+            <div class="rise" style="--d:.3s"><span class="hand write" style="font-size:2.2rem;color:var(--ink)">Jede Naht<br>erzählt eine Geschichte.</span></div>
+            <div class="card impact rise" style="--d:.4s">
+              <div class="k" style="display:grid;gap:2px"><span style="color:var(--ink)">Dein möglicher Beitrag</span><span>Schätzung · wenn die Tasche einen Neukauf ersetzt</span></div>
+              <div class="row"><div><b data-count="1500" data-prefix="ca. " data-suffix=" L">ca. 0 L</b><small>Wasser gespart</small></div><div><b data-count="3" data-prefix="ca. " data-suffix=" kg">ca. 0 kg</b><small>CO₂ vermieden</small></div><div><b data-count="600" data-prefix="ca. " data-suffix=" g">ca. 0 g</b><small>Textil gerettet</small></div></div>
+            </div>
+            <div class="card proj rise" style="--d:.45s;width:100%;text-align:left"><img src="img/design-tote.jpg" alt=""><div><div class="nm">Tasche „City Companion“</div><div class="ds">Gespeichert · 4 Schritte · aus 3 Teilen</div></div></div>
+            <p class="note">Dein Projekt ist gespeichert – und du bist Teil einer Bewegung für eine nachhaltigere Zukunft.</p>
+          </div>
+          <div class="tabbar"><button class="on" data-go="9"><svg class="i"><use href="#i-home"/></svg>Home</button><button data-go="16"><svg class="i"><use href="#i-folder"/></svg>Meine Projekte</button><button data-go="17"><svg class="i"><use href="#i-people"/></svg>Community</button><button data-go="7"><svg class="i"><use href="#i-user"/></svg>Profil</button></div>
+        </section>
+
+        <div class="toast" id="toast"></div>
+        <button class="mobile-nav" id="mobileNav" type="button"><svg class="i"><use href="#i-grid"/></svg><span id="mobileLabel">Screen 1 / 20</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<dialog class="map" id="mapDlg">
+  <div class="in">
+    <h3>Alle 20 Screens <button type="button" id="mapClose">Schließen</button></h3>
+    <div class="list" id="mapList"></div>
+  </div>
+</dialog>
+
+<script>
+const TITLES = ['Startseite', 'App herunterladen', 'Preis', 'Willkommen', 'Konto erstellen', 'Konto bestätigt', 'Deine Maße', 'Beispiel Körpermaße', "Jetzt geht's los", 'Fotos hochladen / Idee', 'Kleidung fotografieren', 'Auswahl bestätigen', '2 Design-Vorschläge', 'Design anpassen', 'Bestätigung', 'Anleitung & Schnittmuster', 'Schneider:innen in der Nähe', "Juanita's Nähbox", 'Partner-Stoffgeschäfte', 'Fertig!'];
+const app = document.getElementById('app');
+const screens = [...document.querySelectorAll('.scr')];
+let cur = 1; const hist = [];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function buildLists() {
+  for (const el of [document.getElementById('sideList'), document.getElementById('mapList')]) {
+    el.innerHTML = '';
+    TITLES.forEach((t, i) => {
+      const b = document.createElement('button'); b.type = 'button';
+      b.innerHTML = `<b>${String(i + 1).padStart(2, '0')}</b><span>${t}</span>`;
+      b.addEventListener('click', () => { go(i + 1, 'jump'); document.getElementById('mapDlg').close(); });
+      el.appendChild(b);
+    });
+  }
+}
+function markLists() {
+  document.querySelectorAll('#sideList button, #mapList button').forEach((b, i) => b.setAttribute('aria-current', (i % 20) + 1 === cur ? 'true' : 'false'));
+  document.getElementById('mobileLabel').textContent = `Screen ${cur} / 20`;
+}
+function restartRise(scr) {
+  scr.querySelectorAll('.rise').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
+}
+function go(n, mode) {
+  if (n === cur) return;
+  const from = screens.find(s => +s.dataset.n === cur), to = screens.find(s => +s.dataset.n === n);
+  if (!to) return;
+  if (mode !== 'back') hist.push(cur);
+  from.classList.remove('active', 'enter', 'enter-back');
+  to.classList.add('active');
+  to.classList.remove('enter', 'enter-back'); void to.offsetWidth;
+  to.classList.add(mode === 'back' ? 'enter-back' : 'enter');
+  const body = to.querySelector('.body'); if (body) body.scrollTo(0, 0);
+  restartRise(to);
+  cur = n; markLists(); onEnter(n);
+}
+function back() { const p = hist.pop(); if (p) go(p, 'back'); else go(1, 'back'); }
+
+app.addEventListener('click', e => {
+  const t = e.target.closest('[data-go],[data-back],[data-map],[data-toast],[data-shoot]');
+  if (!t) return;
+  if (t.hasAttribute('data-shoot')) { shoot(); return; }
+  if (t.hasAttribute('data-toast')) toast(t.dataset.toast);
+  if (t.hasAttribute('data-go')) { const n = +t.dataset.go, d = +(t.dataset.delay || 0); d ? setTimeout(() => go(n), d) : go(n); return; }
+  if (t.hasAttribute('data-back')) { back(); return; }
+  if (t.hasAttribute('data-map')) { document.getElementById('mapDlg').showModal(); }
+});
+document.getElementById('mobileNav').addEventListener('click', () => document.getElementById('mapDlg').showModal());
+document.getElementById('mapClose').addEventListener('click', () => document.getElementById('mapDlg').close());
+document.getElementById('mapDlg').addEventListener('click', e => { if (e.target.id === 'mapDlg') e.target.close(); });
+document.addEventListener('keydown', e => { if (e.target.tagName === 'INPUT') return; if (e.key === 'ArrowRight' && cur < 20) go(cur + 1); if (e.key === 'ArrowLeft') back(); });
+
+let toastT;
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1800); }
+
+/* 11: camera, three garments */
+const CAM = [['img/kind-shirt.jpg', 'Jeanskleid'], ['img/kind-tee.jpg', 'T-Shirt'], ['img/kind-jeans.jpg', 'Jeans']];
+let shot = 0;
+function resetCam() { shot = 0; document.getElementById('shots').innerHTML = ''; document.getElementById('camImg').src = CAM[0][0]; document.getElementById('camCount').textContent = '1 von 3'; document.getElementById('snapMain').textContent = 'Foto machen'; }
+function shoot() {
+  if (shot >= 3) { go(12); return; }
+  const [src, name] = CAM[shot];
+  const im = document.createElement('img'); im.src = src; im.alt = name; document.getElementById('shots').appendChild(im);
+  shot++;
+  toast(`${name} gespeichert · ${shot} von 3`);
+  if (shot < 3) { document.getElementById('camImg').src = CAM[shot][0]; document.getElementById('camCount').textContent = `${shot + 1} von 3`; }
+  else { document.getElementById('camCount').textContent = '3 von 3'; document.getElementById('snapMain').textContent = 'Weiter'; }
+}
+document.getElementById('snapBtn').addEventListener('click', shoot);
+
+/* 10: segmented control, thumbs */
+document.querySelectorAll('[data-segtab]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('[data-segtab]').forEach(x => x.setAttribute('aria-pressed', x === b)); }));
+document.querySelectorAll('.thumbs .x, .item .x2').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); toast('Im Prototyp nicht entfernbar'); }));
+
+/* 13: designs */
+const DESIGN = { tote: ['img/design-tote.jpg', 'Tasche „City Companion“'], vest: ['img/design-vest.jpg', 'Weste „New Favorite“'] };
+document.querySelectorAll('.design').forEach(d => d.addEventListener('click', e => {
+  if (e.target.closest('.fav')) { e.target.closest('.fav').classList.toggle('on'); return; }
+  document.querySelectorAll('.design').forEach(x => x.classList.toggle('sel', x === d));
+  const [src, name] = DESIGN[d.dataset.design];
+  document.getElementById('prev').src = src; document.getElementById('prev').alt = 'Vorschau: ' + name; document.getElementById('prevChip').textContent = name;
+}));
+
+/* 14: tabs, parts mapping, swatches, toggles */
+document.querySelectorAll('[data-dtab]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-dtab]').forEach(x => x.setAttribute('aria-pressed', x === b));
+  for (const k of ['teile', 'farben', 'details']) document.getElementById('pane-' + k).hidden = k !== b.dataset.dtab;
+  document.getElementById('farbenNote').hidden = b.dataset.dtab !== 'farben';
+}));
+const GCOL = { shirt: 'var(--denim)', tee: '#F4F1EA', jeans: 'var(--denim-light)' };
+const GNAME = { shirt: 'Jeanskleid', tee: 'T-Shirt', jeans: 'Jeans' };
+const SCH = { front: 'sch-front', back: null, strap: 'sch-strap', band: 'sch-band' };
+document.querySelectorAll('.part .opts button').forEach(b => b.addEventListener('click', () => {
+  const part = b.closest('.part'); part.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  const g = b.dataset.g; part.querySelector('.pn i').style.background = GCOL[g];
+  const id = SCH[part.dataset.part];
+  if (id) { const el = document.getElementById(id); if (id === 'sch-strap') el.setAttribute('stroke', GCOL[g]); else el.setAttribute('fill', GCOL[g]); }
+  toast(`${part.querySelector('.pn').textContent.trim()} aus ${GNAME[g]}`);
+}));
+document.querySelectorAll('.swatches button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.swatches button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  document.getElementById('prev').style.filter = b.dataset.filter;
+}));
+document.querySelectorAll('.sw').forEach(b => b.addEventListener('click', () => b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true')));
+
+/* 16: guide tabs */
+document.querySelectorAll('[data-gtab]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-gtab]').forEach(x => x.setAttribute('aria-pressed', x === b));
+  document.getElementById('pane-anleitung').hidden = b.dataset.gtab !== 'anleitung';
+  document.getElementById('pane-muster').hidden = b.dataset.gtab !== 'muster';
+}));
+
+/* Screen-specific entry effects */
+let readDone = false, genDone = false;
+function onEnter(n) {
+  if (n === 11) resetCam();
+  if (n === 12 && !readDone) {
+    const items = [...document.querySelectorAll('#s12 .item')];
+    items.forEach(it => { it.classList.remove('read', 'scanning'); it.querySelector('.ai-note').textContent = 'Wird gelesen …'; });
+    if (reduce) { items.forEach(it => { it.classList.add('read'); it.querySelector('.ai-note').textContent = 'Von der KI erkannt'; }); readDone = true; return; }
+    items.forEach((it, i) => {
+      setTimeout(() => it.classList.add('scanning'), 300 + i * 1000);
+      setTimeout(() => { it.classList.remove('scanning'); it.classList.add('read'); it.querySelector('.ai-note').textContent = 'Von der KI erkannt'; }, 1300 + i * 1000);
+    });
+    setTimeout(() => { readDone = true; }, 3400);
+  }
+  if (n === 13) {
+    const g = document.getElementById('gen');
+    if (genDone || reduce) { g.classList.add('off'); genDone = true; return; }
+    g.classList.remove('off');
+    g.querySelectorAll('.pc, .bagline, .bar i').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
+    setTimeout(() => { g.classList.add('off'); genDone = true; restartRise(document.getElementById('s13')); }, 2400);
+  }
+  if (n === 20) {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count, suf = el.dataset.suffix || '', pre = el.dataset.prefix || '';
+      if (reduce) { el.textContent = pre + target.toLocaleString('de-AT') + suf; return; }
+      const t0 = performance.now(), dur = 1300;
+      const tick = now => { const p = Math.min(1, (now - t0) / dur), v = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = pre + v.toLocaleString('de-AT') + suf; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    });
+  }
+}
+buildLists(); markLists();
+screens[0].classList.add('active');
+/* Deep link: #s12 opens screen 12 directly (links to one screen, and screenshots). */
+const hm = /^#s(\d{1,2})$/.exec(location.hash);
+if (hm && +hm[1] >= 1 && +hm[1] <= 20 && +hm[1] !== 1) go(+hm[1], 'jump');
+addEventListener('hashchange', () => { const m = /^#s(\d{1,2})$/.exec(location.hash); if (m && +m[1] >= 1 && +m[1] <= 20) go(+m[1], 'jump'); });
+</script>
+</body>
+</html>
