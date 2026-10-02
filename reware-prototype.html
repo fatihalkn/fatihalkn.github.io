@@ -18,15 +18,15 @@
   --green: #2E6B4E; --green-deep: #245540; --green-tint: #E2ECE4; --sage: #BFD3C4;
   --denim: #3E5F84; --denim-light: #9DB4CF; --kraft: #B8865A; --kraft-deep: #8E6440; --kraft-tint: #F1E6D6;
   --bezel: #15181A; --shadow: 0 30px 60px rgba(31, 42, 36, .22);
-  --desk-ink: #1F2A24;
+  --desk-ink: #1F2A24; --desk-accent: #2E6B4E;
   --display: "Outfit", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   --body: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
   --hand: "Caveat", "Bradley Hand", "Segoe Script", cursive;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --bg: #14181A; --desk-ink: #ECEAE3; --shadow: 0 30px 60px rgba(0, 0, 0, .6); color-scheme: dark; }
+  :root:not([data-theme="light"]) { --bg: #14181A; --desk-ink: #ECEAE3; --desk-accent: #7FB89A; --shadow: 0 30px 60px rgba(0, 0, 0, .6); color-scheme: dark; }
 }
-:root[data-theme="dark"] { --bg: #14181A; --desk-ink: #ECEAE3; --shadow: 0 30px 60px rgba(0, 0, 0, .6); color-scheme: dark; }
+:root[data-theme="dark"] { --bg: #14181A; --desk-ink: #ECEAE3; --desk-accent: #7FB89A; --shadow: 0 30px 60px rgba(0, 0, 0, .6); color-scheme: dark; }
 /* The app itself keeps its own light look in both themes (it is a prototype of a light app); only the desk around it darkens. */
 
 * { box-sizing: border-box; }
@@ -34,19 +34,16 @@
 html, body { height: 100%; }
 body { margin: 0; background: var(--bg); color: var(--desk-ink); font-family: var(--body); }
 img { max-width: 100%; display: block; }
-button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+button { font: inherit; cursor: pointer; color: inherit; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 
 .stage { min-height: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px; padding: 24px 16px; }
 .side { max-width: 360px; justify-self: end; display: grid; gap: 14px; }
-.side .eyebrow { font-family: var(--display); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--green); font-weight: 600; }
-:root:not([data-theme="light"]) .side .eyebrow { color: #7FB89A; }
+.side .eyebrow { font-family: var(--display); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--desk-accent); font-weight: 600; }
 .side h1 { font-family: var(--display); font-size: 1.9rem; line-height: 1.1; margin: 0; text-wrap: balance; }
 .side p { margin: 0; font-size: 1rem; line-height: 1.5; opacity: .85; }
 .side .list { display: grid; gap: 4px; max-height: 42vh; overflow: auto; padding-right: 4px; }
 .side .list button { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: center; text-align: left; background: transparent; border: 1px solid transparent; color: inherit; padding: 6px 8px; border-radius: 10px; font-family: var(--display); font-weight: 500; font-size: .9rem; }
-.side .list button b { font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums; }
-:root:not([data-theme="light"]) .side .list button b { color: #7FB89A; }
-.side .list button:hover { background: rgba(46, 107, 78, .12); }
+.side .list button b { font-weight: 700; color: var(--desk-accent); font-variant-numeric: tabular-nums; }
 .side .list button[aria-current="true"] { background: var(--green); color: #fff; }
 .side .list button[aria-current="true"] b { color: #fff; }
 .side small { opacity: .7; font-size: .85rem; line-height: 1.4; }
@@ -73,7 +70,6 @@ button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparen
 .pad { padding-top: 50px; }
 .top { display: flex; align-items: center; justify-content: space-between; padding: 8px 18px 0; min-height: 44px; }
 .top .ico { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; display: grid; place-items: center; color: var(--ink); }
-.top .ico:hover { background: rgba(31, 42, 36, .06); }
 .top .ico svg { width: 22px; height: 22px; }
 .top .mid { display: grid; justify-items: center; gap: 3px; }
 .top .stepl { font-family: var(--display); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
@@ -91,7 +87,8 @@ p.sub { margin: 0; color: var(--ink-2); font-size: 1rem; line-height: 1.45; }
 .logo em { font-style: normal; color: var(--kraft-deep); }
 .logo.xl { font-size: 2.6rem; }
 .btn { width: 100%; max-width: 320px; border: none; background: var(--green); color: #fff; font-family: var(--display); font-weight: 600; font-size: 1.02rem; padding: 15px 20px; border-radius: 14px; box-shadow: 0 6px 16px rgba(46, 107, 78, .28); transition: transform .12s ease, box-shadow .12s ease; display: inline-flex; justify-content: center; align-items: center; gap: 8px; }
-.btn:hover { transform: translateY(-1px); } .btn:active { transform: translateY(1px); box-shadow: 0 2px 6px rgba(46, 107, 78, .25); }
+@media (hover: hover) { .btn:hover { transform: translateY(-1px); } .top .ico:hover { background: rgba(31, 42, 36, .06); } .side .list button:hover { background: rgba(46, 107, 78, .12); } }
+.btn:active { transform: translateY(1px); box-shadow: 0 2px 6px rgba(46, 107, 78, .25); }
 .btn.outline { background: var(--card); color: var(--green); border: 1.5px solid var(--green); box-shadow: none; }
 .btn svg { width: 20px; height: 20px; }
 .link { background: none; border: none; color: var(--green); font-family: var(--display); font-weight: 600; font-size: .95rem; text-decoration: underline; text-underline-offset: 3px; padding: 4px; }
@@ -113,12 +110,12 @@ svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-widt
 #s1 { background: #243547; color: #fff; }
 #s1 .bg { position: absolute; inset: 0; background: url("img/hero.jpg") center 20% / cover; animation: drift 14s ease-in-out infinite alternate; transform-origin: 50% 30%; }
 @keyframes drift { from { transform: scale(1); } to { transform: scale(1.07); } }
-#s1 .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 24, 36, .25) 0%, rgba(16, 24, 36, .1) 35%, rgba(16, 24, 36, .82) 100%); }
-#s1 .body { position: relative; justify-content: flex-end; padding-bottom: 8px; gap: 10px; }
-#s1 .logo { color: #fff; font-size: 2.9rem; } #s1 .logo em { color: #E2C9A3; }
-#s1 .claim { color: #fff; font-size: 1.2rem; font-weight: 600; font-family: var(--display); }
+#s1 .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(246, 243, 236, .92) 0%, rgba(246, 243, 236, .7) 14%, rgba(246, 243, 236, 0) 30%, rgba(16, 24, 36, 0) 60%, rgba(16, 24, 36, .78) 100%); }
+#s1 .body { position: relative; justify-content: space-between; padding-bottom: 8px; gap: 10px; }
+#s1 .logo { color: var(--green); font-size: 2.9rem; } #s1 .logo em { color: var(--kraft-deep); }
+#s1 .claim { color: var(--ink); font-size: 1.2rem; font-weight: 600; font-family: var(--display); }
 #s1 .hand { color: #F3E4CB; font-size: 2.2rem; }
-#s1 .patch { position: absolute; right: 22px; top: 96px; display: grid; gap: 10px; justify-items: center; }
+#s1 .patch { position: absolute; right: 26px; top: 47%; display: grid; gap: 10px; justify-items: center; }
 .heart { width: 74px; height: 66px; position: relative; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .35)); }
 .heart::before, .heart::after { content: ""; position: absolute; top: 0; width: 37px; height: 60px; background: var(--kraft); border-radius: 37px 37px 0 0; left: 37px; transform: rotate(-45deg); transform-origin: 0 100%; }
 .heart::after { left: 0; transform: rotate(45deg); transform-origin: 100% 100%; }
@@ -175,7 +172,7 @@ svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-widt
 .measure { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: center; }
 .sil { width: 100%; height: auto; }
 .mfield { display: grid; grid-template-columns: 1fr 64px; align-items: center; gap: 8px; font-size: .9rem; }
-.mfield input { width: 64px; text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 9px 6px; font: inherit; font-weight: 600; color: var(--ink); }
+.mfield input { width: 64px; text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 9px 6px; font: inherit; font-size: 16px; font-weight: 600; color: var(--ink); }
 .mfield input:focus { outline: 2px solid var(--green); border-color: var(--green); }
 .tape { height: 10px; background: repeating-linear-gradient(90deg, var(--kraft) 0 2px, transparent 2px 10px); border-radius: 2px; animation: tape 1.2s cubic-bezier(.2, .8, .2, 1) both; opacity: .8; }
 @keyframes tape { from { width: 0; } to { width: 100%; } }
@@ -206,7 +203,7 @@ svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-widt
 .photo-stage img { width: 100%; height: 100%; object-fit: cover; }
 .photo-stage .count { position: absolute; top: 12px; left: 12px; }
 .photo-stage .frame { position: absolute; inset: 18px; border: 2px solid rgba(255, 255, 255, .85); border-radius: 12px; pointer-events: none; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; padding: 22px; }
-.fab { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); width: 64px; height: 64px; border-radius: 50%; background: #fff; display: grid; place-items: center; color: var(--ink); box-shadow: 0 10px 20px rgba(0, 0, 0, .25); border: none; }
+.fab { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); width: 64px; height: 64px; border-radius: 50%; background: #fff; display: grid; place-items: center; color: var(--ink); box-shadow: 0 10px 20px rgba(0, 0, 0, .25); border: none; padding: 0; }
 .fab svg { width: 28px; height: 28px; }
 .shots { display: flex; gap: 8px; }
 .shots img { width: 54px; height: 54px; object-fit: cover; border-radius: 10px; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(31, 42, 36, .2); }
@@ -345,6 +342,7 @@ svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-widt
 .planet .orb { position: absolute; inset: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8FB89F, var(--green) 65%, var(--green-deep)); box-shadow: 0 16px 30px rgba(46, 107, 78, .35); animation: breathe 6s ease-in-out infinite; }
 .planet .orb::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 60% 60%, rgba(255, 255, 255, .25), transparent 50%); }
 .planet .leaf { width: 64px; height: 64px; }
+.planet .land { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); border-radius: 50%; }
 .impact { padding: 12px 14px; display: grid; gap: 8px; width: 100%; }
 .impact .k { font-family: var(--display); font-weight: 600; font-size: .85rem; display: flex; justify-content: space-between; gap: 8px; }
 .impact .k span { color: var(--kraft-deep); font-size: .72rem; white-space: nowrap; }
@@ -365,11 +363,12 @@ svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-widt
 .toast { position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%) translateY(10px); background: var(--ink); color: #fff; font-family: var(--display); font-weight: 600; font-size: .9rem; padding: 10px 16px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; z-index: 9; white-space: nowrap; }
 .toast.show { opacity: 1; transform: translateX(-50%); }
 .mobile-nav { display: none; }
-dialog.map { border: none; padding: 0; border-radius: 22px 22px 0 0; width: 100%; max-width: 100%; margin: auto 0 0; background: var(--paper); color: var(--ink); max-height: 80dvh; overflow: auto; }
+dialog.map { border: none; padding: 0; border-radius: 22px 22px 0 0; width: 100%; max-width: 100%; margin: auto 0 0; background: var(--paper); color: var(--ink); max-height: 80vh; max-height: 80dvh; overflow: auto; }
+@media (min-width: 861px) { dialog.map { width: 392px; max-width: 392px; margin: auto; border-radius: 22px; } }
 dialog.map::backdrop { background: rgba(20, 30, 24, .5); }
 dialog.map .in { padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 8px; }
 dialog.map h3 { font-family: var(--display); margin: 0 0 6px; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
-dialog.map h3 button { border: none; background: var(--card-2); border-radius: 999px; padding: 6px 12px; font-family: var(--display); font-weight: 600; }
+dialog.map h3 button { border: none; background: var(--card-2); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-family: var(--display); font-weight: 600; }
 dialog.map .list { display: grid; gap: 4px; }
 dialog.map .list button { display: grid; grid-template-columns: 30px 1fr; gap: 8px; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-family: var(--display); font-weight: 500; color: var(--ink); }
 dialog.map .list button b { color: var(--green); }
@@ -377,20 +376,20 @@ dialog.map .list button[aria-current="true"] { background: var(--green); color: 
 dialog.map .list button[aria-current="true"] b { color: #fff; }
 
 @media (max-width: 860px) {
-  .stage { display: block; padding: 0; min-height: 100dvh; }
+  .stage { display: block; padding: 0; min-height: 100vh; min-height: 100dvh; }
   .side, .spacer { display: none; }
-  .phone { width: 100%; height: 100dvh; max-height: none; border-radius: 0; padding: 0; box-shadow: none; }
+  .phone { width: 100%; height: 100vh; height: 100dvh; max-height: none; border-radius: 0; padding: 0; box-shadow: none; }
   .screen { border-radius: 0; }
   .island, .status { display: none; }
   .pad { padding-top: calc(env(safe-area-inset-top, 0px) + 8px); }
-  .mobile-nav { display: flex; position: absolute; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 8; gap: 6px; align-items: center; background: var(--ink); color: #fff; border: none; border-radius: 999px; padding: 8px 14px; font-family: var(--display); font-weight: 600; font-size: .85rem; box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
+  .mobile-nav { display: flex; position: absolute; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 8; gap: 6px; align-items: center; background: var(--ink); color: #fff; border: none; border-radius: 999px; padding: 7px 11px; font-family: var(--display); font-weight: 600; font-size: .74rem; box-shadow: 0 8px 20px rgba(0, 0, 0, .3); opacity: .92; }
   .mobile-nav svg { width: 16px; height: 16px; }
   .foot { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
   .tabbar { padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px)); }
   .toast { bottom: 118px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .write { clip-path: none; } .checkmark path { stroke-dashoffset: 0; }
 }
 </style>
@@ -438,11 +437,10 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
           <div class="bg"></div>
           <div class="patch rise" style="--d:.2s"><div class="label">GOOD<br>CLOTHES<br>BRIGHTER<br>FUTURE</div></div>
           <div class="body">
-            <div class="logo rise">Rew<em>are</em></div>
-            <div class="claim rise" style="--d:.1s">Deine Kleidung.<br>Neue Möglichkeiten.</div>
+            <div class="rise" style="display:grid;gap:8px"><div class="logo">Rew<em>are</em></div><div class="claim">Deine Kleidung.<br>Neue Möglichkeiten.</div></div>
             <div class="hand rise" style="--d:.25s">Reduce · Reuse · Refashion</div>
           </div>
-          <div class="foot"><button class="btn" data-go="2">Los geht's</button></div>
+          <div class="foot"><button class="btn" data-go="2">Los geht’s</button></div>
         </section>
 
         <!-- 2 App herunterladen -->
@@ -494,7 +492,7 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             <p class="sub rise" style="--d:.2s">Schön, dass du hier bist.<br>Gemeinsam machen wir mehr<br>aus dem, was du schon hast.</p>
             <div class="dots rise" style="--d:.25s"><i class="on"></i><i></i><i></i><i></i></div>
           </div>
-          <div class="foot"><button class="btn" data-go="5">Los geht's</button></div>
+          <div class="foot"><button class="btn" data-go="5">Los geht’s</button></div>
         </section>
 
         <!-- 5 Konto erstellen -->
@@ -505,13 +503,13 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             <p class="sub rise" style="--d:.05s">Werde Teil der Reware Community.</p>
             <div class="field rise" style="--d:.1s"><input id="f1" placeholder="Vorname" autocomplete="off"></div>
             <div class="field rise" style="--d:.12s"><input id="f2" placeholder="Nachname" autocomplete="off"></div>
-            <div class="field rise" style="--d:.14s"><div class="in inrow"><span class="flag"></span><span style="color:var(--ink-2)">+43</span><input id="f3" placeholder="Telefonnummer" style="border:none;padding:0;flex:1;background:transparent" autocomplete="off"></div></div>
-            <div class="field rise" style="--d:.16s"><input id="f4" placeholder="E-Mail" autocomplete="off"></div>
+            <div class="field rise" style="--d:.14s"><div class="in inrow"><span class="flag"></span><span style="color:var(--ink-2)">+43</span><input id="f3" type="tel" placeholder="Telefonnummer" style="border:none;padding:0;flex:1;background:transparent" autocomplete="off"></div></div>
+            <div class="field rise" style="--d:.16s"><input id="f4" type="email" placeholder="E-Mail" autocomplete="off"></div>
             <div class="field rise" style="--d:.18s"><input id="f5" placeholder="Stadt" autocomplete="off"></div>
             <div class="field rise" style="--d:.2s"><div class="in inrow" style="justify-content:space-between;color:var(--ink-3)">Geburtsdatum<svg class="i" style="color:var(--ink-2)"><use href="#i-cal"/></svg></div></div>
             <div class="check-row rise" style="--d:.22s"><span class="cb"><svg class="i"><use href="#i-check"/></svg></span><span>Ich akzeptiere die <u>AGB</u> und Datenschutzbestimmungen.</span></div>
           </div>
-          <div class="foot"><button class="btn" data-go="6">Konto erstellen</button><button class="link">Bereits ein Konto? Jetzt anmelden</button></div>
+          <div class="foot"><button class="btn" data-go="6">Konto erstellen</button><button class="link" data-toast="Anmeldung: nicht Teil des Prototyps">Bereits ein Konto? Jetzt anmelden</button></div>
         </section>
 
         <!-- 6 Konto bestätigt -->
@@ -538,10 +536,10 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
                 <g fill="var(--ink-2)" font-family="Outfit, sans-serif" font-size="8" font-weight="600"><text x="90" y="89">Brust</text><text x="84" y="119">Taille</text><text x="91" y="149">Hüfte</text></g>
               </svg>
               <div style="display:grid;gap:10px">
-                <label class="mfield">Körpergröße (cm)<input placeholder="cm"></label>
-                <label class="mfield">Brust (cm)<input placeholder="cm"></label>
-                <label class="mfield">Taille (cm)<input value="72"></label>
-                <label class="mfield">Hüfte (cm)<input value="96"></label>
+                <label class="mfield">Körpergröße (cm)<input placeholder="cm" inputmode="decimal"></label>
+                <label class="mfield">Brust (cm)<input placeholder="cm" inputmode="decimal"></label>
+                <label class="mfield">Taille (cm)<input placeholder="cm" inputmode="decimal"></label>
+                <label class="mfield">Hüfte (cm)<input placeholder="cm" inputmode="decimal"></label>
               </div>
             </div>
             <div class="tape rise" style="--d:.2s"></div>
@@ -578,11 +576,11 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
           <div class="foot"><button class="btn" data-go="9">Verstanden</button></div>
         </section>
 
-        <!-- 9 Jetzt geht's los -->
+        <!-- 9 Jetzt geht’s los -->
         <section class="scr pad" id="s9" data-n="9">
           <div class="top"><span style="width:36px"></span><span class="mid"><span class="logo" style="font-size:1.2rem">Rew<em>are</em></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
           <div class="body center" style="gap:12px;justify-content:center">
-            <h2 class="t big rise">Jetzt geht's los!</h2>
+            <h2 class="t big rise">Jetzt geht’s los!</h2>
             <svg class="hanger rise" style="--d:.1s" viewBox="0 0 64 64"><use href="#i-hanger"/></svg>
             <p class="sub rise" style="--d:.15s">Suche deine Kleidung,<br>die du transformieren möchtest.</p>
             <div class="fan rise" style="--d:.2s;width:100%">
@@ -602,12 +600,12 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             <p class="sub rise" style="--d:.05s">Lade Fotos deiner Kleidungsstücke hoch oder zeige uns deine Skizze.</p>
             <div class="seg rise" style="--d:.1s"><button type="button" aria-pressed="true" data-segtab="foto">Fotos hochladen</button><button type="button" aria-pressed="false" data-segtab="skizze">Zeichnung hochladen</button></div>
             <div class="thumbs rise" style="--d:.15s">
-              <div class="th"><img src="img/kind-shirt.jpg" alt=""><span class="cap">Jeanskleid</span><button class="x" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+              <div class="th"><img src="img/kind-shirt.jpg" alt=""><span class="cap">Jeanshemd</span><button class="x" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
               <div class="th"><img src="img/kind-tee.jpg" alt=""><span class="cap">T-Shirt</span><button class="x" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
               <div class="th"><img src="img/kind-jeans.jpg" alt=""><span class="cap">Jeans</span><button class="x" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
             </div>
             <button class="add rise" style="--d:.2s" type="button" data-go="11"><span class="plus">+</span>Weiteres Foto hinzufügen</button>
-            <div class="idea rise" style="--d:.25s"><span class="ph">Beschreibe deine Idee (optional) …</span><br>Eine Tasche für die Stadt, aus allen drei Teilen.</div>
+            <div class="idea rise" style="--d:.25s">Eine Tasche für die Stadt, aus allen drei Teilen.</div>
           </div>
           <div class="foot"><button class="btn" data-go="11">Weiter</button></div>
         </section>
@@ -618,7 +616,7 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
           <div class="body" style="gap:12px">
             <h2 class="t rise" style="font-size:1.7rem">Deine Kleidung<br>ist der Anfang.</h2>
             <p class="sub rise" style="--d:.05s">Fotografiere 2 oder 3 Kleidungsstücke, die du transformieren möchtest.</p>
-            <div class="photo-stage rise" style="--d:.1s"><img id="camImg" src="img/kind-shirt.jpg" alt="Jeanskleid vor der Kamera"><div class="frame"></div><span class="chip count" id="camCount">1 von 3</span><button class="fab" id="snapBtn" aria-label="Foto machen"><svg class="i"><use href="#i-cam"/></svg></button></div>
+            <div class="photo-stage rise" style="--d:.1s"><img id="camImg" src="img/kind-shirt.jpg" alt="Jeanshemd vor der Kamera"><div class="frame"></div><span class="chip count" id="camCount">1 von 3</span><button class="fab" id="snapBtn" aria-label="Foto machen"><svg class="i"><use href="#i-cam"/></svg></button></div>
             <div class="shots rise" style="--d:.15s" id="shots"></div>
           </div>
           <div class="foot"><button class="btn" id="snapMain" data-shoot>Foto machen</button><button class="link" data-go="12">Oder wähle aus deiner Galerie.</button></div>
@@ -630,10 +628,10 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
           <div class="body" style="gap:10px">
             <h2 class="t rise">Deine Auswahl</h2>
             <p class="sub rise" style="--d:.05s">Diese Kleidungsstücke wurden hochgeladen.</p>
-            <div class="card item rise" style="--d:.1s" data-read="0"><div class="pic"><img src="img/kind-shirt.jpg" alt="Jeanskleid"><div class="scan"></div></div><div><div class="name">Jeanskleid</div><div class="meta"><span>Denim</span><span>mittelschwer</span><span class="k">nicht dehnbar</span><span>Kragen</span><span>Brusttasche</span><span>Knöpfe</span></div><div class="ai-note">Wird gelesen …</div></div><button class="x2" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
+            <div class="card item rise" style="--d:.1s" data-read="0"><div class="pic"><img src="img/kind-shirt.jpg" alt="Jeanshemd"><div class="scan"></div></div><div><div class="name">Jeanshemd</div><div class="meta"><span>Denim</span><span>mittelschwer</span><span class="k">nicht dehnbar</span><span>Kragen</span><span>Brusttasche</span><span>Knöpfe</span></div><div class="ai-note">Wird gelesen …</div></div><button class="x2" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
             <div class="card item rise" style="--d:.15s" data-read="1"><div class="pic"><img src="img/kind-tee.jpg" alt="T-Shirt"><div class="scan"></div></div><div><div class="name">T-Shirt</div><div class="meta"><span>Baumwolljersey</span><span>mittelschwer</span><span class="k">dehnbar</span><span>Rundhals</span><span>gerader Saum</span></div><div class="ai-note">Wird gelesen …</div></div><button class="x2" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
             <div class="card item rise" style="--d:.2s" data-read="2"><div class="pic"><img src="img/kind-jeans.jpg" alt="Jeans"><div class="scan"></div></div><div><div class="name">Jeans</div><div class="meta"><span>Denim</span><span>schwer</span><span class="k">nicht dehnbar</span><span>Reißverschluss</span><span>Gürtelschlaufen</span><span>Taschen</span></div><div class="ai-note">Wird gelesen …</div></div><button class="x2" aria-label="Entfernen"><svg class="i"><use href="#i-x"/></svg></button></div>
-            <p class="note rise" style="--d:.25s">Die KI erkennt Stoff, Gewicht und Dehnbarkeit, damit jedes Teil zum richtigen Zweck kommt: Denim trägt, Jersey schmiegt sich an.</p>
+            <p class="note rise" style="--d:.25s">Die KI erkennt Stoff, Gewicht und Dehnbarkeit, damit jedes Teil die passende Aufgabe bekommt: Denim trägt, Jersey schmiegt sich an.</p>
           </div>
           <div class="foot"><button class="btn" data-go="13" id="toDesigns">Weiter</button><button class="link" data-go="11">Weitere Stücke hinzufügen</button></div>
         </section>
@@ -644,12 +642,12 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
           <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 4 von 6</span><span class="prog"><i style="--p:.66"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
           <div class="body" style="gap:12px">
             <h2 class="t rise">Deine Designs</h2>
-            <p class="sub rise" style="--d:.05s">Unsere KI und Designer:innen haben 2 kreative Vorschläge für dich erstellt, aus den Teilen deiner drei Stücke.</p>
+            <p class="sub rise" style="--d:.05s">Unsere KI und Designer:innen haben 2 kreative Vorschläge für dich erstellt.</p>
             <div class="designs">
-              <div class="card design sel rise" style="--d:.1s" data-design="tote"><button class="fav on" aria-label="Favorit"><svg class="i"><use href="#i-heart"/></svg></button><img src="img/design-tote.jpg" alt="Tasche aus Jeanskleid, T-Shirt und Jeans"><div><div class="k">Design 1 · Tasche</div><div class="n">„City Companion“</div></div><div class="src"><img src="img/kind-shirt.jpg" alt=""><img src="img/kind-tee.jpg" alt=""><img src="img/kind-jeans.jpg" alt=""></div></div>
-              <div class="card design rise" style="--d:.18s" data-design="vest"><button class="fav" aria-label="Favorit"><svg class="i"><use href="#i-heart"/></svg></button><img src="img/design-vest.jpg" alt="Weste aus Jeanskleid, T-Shirt und Jeans"><div><div class="k">Design 2 · Weste</div><div class="n">„New Favorite“</div></div><div class="src"><img src="img/kind-shirt.jpg" alt=""><img src="img/kind-tee.jpg" alt=""><img src="img/kind-jeans.jpg" alt=""></div></div>
+              <div class="card design sel rise" style="--d:.1s" data-design="tote"><button class="fav on" aria-label="Favorit"><svg class="i"><use href="#i-heart"/></svg></button><img src="img/design-tote.jpg" alt="Tasche aus Jeanshemd, T-Shirt und Jeans"><div><div class="k">Design 1 · Tasche</div><div class="n">„City Companion“</div></div><div class="src"><img src="img/kind-shirt.jpg" alt=""><img src="img/kind-tee.jpg" alt=""><img src="img/kind-jeans.jpg" alt=""></div></div>
+              <div class="card design rise" style="--d:.18s" data-design="vest"><button class="fav" aria-label="Favorit"><svg class="i"><use href="#i-heart"/></svg></button><img src="img/design-vest.jpg" alt="Weste aus Jeanshemd, T-Shirt und Jeans"><div><div class="k">Design 2 · Weste</div><div class="n">„New Favorite“</div></div><div class="src"><img src="img/kind-shirt.jpg" alt=""><img src="img/kind-tee.jpg" alt=""><img src="img/kind-jeans.jpg" alt=""></div></div>
             </div>
-            <p class="note rise" style="--d:.25s">KI-Vorschau aus deinen drei Fotos: dieselben Stoffe, Farben und Details.</p>
+            <p class="note rise" style="--d:.25s">KI-Vorschau aus den Teilen deiner drei Stücke: dieselben Stoffe, Farben und Details.</p>
             <div class="dots rise" style="--d:.25s"><i class="on"></i><i></i><i></i></div>
           </div>
           <div class="foot"><button class="btn" data-go="14">Design auswählen</button><button class="link" data-go="14">Designs anpassen</button></div>
@@ -661,7 +659,7 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
           <div class="body" style="gap:12px">
             <h2 class="t rise">Dein Design</h2>
             <p class="sub rise" style="--d:.05s">Du kannst Details anpassen.</p>
-            <div class="tabs rise" style="--d:.1s"><button type="button" aria-pressed="true" data-dtab="teile">Teile</button><button type="button" aria-pressed="false" data-dtab="farben">Farben</button><button type="button" aria-pressed="false" data-dtab="details">Details</button></div>
+            <div class="tabs rise" style="--d:.1s"><button type="button" aria-pressed="false" data-dtab="farben">Farben</button><button type="button" aria-pressed="false" data-dtab="details">Details</button><button type="button" aria-pressed="true" data-dtab="teile">Stoffkombination</button></div>
             <div class="preview rise" style="--d:.15s"><img id="prev" src="img/design-tote.jpg" alt="Vorschau: Tasche City Companion"><span class="chip" id="prevChip">Tasche „City Companion“</span></div>
             <div id="pane-teile" class="rise" style="--d:.2s;display:grid;gap:10px">
               <svg class="schem" viewBox="0 0 160 150" aria-hidden="true">
@@ -672,10 +670,10 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
                 <path id="sch-heart" d="M80 106s-13-8.5-13-17a6.5 6.5 0 0 1 13-3 6.5 6.5 0 0 1 13 3c0 8.5-13 17-13 17z" fill="var(--kraft)"/>
               </svg>
               <div class="parts" id="parts">
-                <div class="card part" data-part="front"><span class="pn"><i style="background:var(--denim)"></i>Vorderseite</span><span class="opts"><button type="button" aria-pressed="true" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
-                <div class="card part" data-part="back"><span class="pn"><i style="background:var(--denim-light)"></i>Rückseite</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
-                <div class="card part" data-part="strap"><span class="pn"><i style="background:var(--denim-light)"></i>Henkel</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
-                <div class="card part" data-part="band"><span class="pn"><i style="background:#F4F1EA"></i>Blende &amp; Innentasche</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanskleid"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+                <div class="card part" data-part="front"><span class="pn"><i style="background:var(--denim)"></i>Vorderseite</span><span class="opts"><button type="button" aria-pressed="true" data-g="shirt" aria-label="Jeanshemd"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+                <div class="card part" data-part="back"><span class="pn"><i style="background:var(--denim-light)"></i>Rückseite</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanshemd"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+                <div class="card part" data-part="strap"><span class="pn"><i style="background:var(--denim-light)"></i>Henkel</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanshemd"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
+                <div class="card part" data-part="band"><span class="pn"><i style="background:#F4F1EA"></i>Blende &amp; Innentasche</span><span class="opts"><button type="button" aria-pressed="false" data-g="shirt" aria-label="Jeanshemd"><img src="img/kind-shirt.jpg" alt=""></button><button type="button" aria-pressed="true" data-g="tee" aria-label="T-Shirt"><img src="img/kind-tee.jpg" alt=""></button><button type="button" aria-pressed="false" data-g="jeans" aria-label="Jeans"><img src="img/kind-jeans.jpg" alt=""></button></span></div>
               </div>
               <p class="note">Tippe an, welches Stück welches Teil liefert. Das Schnittmuster folgt deiner Zuordnung.</p>
             </div>
@@ -687,7 +685,7 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             </div>
             <p class="note" id="farbenNote" hidden>Prototyp-Effekt: Farbfilter auf der Vorschau, keine KI-Ausgabe.</p>
             <div id="pane-details" class="toggles" hidden>
-              <div class="card tg"><span>Herz-Patch aus Kraftleder</span><button class="sw" type="button" aria-pressed="true" aria-label="Herz-Patch"></button></div>
+              <div class="card tg"><span>Herz-Patch aus Leder (oder SnapPap)</span><button class="sw" type="button" aria-pressed="true" aria-label="Herz-Patch"></button></div>
               <div class="card tg"><span>Innentasche aus T-Shirt</span><button class="sw" type="button" aria-pressed="true" aria-label="Innentasche"></button></div>
               <div class="card tg"><span>Boden 8 cm (steht von allein)</span><button class="sw" type="button" aria-pressed="true" aria-label="Boden"></button></div>
               <div class="card tg"><span>Druckknopfleiste als Deko behalten</span><button class="sw" type="button" aria-pressed="true" aria-label="Knopfleiste"></button></div>
@@ -701,7 +699,7 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
           <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span class="mid"><span class="stepl">Schritt 6 von 6</span><span class="prog"><i style="--p:1"></i></span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
           <div class="body center" style="justify-content:center;gap:18px">
             <h2 class="t big rise">Bist du zufrieden?</h2>
-            <p class="sub rise" style="--d:.05s">Dann geht's weiter zu deiner<br>Anleitung und deinem Schnittmuster.</p>
+            <p class="sub rise" style="--d:.05s">Dann geht’s weiter zu deiner<br>Anleitung und deinem Schnittmuster.</p>
             <div class="bloom rise" style="--d:.1s;width:150px;height:150px"><div class="ring"></div><div class="core"><svg class="checkmark" viewBox="0 0 24 24" style="width:60px;height:60px"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
             <div class="rise" style="--d:.3s"><span class="hand write" style="font-size:2.6rem">Aus Alt <span class="k">wird Neu</span> <span style="color:#2E6B4E">♥</span></span></div>
           </div>
@@ -716,29 +714,29 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             <p class="sub rise" style="--d:.05s">Schritt für Schritt zu deinem neuen Lieblingsstück.</p>
             <div class="seg rise" style="--d:.1s"><button type="button" aria-pressed="true" data-gtab="anleitung">Anleitung</button><button type="button" aria-pressed="false" data-gtab="muster">Schnittmuster</button></div>
             <div id="pane-anleitung" style="display:grid;gap:14px">
-              <div class="step rise" style="--d:.12s"><img src="img/step-cut.jpg" alt=""><div><span class="num">1</span><span class="tt">Zuschneiden</span><div class="d">Teile mit Schneiderkreide anzeichnen: A auf dem Rücken des Jeanskleids, B und C auf den Hosenbeinen, D und E auf dem T-Shirt. 1 cm Nahtzugabe ist schon enthalten. Ausschneiden.</div></div></div>
+              <div class="step rise" style="--d:.12s"><img src="img/step-cut.jpg" alt=""><div><span class="num">1</span><span class="tt">Zuschneiden</span><div class="d">Teile mit Schneiderkreide anzeichnen: A auf der Vorderseite des Jeanshemds, mittig über der Knopfleiste, B und C auf den Hosenbeinen, D und E auf dem T-Shirt. 1 cm Nahtzugabe ist schon enthalten. Ausschneiden.</div></div></div>
               <div class="step rise" style="--d:.18s"><img src="img/step-sew.jpg" alt=""><div><span class="num">2</span><span class="tt">Nähen</span><div class="d">Vorder- und Rückseite rechts auf rechts stecken, Seiten und Boden 1 cm breit mit Jeansnadel 100/16 steppen, Kanten versäubern. Henkel längs falten, bügeln, beidseitig knappkantig absteppen.</div></div></div>
-              <div class="step rise" style="--d:.24s"><img src="img/step-detail.jpg" alt=""><div><span class="num">3</span><span class="tt">Detailarbeiten</span><div class="d">Boden 8 cm abnähen. Blende aus Jersey an die obere Kante, Henkel 3 cm unter die Blende stecken und mit einem Kreuzkasten sichern. Innentasche und Herz-Patch aufnähen.</div></div></div>
+              <div class="step rise" style="--d:.24s"><img src="img/step-detail.jpg" alt=""><div><span class="num">3</span><span class="tt">Detailarbeiten</span><div class="d">Bodenecken auf 8 cm abnähen. Blende aus Jersey an die obere Kante, Henkel 3 cm unter die Blende stecken und mit einem Kastenkreuz (X-Box) festnähen. Innentasche und Herz-Patch aufnähen.</div></div></div>
               <div class="step rise" style="--d:.3s"><img src="img/step-done.jpg" alt=""><div><span class="num">4</span><span class="tt">Fertig!</span><div class="d">Wenden, Ecken ausformen, obere Kante bügeln. Deine Tasche „City Companion“ ist fertig.</div></div></div>
             </div>
             <div id="pane-muster" hidden style="display:grid;gap:12px">
               <div class="cutplan">
-                <div class="g"><img src="img/kind-shirt.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="18" y="30" width="54" height="60"/><text x="40" y="64">A</text></svg><span class="cap">Jeanskleid</span></div>
+                <div class="g"><img src="img/kind-shirt.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="37" y="50" width="42" height="58"/><text x="53" y="84">A</text></svg><span class="cap">Jeanshemd</span></div>
                 <div class="g"><img src="img/kind-tee.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="22" y="56" width="46" height="12"/><text x="42" y="66">D</text><rect x="26" y="74" width="30" height="26"/><text x="38" y="92">E</text></svg><span class="cap">T-Shirt</span></div>
-                <div class="g"><img src="img/kind-jeans.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="8" y="34" width="34" height="70"/><text x="22" y="72">B</text><rect x="50" y="24" width="14" height="88"/><text x="54" y="70">C</text></svg><span class="cap">Jeans</span></div>
+                <div class="g"><img src="img/kind-jeans.jpg" alt=""><svg viewBox="0 0 90 120"><rect x="20" y="30" width="34" height="74"/><text x="33" y="72">B</text><rect x="4" y="18" width="12" height="96"/><text x="6" y="70">C</text></svg><span class="cap">Jeans</span></div>
               </div>
               <div class="pieces">
-                <div class="card piece-row"><b>A</b><div><div class="nm">Vorderseite · 1×</div><div class="fr">Jeanskleid, Rücken, Knopfleiste bleibt vorne</div></div><span class="dim">36 × 40 cm</span></div>
+                <div class="card piece-row"><b>A</b><div><div class="nm">Vorderseite · 1×</div><div class="fr">Jeanshemd, Vorderseite, Knopfleiste bleibt mittig</div></div><span class="dim">36 × 40 cm</span></div>
                 <div class="card piece-row"><b>B</b><div><div class="nm">Rückseite · 1×</div><div class="fr">Jeans, Hosenbein, an der Innennaht geöffnet</div></div><span class="dim">36 × 40 cm</span></div>
                 <div class="card piece-row"><b>C</b><div><div class="nm">Henkel · 2×</div><div class="fr">Jeans, zweites Hosenbein</div></div><span class="dim">64 × 12 cm</span></div>
                 <div class="card piece-row"><b>D</b><div><div class="nm">Blende oben · 2×</div><div class="fr">T-Shirt, Vorderseite</div></div><span class="dim">36 × 6 cm</span></div>
                 <div class="card piece-row"><b>E</b><div><div class="nm">Innentasche · 1×</div><div class="fr">T-Shirt, Rückseite</div></div><span class="dim">18 × 16 cm</span></div>
               </div>
               <div class="card spec"><b>Fertig</b><span>ca. 34 × 36 cm, Boden 8 cm</span><b>Henkel</b><span>64 cm, 3 cm breit</span><b>Nadel</b><span>Jeansnadel 100/16</span><b>Druck</b><span>A4, 100 %, Testquadrat 5 cm</span></div>
-              <p class="note">Maße nach den Regeln des Stitch Switch Motors für Denim-Taschen; die Zuordnung der Teile kommt aus deinem Design.</p>
+              <p class="note">Maße nach den Regeln der Stitch-Switch-Engine für Denim-Taschen; die Zuordnung der Teile kommt aus deiner Stoffkombination.</p>
             </div>
           </div>
-          <div class="foot"><button class="btn" data-toast="Prototyp: hier wird das PDF gespeichert"><svg class="i"><use href="#i-down"/></svg>Speichern</button><button class="link" data-go="17">Nicht selbst machen? Hilfe in deiner Nähe</button></div>
+          <div class="foot"><button class="btn" data-toast="Prototyp: hier wird das PDF gespeichert"><svg class="i"><use href="#i-down"/></svg>Speichern</button><p class="note">Als PDF in deiner Bibliothek.</p><button class="link" data-go="17">Nicht selbst machen? Hilfe in deiner Nähe</button></div>
         </section>
 
         <!-- 17 Schneider:innen -->
@@ -759,20 +757,20 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             <div class="card place rise" style="--d:.2s"><div class="av"><svg class="i"><use href="#i-user"/></svg></div><div><div class="nm">Änderungsschneiderei Müller</div><div class="ds">1,2 km <span class="stars">★★★★★</span> (12)</div></div><svg class="i go"><use href="#i-chev"/></svg></div>
             <div class="card place rise" style="--d:.25s"><div class="av"><svg class="i"><use href="#i-user"/></svg></div><div><div class="nm">Atelier Nadel &amp; Faden</div><div class="ds">2,4 km <span class="stars">★★★★☆</span> (8)</div></div><svg class="i go"><use href="#i-chev"/></svg></div>
             <div class="card place rise" style="--d:.3s"><div class="av"><svg class="i"><use href="#i-user"/></svg></div><div><div class="nm">Schneiderei Kreativ</div><div class="ds">3,1 km <span class="stars">★★★★☆</span> (15)</div></div><svg class="i go"><use href="#i-chev"/></svg></div>
-            <p class="note">Beispiele aus deinem Entwurf; echte Einträge pflegt REWARE.</p>
+            <p class="note">Beispiel-Einträge · Prototyp</p>
           </div>
           <div class="foot"><button class="btn" data-go="18">Kontaktdetails anzeigen</button></div>
         </section>
 
-        <!-- 18 Juanita's Nähbox -->
+        <!-- 18 Juanita’s Nähbox -->
         <section class="scr pad" id="s18" data-n="18">
           <div class="top"><button class="ico" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><button class="ico" data-map aria-label="Screens"><svg><use href="#i-menu"/></svg></button></div>
           <div class="body center" style="gap:12px">
             <h2 class="t rise" style="text-align:left;align-self:stretch">Unterstützung<br>gewünscht?</h2>
-            <p class="sub rise" style="--d:.05s;text-align:left;align-self:stretch">Buche ein <b>Einzelcoaching</b> oder <b>einen Workshop</b> bei Juanita's Nähbox.</p>
+            <p class="sub rise" style="--d:.05s;text-align:left;align-self:stretch">Buche ein <b>Einzelcoaching</b> oder <b>einen Workshop</b> bei Juanita’s Nähbox.</p>
             <svg class="thread rise" style="--d:.1s" viewBox="0 0 90 24"><path d="M2 14c12-14 18 12 30 2s18-14 26-2 18 6 30-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M62 10l4-4 4 4-4 4z" fill="currentColor" opacity=".7"/></svg>
             <div class="arch rise" style="--d:.15s"><img src="img/juanita.jpg" alt="Juanita in ihrem Atelier"></div>
-            <div class="jlogo rise" style="--d:.25s">Juanita's Nähbox <span>♥</span></div>
+            <div class="jlogo rise" style="--d:.25s">Juanita’s Nähbox <span>♥</span></div>
             <p class="sub rise" style="--d:.3s;font-size:.9rem">Nähen verbindet Menschen.</p>
             <div class="checks rise" style="--d:.35s">
               <div><svg class="i"><use href="#i-check"/></svg>Persönliche Begleitung</div>
@@ -793,7 +791,7 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             <div class="card partner rise" style="--d:.15s"><span class="av">T</span><div><div class="nm">Textilwerkstatt Graz</div><div class="ds">Nachhaltige Stoffe und Restposten · 2,3 km</div></div><svg class="i go" style="color:var(--ink-3)"><use href="#i-chev"/></svg></div>
             <div class="card partner rise" style="--d:.2s"><span class="av">K</span><div><div class="nm">Kreativ Stoffe</div><div class="ds">Bio-Stoffe, Upcycling-Materialien · 3,0 km</div></div><svg class="i go" style="color:var(--ink-3)"><use href="#i-chev"/></svg></div>
             <div class="card partner rise" style="--d:.25s"><span class="av">S</span><div><div class="nm">Samen Köller</div><div class="ds">Naturmaterialien und Zubehör · 4,1 km</div></div><svg class="i go" style="color:var(--ink-3)"><use href="#i-chev"/></svg></div>
-            <p class="note">Beispiele aus deinem Entwurf; echte Partner pflegt REWARE.</p>
+            <p class="note">Beispiel-Partner · Prototyp</p>
           </div>
           <div class="foot"><button class="btn" data-go="20">Alle Partner anzeigen</button></div>
         </section>
@@ -805,12 +803,9 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
             <svg class="leafline rise" width="40" height="40" viewBox="0 0 90 90"><use href="#i-leaf"/></svg>
             <h2 class="t big rise" style="--d:.05s">Du machst<br>den Unterschied.</h2>
             <p class="sub rise" style="--d:.1s">Weniger Konsum.<br>Mehr Kreativität.<br>Eine bessere Zukunft.</p>
-            <div class="planet rise" style="--d:.15s"><div class="orb"></div><svg class="leaf" style="left:-18px;bottom:-6px"><use href="#i-leaf"/></svg><svg class="leaf r" style="right:-18px;bottom:-6px"><use href="#i-leaf"/></svg></div>
+            <div class="planet rise" style="--d:.15s"><div class="orb"></div><svg class="land" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 28c8-6 18-4 22 3s-2 14-10 15-14-2-16-8 0-7 4-10z M58 52c6-4 14-2 16 4s-4 12-11 11-10-5-9-9 2-5 4-6z M38 66c5-3 11 0 12 5s-5 8-10 6-6-8-2-11z" fill="rgba(255,255,255,.26)"/></svg><svg class="leaf" style="left:-18px;bottom:-6px"><use href="#i-leaf"/></svg><svg class="leaf r" style="right:-18px;bottom:-6px"><use href="#i-leaf"/></svg></div>
             <div class="rise" style="--d:.3s"><span class="hand write" style="font-size:2.2rem;color:var(--ink)">Jede Naht<br>erzählt eine Geschichte.</span></div>
-            <div class="card impact rise" style="--d:.4s">
-              <div class="k" style="display:grid;gap:2px"><span style="color:var(--ink)">Dein möglicher Beitrag</span><span>Schätzung · wenn die Tasche einen Neukauf ersetzt</span></div>
-              <div class="row"><div><b data-count="1500" data-prefix="ca. " data-suffix=" L">ca. 0 L</b><small>Wasser gespart</small></div><div><b data-count="3" data-prefix="ca. " data-suffix=" kg">ca. 0 kg</b><small>CO₂ vermieden</small></div><div><b data-count="600" data-prefix="ca. " data-suffix=" g">ca. 0 g</b><small>Textil gerettet</small></div></div>
-            </div>
+            <p class="note rise" style="--d:.4s">Jedes gerettete Teil zählt.</p>
             <div class="card proj rise" style="--d:.45s;width:100%;text-align:left"><img src="img/design-tote.jpg" alt=""><div><div class="nm">Tasche „City Companion“</div><div class="ds">Gespeichert · 4 Schritte · aus 3 Teilen</div></div></div>
             <p class="note">Dein Projekt ist gespeichert – und du bist Teil einer Bewegung für eine nachhaltigere Zukunft.</p>
           </div>
@@ -833,7 +828,7 @@ dialog.map .list button[aria-current="true"] b { color: #fff; }
 </dialog>
 
 <script>
-const TITLES = ['Startseite', 'App herunterladen', 'Preis', 'Willkommen', 'Konto erstellen', 'Konto bestätigt', 'Deine Maße', 'Beispiel Körpermaße', "Jetzt geht's los", 'Fotos hochladen / Idee', 'Kleidung fotografieren', 'Auswahl bestätigen', '2 Design-Vorschläge', 'Design anpassen', 'Bestätigung', 'Anleitung & Schnittmuster', 'Schneider:innen in der Nähe', "Juanita's Nähbox", 'Partner-Stoffgeschäfte', 'Fertig!'];
+const TITLES = ['Startseite', 'App herunterladen', 'Preis', 'Willkommen', 'Konto erstellen', 'Konto bestätigt', 'Deine Maße', 'Beispiel Körpermaße', "Jetzt geht’s los", 'Fotos hochladen / Idee', 'Kleidung fotografieren', 'Auswahl bestätigen', '2 Design-Vorschläge', 'Design anpassen', 'Bestätigung', 'Anleitung & Schnittmuster', 'Schneider:innen in der Nähe', "Juanita’s Nähbox", 'Partner-Stoffgeschäfte', 'Fertig!'];
 const app = document.getElementById('app');
 const screens = [...document.querySelectorAll('.scr')];
 let cur = 1; const hist = [];
@@ -884,13 +879,13 @@ app.addEventListener('click', e => {
 document.getElementById('mobileNav').addEventListener('click', () => document.getElementById('mapDlg').showModal());
 document.getElementById('mapClose').addEventListener('click', () => document.getElementById('mapDlg').close());
 document.getElementById('mapDlg').addEventListener('click', e => { if (e.target.id === 'mapDlg') e.target.close(); });
-document.addEventListener('keydown', e => { if (e.target.tagName === 'INPUT') return; if (e.key === 'ArrowRight' && cur < 20) go(cur + 1); if (e.key === 'ArrowLeft') back(); });
+document.addEventListener('keydown', e => { if (e.target.closest && e.target.closest('input, textarea') || document.getElementById('mapDlg').open) return; if (e.key === 'ArrowRight' && cur < 20) go(cur + 1); if (e.key === 'ArrowLeft') back(); });
 
 let toastT;
 function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1800); }
 
 /* 11: camera, three garments */
-const CAM = [['img/kind-shirt.jpg', 'Jeanskleid'], ['img/kind-tee.jpg', 'T-Shirt'], ['img/kind-jeans.jpg', 'Jeans']];
+const CAM = [['img/kind-shirt.jpg', 'Jeanshemd'], ['img/kind-tee.jpg', 'T-Shirt'], ['img/kind-jeans.jpg', 'Jeans']];
 let shot = 0;
 function resetCam() { shot = 0; document.getElementById('shots').innerHTML = ''; document.getElementById('camImg').src = CAM[0][0]; document.getElementById('camCount').textContent = '1 von 3'; document.getElementById('snapMain').textContent = 'Foto machen'; }
 function shoot() {
@@ -910,8 +905,9 @@ document.querySelectorAll('.thumbs .x, .item .x2').forEach(b => b.addEventListen
 
 /* 13: designs */
 const DESIGN = { tote: ['img/design-tote.jpg', 'Tasche „City Companion“'], vest: ['img/design-vest.jpg', 'Weste „New Favorite“'] };
+document.querySelectorAll('.design').forEach(d => { d.setAttribute('role', 'button'); d.tabIndex = 0; d.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); d.click(); } }); });
 document.querySelectorAll('.design').forEach(d => d.addEventListener('click', e => {
-  if (e.target.closest('.fav')) { e.target.closest('.fav').classList.toggle('on'); return; }
+  if (e.target.closest('.fav')) { const f = e.target.closest('.fav'); f.classList.toggle('on'); f.setAttribute('aria-pressed', f.classList.contains('on')); return; }
   document.querySelectorAll('.design').forEach(x => x.classList.toggle('sel', x === d));
   const [src, name] = DESIGN[d.dataset.design];
   document.getElementById('prev').src = src; document.getElementById('prev').alt = 'Vorschau: ' + name; document.getElementById('prevChip').textContent = name;
@@ -924,7 +920,7 @@ document.querySelectorAll('[data-dtab]').forEach(b => b.addEventListener('click'
   document.getElementById('farbenNote').hidden = b.dataset.dtab !== 'farben';
 }));
 const GCOL = { shirt: 'var(--denim)', tee: '#F4F1EA', jeans: 'var(--denim-light)' };
-const GNAME = { shirt: 'Jeanskleid', tee: 'T-Shirt', jeans: 'Jeans' };
+const GNAME = { shirt: 'Jeanshemd', tee: 'T-Shirt', jeans: 'Jeans' };
 const SCH = { front: 'sch-front', back: null, strap: 'sch-strap', band: 'sch-band' };
 document.querySelectorAll('.part .opts button').forEach(b => b.addEventListener('click', () => {
   const part = b.closest('.part'); part.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
