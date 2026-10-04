@@ -1265,6 +1265,18 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="foot"><button class="btn" data-go="foto">Zurück zum Prototyp</button></div>
 </section>
 
+<section class="scr day" id="s-schluessel" data-title="Live einrichten" data-group="Einrichtung">
+  <div class="top"><button class="icon-btn" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><span></span><span></span></div>
+  <div class="body">
+    <p class="t-title">Live-Modus einrichten.</p>
+    <p class="t-body muted lede">Füge hier den Gemini-Schlüssel ein. Er bleibt nur in diesem Browser gespeichert und steht nicht in der Seite. Ohne Schlüssel zeigt der Prototyp keinen Live-Teil.</p>
+    <div class="field"><label for="keyIn">Gemini-Schlüssel</label><input id="keyIn" type="password" autocomplete="off" spellcheck="false" placeholder="Schlüssel einfügen"></div>
+    <p class="t-small" id="keyState" aria-live="polite"></p>
+    <div class="note"><svg><use href="#i-note"/></svg><span>Der Schlüssel wird mit einer kurzen Testanfrage an Gemini geprüft. Auf einem fremden Gerät nach der Präsentation wieder entfernen.</span></div>
+  </div>
+  <div class="foot"><button class="btn" id="keySave">Speichern und testen</button><button class="link" id="keyDrop">Schlüssel entfernen</button></div>
+</section>
+
         </div>
       </div>
     </div>
@@ -1274,8 +1286,17 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
 <dialog class="map-dlg" id="mapDlg" aria-label="Alle Bildschirme"><div class="sheet"><div class="cap-row"><div class="mark" style="font-size:22px;color:var(--chalk)"><b>RE</b>WARE</div><button class="icon-btn" id="mapClose" aria-label="Schließen" style="color:var(--chalk)"><svg><use href="#i-x"/></svg></button></div><nav id="mapNav"></nav></div></dialog>
 
 <script>
-/* Live connection: the Cloudflare proxy holds the key; empty = live path hidden. */
-const LIVE = { base: "" };
+/* Live connection: straight to Gemini. The key is never in this file; it is pasted once on the presenting
+   device (#schluessel) and kept only in that browser. No key = live path hidden. */
+const KEY_STORE = "reware-gemini-key";
+const LIVE = { base: "https://generativelanguage.googleapis.com", key: (() => { try { return localStorage.getItem(KEY_STORE) || ""; } catch (e) { return ""; } })() };
+// Private presenter link …/reware2/#k=<key>: stores the key on this device and wipes it from the address bar at once.
+(() => {
+  const m = /^#k=([A-Za-z0-9._\-]{20,})$/.exec(location.hash); if (!m) return;
+  LIVE.key = m[1];
+  try { localStorage.setItem(KEY_STORE, m[1]); } catch (e) {}
+  history.replaceState(null, "", location.pathname + location.search + "#manifest");
+})();
 const READ_PATH = "/v1beta/models/gemini-3.5-flash-lite:generateContent";
 const IMAGE_PATH = "/v1beta/interactions";
 
@@ -1317,11 +1338,11 @@ $$(".scr[data-ch]:not(.chapter)").forEach(sec => {
 
 // Navigation
 const screens = $$("#app > .scr");
-const ids = screens.filter(s => LIVE.base || s.dataset.group !== "Live").map(s => s.id.slice(2));
+const ids = screens.filter(s => LIVE.key || s.dataset.group !== "Live").map(s => s.id.slice(2));
 const state = { project: "tote", look: "base", shots: 0, readDone: false, genDone: false };
 let cur = null; const hist = [];
 
-const shown = s => LIVE.base || s.dataset.group !== "Live";
+const shown = s => (LIVE.key || s.dataset.group !== "Live") && s.dataset.group !== "Einrichtung";
 function buildNav(target, onPick) {
   const groups = {};
   screens.forEach((s, i) => shown(s) && (groups[s.dataset.group] ||= []).push([s, i]));
@@ -1586,7 +1607,7 @@ const PICKS = { "tee.crop": "Crop-Top", "tee.tank": "Tanktop", "tee.tote": "Tasc
   "skirt.mini": "Minirock", "skirt.tote": "Tasche", "skirt.scrunchie": "Scrunchies", "flat.circleskirt": "Tellerrock", "flat.tote": "Tasche", "flat.cushion": "Kissenbezüge", "flat.apron": "Latzschürze", "flat.napkins": "Servietten" };
 const EN = {"tee.crop": "a crop top", "tee.tank": "a tank top", "tee.tote": "a no-sew tote bag", "tee.scrunchie": "a set of scrunchies", "tee.headband": "a twisted headband", "shirt.skirt": "a gathered skirt", "shirt.crop": "a cropped shirt", "shirt.apron": "a half apron", "shirt.pillow": "a button-front cushion cover", "shirt.tote": "a tote bag", "jeans.tote": "a denim tote bag", "jeans.skirt": "a denim mini skirt", "jeans.shorts": "cut-off shorts", "jeans.apron": "a work apron", "jeans.pouch": "a crossbody pouch", "jeans.bucket": "a bucket hat", "trousers.shorts": "tailored shorts", "trousers.skirt": "a pencil skirt", "trousers.tote": "a tote bag", "sweater.vest": "a cropped sweater vest", "sweater.beanie": "a rib-brim beanie", "sweater.mittens": "a pair of mittens", "sweater.cushion": "a cushion cover", "sweater.legwarmers": "a pair of leg warmers", "sweater.crop": "a cropped jumper", "sweatshirt.crop": "a cropped sweatshirt", "sweatshirt.sleeveless": "a sleeveless muscle top", "sweatshirt.cushion": "a cushion cover", "sweatshirt.tote": "a tote bag", "dress.top": "a top", "dress.skirt": "an elastic-waist skirt", "dress.tote": "a tote bag", "dress.scrunchie": "a set of scrunchies", "skirt.mini": "a mini skirt", "skirt.tote": "a tote bag", "skirt.scrunchie": "a set of scrunchies", "flat.circleskirt": "a circle skirt", "flat.tote": "a tote bag", "flat.cushion": "cushion covers", "flat.apron": "a bib apron", "flat.napkins": "a set of napkins"};
 let live = { jpeg: null, reading: null, pick: null };
-if (LIVE.base) $("#liveLink").hidden = false;
+if (LIVE.key) $("#liveLink").hidden = false;
 
 function toJpeg(file) {
   return new Promise((ok, no) => { const img = new Image(), url = URL.createObjectURL(file); img.onload = () => {
@@ -1597,12 +1618,12 @@ function toJpeg(file) {
 }
 async function post(path, body, ms) {
   const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), ms);
-  try { const r = await fetch(LIVE.base + path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal: ctl.signal });
+  try { const r = await fetch(LIVE.base + path, { method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": LIVE.key }, body: JSON.stringify(body), signal: ctl.signal });
     if (!r.ok) throw new Error(r.status); return await r.json(); } finally { clearTimeout(t); }
 }
 const liveErr = msg => $("#liveOut").innerHTML = `<p class="sheet-note">${msg}</p>`;
 $("#liveFile").addEventListener("change", async e => {
-  const f = e.target.files[0]; e.target.value = ""; if (!f || !LIVE.base) return;
+  const f = e.target.files[0]; e.target.value = ""; if (!f || !LIVE.key) return;
   try { live.jpeg = await toJpeg(f); } catch (err) { return liveErr("Dieses Foto kann der Browser nicht öffnen. Versuch es mit einem JPG oder PNG."); }
   $("#liveFile").disabled = true;
   $("#drop").querySelectorAll("img,svg.box").forEach(x => x.remove());
@@ -1646,6 +1667,26 @@ $("#liveGo").onclick = async () => {
   } catch (e) { $("#liveOut .gen-err")?.remove(); $("#liveOut").insertAdjacentHTML("beforeend", '<p class="sheet-note gen-err">Die Vorschau konnte gerade nicht erzeugt werden. Versuch es gleich noch einmal.</p>'); }
   btn.disabled = false; $("#liveFile").disabled = false; btn.textContent = "Vorschau erzeugen";
 };
+
+// Live set-up: test the key with one tiny text call, then keep it in this browser only
+function keyMsg(t, ok) { const k = $("#keyState"); k.textContent = t; k.style.color = ok ? "var(--sage-deep)" : "var(--pin)"; }
+$("#keySave").onclick = async () => {
+  const key = $("#keyIn").value.trim(); if (!key) return keyMsg("Bitte zuerst den Schlüssel einfügen.");
+  const b = $("#keySave"); b.disabled = true; b.innerHTML = '<span class="spinner"></span>Wird geprüft …';
+  try {
+    const r = await fetch(LIVE.base + READ_PATH, { method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": key },
+      body: JSON.stringify({ contents: [{ parts: [{ text: "Antworte nur mit OK." }] }] }) });
+    if (!r.ok) throw new Error(r.status);
+    try { localStorage.setItem(KEY_STORE, key); } catch (e) { return keyMsg("Dieser Browser erlaubt kein Speichern. Bitte einen normalen (nicht privaten) Tab verwenden."); }
+    keyMsg("Live ist eingerichtet. Die Seite lädt neu …", true);
+    setTimeout(() => { location.hash = "#live"; location.reload(); }, 900);
+  } catch (e) {
+    keyMsg(/^(400|401|403)$/.test(e.message) ? "Gemini lehnt diesen Schlüssel ab. Bitte den Schlüssel prüfen." : "Keine Verbindung zu Gemini. Internet prüfen und noch einmal versuchen.");
+  }
+  b.disabled = false; b.textContent = "Speichern und testen";
+};
+$("#keyDrop").onclick = () => { try { localStorage.removeItem(KEY_STORE); } catch (e) {} $("#keyIn").value = ""; keyMsg("Schlüssel entfernt.", true); setTimeout(() => { location.hash = "#manifest"; location.reload(); }, 700); };
+if (LIVE.key) keyMsg("In diesem Browser ist ein Schlüssel gespeichert.", true);
 
 // Start
 const first = location.hash.slice(1);
