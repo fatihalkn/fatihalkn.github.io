@@ -446,6 +446,7 @@ body.present .side{visibility:hidden}
 .steps{display:flex;flex-direction:column;gap:var(--s3)}
 .step{display:grid;grid-template-columns:112px 1fr;gap:var(--s3);align-items:start}
 .step .print{height:120px}
+.step-wait{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-3)}
 .step .num{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .step .num i{width:26px;height:26px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 1.5px var(--ink),inset 0 0 0 4px var(--card),inset 0 0 0 5px rgba(15,36,31,.25);font:600 12px/26px var(--serif);font-style:normal;text-align:center}
 .step h5{font:600 17px/1.2 var(--serif)}
@@ -1736,12 +1737,12 @@ const EVENT = LIVE_ON && (() => {
   const on = location.hash === "#live" || location.hash === "#mitmachen";
   try { if (on) sessionStorage.setItem("reware-event", "1"); return on || sessionStorage.getItem("reware-event") === "1"; } catch (e) { return on; }
 })();
-const ev = { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, preview: null };
+const ev = { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, preview: null, guide: null, stepPics: {} };
 if (EVENT) {
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const BSP = '<div class="note ev-bsp"><svg><use href="#i-note"/></svg><span><b>Beispiel.</b> So soll dieser Schritt in der REWARE-App aussehen – hier mit Beispielinhalten. Live war eben: dein Foto, die Ideen und deine Vorschau.</span></div>';
   const resetEvent = () => {
-    Object.assign(ev, { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, preview: null });
+    Object.assign(ev, { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, preview: null, guide: null, stepPics: {} });
     $("#evDrop").querySelectorAll("img").forEach(x => x.remove()); $("#evHint").hidden = false; $("#fotoNext").disabled = true;
     $("#evPrev").hidden = true; $("#evNote").innerHTML = ""; $("#pickDesign").textContent = "Vorschau erzeugen";
   };
@@ -1848,7 +1849,7 @@ if (EVENT) {
     evMsg("Das kann bis zu einer Minute dauern. Bitte lass diese Seite so lange offen.", "t-small muted");
     try {
       const src = await makePreview();
-      ev.preview = { pick: ev.pick, src }; $("#zufImg").src = src; if (!LIVE.key) countOne();
+      ev.preview = { pick: ev.pick, src }; ev.stepPics = {}; $("#zufImg").src = src; if (!LIVE.key) countOne();
       $("#evNote").innerHTML = ""; showPick(); reveal($("#evPrev"));
     } catch (e) {
       evMsg(e.message === "no image" ? "Für dieses Foto ist keine Vorschau entstanden. Versuch eine andere Idee oder ein anderes Foto – nur das Kleidungsstück, ohne Personen."
@@ -1858,10 +1859,93 @@ if (EVENT) {
     pick.disabled = false;
   };
 
-  // Bist du zufrieden? shows their preview; the steps after it are examples
+  // REmake with the visitor's garment: a sewing guide written from the photo and step pictures of their own piece
+  async function loadGuide() {
+    const what = EN[ev.pick] || PICKS[ev.pick];
+    const prompt = `You are a sewing teacher. The photo shows one garment that someone wants to turn into ${what} at home. Answer in German, for a beginner, ` +
+      `based only on what you can see in the photo. steps: exactly 4 steps with the titles "Zuschneiden", "Detailarbeiten", "Nähen" and "Fertig"; each 2 or 3 short, ` +
+      `practical sentences about this garment (its fabric, seams and the details worth keeping). pieces: the 2 to 5 pieces to cut from this garment, each with a name, ` +
+      `an approximate size estimated from the photo written like "ca. 40 × 45 cm", and the part of the garment it comes from. materials: 3 to 6 things needed besides ` +
+      `the garment (thread, the right needle, elastic and so on). No brand names. Do not invent details you cannot see.`;
+    const schema = { type: "OBJECT", properties: {
+      steps: { type: "ARRAY", items: { type: "OBJECT", properties: { title: { type: "STRING" }, text: { type: "STRING" } }, required: ["title", "text"] } },
+      pieces: { type: "ARRAY", items: { type: "OBJECT", properties: { name: { type: "STRING" }, size: { type: "STRING" }, from: { type: "STRING" } }, required: ["name", "size", "from"] } },
+      materials: { type: "ARRAY", items: { type: "STRING" } } }, required: ["steps", "pieces", "materials"] };
+    const r = await post(READ_PATH, { contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: "image/jpeg", data: ev.jpeg.split(",")[1] } }] }],
+      generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: .3 } }, 90000,
+      { kind: "guide", image: ev.jpeg.split(",")[1], pick: ev.pick, ticket: ev.ticket });
+    return JSON.parse(r.candidates[0].content.parts.find(p => p.text).text);
+  }
+  async function stepPicture(n) {
+    const what = EN[ev.pick] || PICKS[ev.pick];
+    const scene = [
+      `Photograph from above of this exact garment from the first photo, laid flat on a table, with chalk lines and a few pins marking where it will be cut to make ${what}; fabric scissors and a tape measure lie beside it.`,
+      `Photograph of the cut pieces of this exact garment from the first photo being prepared for ${what}: hands pinning or adding a detail on a table, an iron nearby.`,
+      `Photograph of this exact garment's fabric being sewn into ${what} at a home sewing machine, the piece starting to look like the second photo.`][n - 1];
+    const prompt = scene + " Same fabric, colours, pattern and details as the first photo. Realistic home sewing scene, soft daylight. No text, no lettering, no numbers, no logos, no faces.";
+    const target = ev.preview.src.split(",")[1];
+    const r = await post(IMAGE_PATH, { model: "gemini-3.1-flash-image", input: [{ type: "text", text: prompt }, { type: "image", mime_type: "image/jpeg", data: ev.jpeg.split(",")[1] },
+      { type: "image", mime_type: "image/jpeg", data: target }], response_format: { type: "image", mime_type: "image/jpeg", aspect_ratio: "4:5", image_size: "1K" }, store: false }, 150000,
+      { kind: "step", image: ev.jpeg.split(",")[1], target, pick: ev.pick, step: n, ticket: ev.ticket });
+    const img = (r.steps || r.outputs || []).flatMap(st => st.content || []).find(c => c.type === "image");
+    if (!img) throw new Error("no image");
+    return "data:image/jpeg;base64," + img.data;
+  }
+  const an = $("#s-anleitung");
+  $('.foot .link', an).hidden = true;   // no PDF in the prototype: the printable pattern comes from the app's engine
+  const renderGuide = () => {
+    const g = ev.guide, title = PICKS[ev.pick] || "";
+    $(".lede", an).textContent = `${title}: Schritt für Schritt aus deinem Stück.`;
+    $("#g-anleitung").innerHTML = `<span class="t-label faint">Bilder: KI-Vorschau aus deinem Foto · Text: KI aus deinem Foto</span>` + g.steps.slice(0, 4).map((st, i) =>
+      `<div class="step"><span class="print">${i === 3 || ev.stepPics[i + 1] ? `<img data-step="${i + 1}" src="${i === 3 ? ev.preview.src : ev.stepPics[i + 1]}" alt="${esc(st.title)}">`
+        : `<img data-step="${i + 1}" hidden alt="${esc(st.title)}"><span class="step-wait"><span class="spinner"></span></span>`}</span><div><div class="num"><i>${i + 1}</i><h5>${esc(st.title)}</h5></div><p>${esc(st.text)}</p></div></div>`).join("");
+    $("#g-muster").innerHTML = `<div class="print" style="max-width:220px;align-self:center"><img src="${ev.jpeg}" alt="Dein Kleidungsstück"></div>
+      <span class="t-label faint">Teile zum Zuschneiden · KI-Schätzung aus deinem Foto</span>
+      <ul class="plist">${g.pieces.map(p => `<li style="display:block"><b>${esc(p.name)}</b> · ${esc(p.size)}<br><small class="muted">aus: ${esc(p.from)}</small></li>`).join("")}</ul>
+      <span class="t-label faint">Material</span><ul class="plist">${g.materials.map(m => `<li style="display:block">${esc(m)}</li>`).join("")}</ul>
+      <div class="note"><svg><use href="#i-note"/></svg><span>Die Größen sind aus dem Foto geschätzt. In der fertigen App kommen die genauen Maße und das Schnittmuster zum Ausdrucken aus der Engine.</span></div>`;
+  };
+  // Step pictures 1-3, one after another. Each is asked for once (going back and forth does not ask again); a failed one gets
+  // its own retry. ev.stepPics is replaced when the idea changes, so a loop still running for an older idea stops by itself.
+  const showStep = n => { const im = $(`#g-anleitung img[data-step="${n}"]`); if (!im || !ev.stepPics[n]) return;
+    im.src = ev.stepPics[n]; im.hidden = false; const w = im.parentNode.querySelector(".step-wait"); if (w) w.remove(); };
+  const waitFrame = (n, on) => { const im = $(`#g-anleitung img[data-step="${n}"]`), w = im && im.parentNode.querySelector(".step-wait"); if (w) w.innerHTML = on ? '<span class="spinner"></span>' : ""; };
+  const drawStep = async n => {
+    const pics = ev.stepPics; if (pics[n] || pics["wait" + n]) return showStep(n);
+    pics["wait" + n] = true; $$(`#g-anleitung [data-err="${n}"]`).forEach(x => x.remove()); waitFrame(n, true);
+    try { pics[n] = await stepPicture(n); }
+    catch (e) {
+      const im = ev.stepPics === pics && $(`#g-anleitung img[data-step="${n}"]`);
+      if (im) { waitFrame(n, false); im.closest(".step").lastElementChild.insertAdjacentHTML("beforeend", `<p class="t-small muted" data-err="${n}">${esc(relayMsg(e.message, "Das Bild ist gerade nicht entstanden."))} <button class="link" data-redraw="${n}">Noch einmal</button></p>`); }
+    }
+    pics["wait" + n] = false; if (ev.stepPics === pics) showStep(n);
+  };
+  const drawSteps = async () => { const pics = ev.stepPics; for (let n = 1; n <= 3 && ev.stepPics === pics; n++) await drawStep(n); };
+  $("#g-anleitung").addEventListener("click", e => { const b = e.target.closest("[data-redraw]"); if (b) drawStep(+b.dataset.redraw); });
+  ENTER.anleitung = async () => {
+    if (!ev.preview) return;
+    if (ev.guide && ev.guide.pick === ev.pick) { renderGuide(); return drawSteps(); }
+    ev.stepPics = {};
+    $(".lede", an).textContent = "Deine Anleitung wird aus deinem Foto geschrieben …";
+    $("#g-anleitung").innerHTML = `<div class="cap-row"><span class="t-label muted">Wird geschrieben …</span><span class="spinner"></span></div>`;
+    $("#g-muster").innerHTML = "";
+    try { ev.guide = await loadGuide(); ev.guide.pick = ev.pick; }
+    catch (e) { $("#g-anleitung").innerHTML = `<p class="sheet-note">${esc(relayMsg(e.message, "Die Anleitung konnte gerade nicht geschrieben werden – vielleicht probieren viele gleichzeitig."))}</p><button class="link" id="evGuideAgain" style="align-self:flex-start">Noch einmal versuchen</button>`;
+      $("#evGuideAgain").onclick = () => ENTER.anleitung(); return; }
+    renderGuide(); drawSteps();
+  };
+  ENTER.zeigen = (orig => () => { orig(); if (!ev.preview) return;
+    $("#zeigImg").src = $("#ghostImg").src = ev.preview.src;
+    $$(".src-chip").forEach(c => { c.textContent = "KI-Vorschau"; c.className = "chip ai src-chip"; }); })(ENTER.zeigen);
+  ENTER.fertig = () => {
+    if (!ev.preview) return;
+    $("#doneImg").src = ev.preview.src; $("#sumImg").src = ev.preview.src; $("#doneImg").style.objectPosition = "50% 50%";
+    $("#sumTitle").textContent = PICKS[ev.pick] || ""; $("#sumMeta").textContent = "aus deinem Stück · 4 Schritte";
+  };
+  // Bist du zufrieden? shows their preview
   ENTER.zufrieden = () => { if (ev.preview) $("#zufImg").src = ev.preview.src; };
   $("#s-zufrieden .foot .link").removeAttribute("data-back"); $("#s-zufrieden .foot .link").dataset.go = "designs";
-  ["anpassen", "anleitung", "schneider", "naehbox", "partner", "zeigen", "fertig", "rep-was", "rep-stelle", "rep-plan", "rep-anleitung", "rep-eng"].forEach(id => $("#s-" + id + " .body").insertAdjacentHTML("afterbegin", BSP));
+  ["anpassen", "schneider", "naehbox", "partner", "rep-was", "rep-stelle", "rep-plan", "rep-anleitung", "rep-eng"].forEach(id => $("#s-" + id + " .body").insertAdjacentHTML("afterbegin", BSP));
 }
 const first = location.hash.slice(1);
 go(EVENT ? "weg" : ids.includes(first) ? first : "manifest", "jump"); hist.length = 0;
