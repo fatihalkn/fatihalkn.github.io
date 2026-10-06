@@ -1304,7 +1304,7 @@ const LIVE = { base: "https://generativelanguage.googleapis.com", key: (() => { 
 })();
 // Event relay (Google Apps Script web app, Tools/proxy/reware-live-relay.gs): visitors try the live part on their own phones;
 // the key stays on Google's side and a daily ceiling caps the bill. Empty = presenter key only, as before.
-const RELAY = "https://script.google.com/macros/s/AKfycbxIl5r2LPI7--TN55BBbSy5tKsww7zSmSAXUW-FORdK3j7SxbeHeFRYBlcsnAhvLUmL/exec";
+const RELAY = "https://script.google.com/macros/s/AKfycby18iB4ZUUXHhXL55IJAFNdDr4vUdDn13FgzLFXdzWjwXtkUjWXu_f9li9XZXjqHZak/exec";
 const LIVE_ON = !!(LIVE.key || RELAY);
 const READ_PATH = "/v1beta/models/gemini-3.5-flash-lite:generateContent";
 const IMAGE_PATH = "/v1beta/interactions";
@@ -1640,15 +1640,44 @@ async function post(path, body, ms, relay) {
       if (!r.ok) throw new Error(r.status === 429 ? 503 : r.status); return await r.json(); }
     // Relay: plain-text POST (no preflight); Apps Script answers through a redirect that fetch follows. Only the photo and the
     // chosen idea travel; the relay writes the prompts itself (Tools/proxy/reware-live-relay.gs).
-    // Apps Script sometimes loses the answer and bounces to its GET handler ({"ok":true,...}): ask once more.
-    for (let attempt = 0; attempt < 2; attempt++) {
-      const r = await fetch(RELAY, { method: "POST", body: JSON.stringify(relay), signal: ctl.signal });
-      let j = null; try { j = await r.json(); } catch (e) {}
-      if (!j || (j.ok === true && !j.candidates && !j.steps && !j.outputs)) continue;
-      if (j.error) throw new Error(j.error.code || "relay"); return j;
-    }
-    throw new Error("relay");
+    return await relayCall(relay, ctl.signal);
   } finally { clearTimeout(t); }
+}
+// Apps Script sometimes loses that redirect (measured 6 Oct: about 1 POST answer in 3; it then shows a Drive "file not found" page
+// or bounces to the GET health check). Each call therefore carries a random id; the relay keeps its answer for 5 minutes and a
+// lost answer is fetched again by GET with that id. The paid call is never sent twice: a repeated POST with the same id is answered
+// from the kept copy.
+// Any JSON other than "still running", the health check or an error is the final answer, also one without candidates (Gemini may
+// block a photo); the callers decide what it means. Only a Drive page, a bounce to the health check or "pending" means: ask again.
+const isAnswer = j => !!(j && typeof j === "object" && !j.error && !j.pending && !(j.ok === true && j.service));
+// A call that ended without a clear answer (time ran out, the phone froze the page in the background, the kept copy could not be
+// fetched) may still finish on the relay and be kept there. Its id is remembered for 4.5 minutes, so trying the same
+// thing again fetches that copy instead of paying twice (the relay keeps answers 5 minutes).
+const openRids = new Map();
+const callKey = relay => [relay.kind, relay.pick || "", relay.step || "", (relay.image || "").length, (relay.image || "").slice(-48), (relay.target || "").length].join("|");
+const pause = (ms, signal) => new Promise((ok, no) => { const t = setTimeout(ok, ms);
+  signal.addEventListener("abort", () => { clearTimeout(t); no(new DOMException("aborted", "AbortError")); }, { once: true }); });
+const newRid = () => { const b = crypto.getRandomValues(new Uint8Array(18)); return btoa(String.fromCharCode(...b)).replace(/\+/g, "-").replace(/\//g, "_"); };
+async function relayCall(relay, signal) {
+  const key = callKey(relay), open = openRids.get(key), reuse = open && Date.now() - open.t < 270000;
+  const rid = reuse ? open.rid : newRid(); if (!reuse) openRids.set(key, { rid, t: Date.now() });
+  const done = () => { openRids.delete(key); };
+  const body = JSON.stringify(Object.assign({}, relay, { rid }));
+  const read = async (url, opts) => { try { const r = await fetch(url, Object.assign({ signal }, opts)); try { return await r.json(); } catch (e) { return null; } }
+    catch (e) { if (signal.aborted) throw e; return null; } };   // a network error may still have reached the relay: ask by id
+  for (let posts = 0; posts < 2; posts++) {
+    const j = await read(RELAY, { method: "POST", body });
+    if (isAnswer(j)) { done(); return j; }
+    if (j && j.error) { done(); throw new Error(j.error.code || "relay"); }
+    for (let i = 0; ; i++) {                            // lost, still running or a network error: fetch the kept answer until
+      await pause(i ? 2500 : 700, signal);              // the caller's time runs out (pause and fetch end with the abort)
+      const g = await read(RELAY + "?rid=" + rid);
+      if (isAnswer(g)) { done(); return g; }
+      if (g && g.error && g.error.code === 404) break;  // the relay never got this call (or the copy expired): send it again
+      if (g && g.error && g.error.code !== 500) { done(); throw new Error(g.error.code || "relay"); }
+    }                                                   // pending, a passing 500, the health check or a Drive page: ask again
+  }
+  throw new Error("relay");
 }
 const liveErr = msg => { $("#liveOut").innerHTML = `<p class="sheet-note">${msg}</p>`; reveal($("#liveOut")); };
 const onPhoto = async e => {
@@ -1737,12 +1766,14 @@ const EVENT = LIVE_ON && (() => {
   const on = location.hash === "#live" || location.hash === "#mitmachen";
   try { if (on) sessionStorage.setItem("reware-event", "1"); return on || sessionStorage.getItem("reware-event") === "1"; } catch (e) { return on; }
 })();
-const ev = { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, preview: null, guide: null, stepPics: {} };
+// previews: idea id -> { pick, src, jpeg, ticket, guide, guideP, pics }; preview: the one the visitor went on with ("Weiter").
+// Guide and step pictures belong to that preview, so a later idea change never mixes them and coming back never pays again.
+const ev = { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, previews: {}, preview: null };
 if (EVENT) {
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const BSP = '<div class="note ev-bsp"><svg><use href="#i-note"/></svg><span><b>Beispiel.</b> So soll dieser Schritt in der REWARE-App aussehen – hier mit Beispielinhalten. Live war eben: dein Foto, die Ideen und deine Vorschau.</span></div>';
   const resetEvent = () => {
-    Object.assign(ev, { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, preview: null, guide: null, stepPics: {} });
+    Object.assign(ev, { jpeg: null, read: null, reading: null, ticket: "", picks: [], pick: null, previews: {}, preview: null });
     $("#evDrop").querySelectorAll("img").forEach(x => x.remove()); $("#evHint").hidden = false; $("#fotoNext").disabled = true;
     $("#evPrev").hidden = true; $("#evNote").innerHTML = ""; $("#pickDesign").textContent = "Vorschau erzeugen";
   };
@@ -1756,16 +1787,18 @@ if (EVENT) {
     picks: { type: "ARRAY", items: { type: "OBJECT", properties: { id: { type: "STRING", enum: Object.keys(PICKS) }, reason: { type: "STRING" } }, required: ["id", "reason"] } } },
     required: ["isGarment", "name", "fabric", "weight", "stretchy", "condition", "features", "box", "picks"] };
     const r = await post(READ_PATH, { contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: "image/jpeg", data: jpeg.split(",")[1] } }] }],
-      generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: .2 } }, 90000, { kind: "read", image: jpeg.split(",")[1] });
-    const reading = JSON.parse(r.candidates[0].content.parts.find(p => p.text).text);
+      generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: .2 } }, 150000, { kind: "read", image: jpeg.split(",")[1] });
+    const part = r.candidates && r.candidates[0] && r.candidates[0].content && (r.candidates[0].content.parts || []).find(p => p.text);
+    if (!part) return { reading: { isGarment: false }, ticket: "", picks: [] };   // answered without a reading (e.g. a blocked photo)
+    const reading = JSON.parse(part.text);
     return { reading, ticket: r.ticket || "", picks: (reading.picks || []).filter(p => PICKS[p.id]).slice(0, 3) };
   }
-  async function makePreview() {
-    const what = EN[ev.pick] || PICKS[ev.pick];
-    const prompt = `Photograph of an upcycled garment. Take this exact ${ev.reading.name} — the same fabric, colours, pattern, texture and details — and show it after it was cut apart and re-sewn at home into ${what}. Keep the same background, the same light and the same camera angle as this photo. A realistic photo of a handmade piece: believable seams, no text, no lettering, no logos, no people, no mannequin.`;
-    const r = await post(IMAGE_PATH, { model: "gemini-3.1-flash-image", input: [{ type: "text", text: prompt }, { type: "image", mime_type: "image/jpeg", data: ev.jpeg.split(",")[1] }],
+  async function makePreview(pick, jpeg, ticket) {
+    const what = EN[pick] || PICKS[pick];
+    const prompt = `Photograph of an upcycled garment. Take this exact ${(ev.reading && ev.reading.name) || "garment"} — the same fabric, colours, pattern, texture and details — and show it after it was cut apart and re-sewn at home into ${what}. Keep the same background, the same light and the same camera angle as this photo. A realistic photo of a handmade piece: believable seams, no text, no lettering, no logos, no people, no mannequin.`;
+    const r = await post(IMAGE_PATH, { model: "gemini-3.1-flash-image", input: [{ type: "text", text: prompt }, { type: "image", mime_type: "image/jpeg", data: jpeg.split(",")[1] }],
       response_format: { type: "image", mime_type: "image/jpeg", aspect_ratio: "4:5", image_size: "1K" }, store: false }, 150000,
-      { kind: "image", image: ev.jpeg.split(",")[1], pick: ev.pick, ticket: ev.ticket });
+      { kind: "image", image: jpeg.split(",")[1], pick, ticket });
     const img = (r.steps || r.outputs || []).flatMap(st => st.content || []).find(c => c.type === "image");
     if (!img) throw new Error("no image");
     return "data:image/jpeg;base64," + img.data;
@@ -1804,13 +1837,16 @@ if (EVENT) {
     const info = h => { $("#evRead .info").innerHTML = h; $("#evRead").classList.add("on"); };
     if (!ev.read) { chip.textContent = "kein Foto"; return info(`<span class="state">Noch kein Foto</span><h5>Fotografiere zuerst ein Kleidungsstück.</h5>`); }
     chip.textContent = "wird gelesen";
+    const p = ev.read;
     try {
-      const res = await ev.read; Object.assign(ev, res);
+      const res = await p; if (ev.read !== p) return;   // a newer photo (or a restart) took over; its own reading fills the screen
+      Object.assign(ev, res);
       const j = res.reading;
       if (!j.isGarment || !res.picks.length) { chip.textContent = "nicht erkannt"; return info(`<span class="state">Kein Kleidungsstück erkannt</span><h5>Auf diesem Foto erkennt die KI kein Kleidungsstück.</h5><p class="t-small muted">Versuch es mit einem Stück, flach ausgelegt und ganz im Bild.</p>`); }
       info(`<span class="state">Dein Stück · gelesen</span><h5>${esc(j.name)}</h5><span class="wlabel">${esc(j.fabric)} · ${esc(j.weight)} · ${j.stretchy ? "dehnbar" : "fest"}</span><div class="feat">${(j.features || []).map(x => `<span>${esc(x)}</span>`).join("")}</div>`);
       chip.textContent = "gelesen"; next.disabled = false;
     } catch (err) {
+      if (ev.read !== p) return;
       chip.textContent = "nicht gelesen";
       info(`<span class="state">Nicht gelesen</span><h5>${esc(relayMsg(err.message, "Das hat gerade nicht geklappt – vielleicht probieren viele gleichzeitig."))}</h5><button class="link" id="evRetry" style="align-self:flex-start">Noch einmal lesen</button>`);
       $("#evRetry").onclick = () => { ev.read = readGarment(ev.jpeg); ev.read.catch(() => {}); ENTER.auswahl(); };
@@ -1829,40 +1865,50 @@ if (EVENT) {
   const evMsg = (t, cls = "sheet-note") => { $("#evNote").innerHTML = `<p class="${cls}">${t}</p>`; reveal($("#evNote")); };
   const showPick = () => {
     $$("#evPicks button").forEach(b => b.setAttribute("aria-pressed", b.dataset.pick === ev.pick));
-    const done = ev.preview && ev.preview.pick === ev.pick;
-    $("#evPrev").hidden = !done; if (done) { $("#evImg").src = ev.preview.src; $("#evChip").textContent = "KI-Vorschau · " + PICKS[ev.pick]; }
-    pick.textContent = done ? "Weiter" : "Vorschau erzeugen";
+    const pv = ev.previews[ev.pick];
+    $("#evPrev").hidden = !pv; if (pv) { $("#evImg").src = pv.src; $("#evChip").textContent = "KI-Vorschau · " + PICKS[pv.pick]; }
+    pick.textContent = pv ? "Weiter" : "Vorschau erzeugen";
   };
+  let busyFor = null;   // the photo whose preview is being made: the idea cards and the button wait meanwhile
+  const busy = () => busyFor !== null && busyFor === ev.jpeg;
+  const showBusy = () => { pick.disabled = true; pick.innerHTML = '<span class="spinner"></span>Vorschau entsteht …';
+    evMsg("Das kann bis zu einer Minute dauern. Bitte lass diese Seite so lange offen.", "t-small muted"); };
   ENTER.designs = () => {
     $("#gen").classList.add("off");
     if (!ev.picks.length) { $("#evPicks").innerHTML = ""; pick.disabled = true; return evMsg("Noch keine Ideen: fotografiere zuerst ein Kleidungsstück."); }
-    pick.disabled = false;
     if (!ev.pick || !ev.picks.some(p => p.id === ev.pick)) ev.pick = ev.picks[0].id;
     $("#evPicks").innerHTML = ev.picks.map((p, i) => `<button data-pick="${p.id}"><b>Idee ${i + 1} · ${PICKS[p.id]}</b><small>${esc(p.reason)}</small></button>`).join("");
-    $$("#evPicks button").forEach(b => b.onclick = () => { ev.pick = b.dataset.pick; $("#evNote").innerHTML = ""; showPick(); });
+    $$("#evPicks button").forEach(b => b.onclick = () => { if (busy()) return; ev.pick = b.dataset.pick; $("#evNote").innerHTML = ""; showPick(); });
     showPick();
+    if (busy()) showBusy(); else pick.disabled = false;
   };
   pick.onclick = async () => {
-    if (ev.preview && ev.preview.pick === ev.pick) return go("zufrieden");
+    if (busy()) return;
+    const have = ev.previews[ev.pick];
+    if (have) { ev.preview = have; return go("zufrieden"); }
     if (!LIVE.key && usedToday() >= PER_DEVICE) return evMsg(DEVICE_MSG);
-    pick.disabled = true; pick.innerHTML = '<span class="spinner"></span>Vorschau entsteht …';
-    evMsg("Das kann bis zu einer Minute dauern. Bitte lass diese Seite so lange offen.", "t-small muted");
+    const forPick = ev.pick, jpeg = ev.jpeg, ticket = ev.ticket;
+    busyFor = jpeg; showBusy();
+    let note = "";
     try {
-      const src = await makePreview();
-      ev.preview = { pick: ev.pick, src }; ev.stepPics = {}; $("#zufImg").src = src; if (!LIVE.key) countOne();
-      $("#evNote").innerHTML = ""; showPick(); reveal($("#evPrev"));
+      const src = await makePreview(forPick, jpeg, ticket);
+      if (!LIVE.key) countOne();
+      if (ev.jpeg === jpeg) ev.previews[forPick] = { pick: forPick, src, jpeg, ticket, guide: null, guideP: null, pics: {} };
     } catch (e) {
-      evMsg(e.message === "no image" ? "Für dieses Foto ist keine Vorschau entstanden. Versuch eine andere Idee oder ein anderes Foto – nur das Kleidungsstück, ohne Personen."
-        : relayMsg(e.message, "Die Vorschau konnte gerade nicht erzeugt werden – vielleicht probieren viele gleichzeitig. Versuch es in einer Minute noch einmal."));
-      showPick();
+      note = e.message === "no image" ? "Für dieses Foto ist keine Vorschau entstanden. Versuch eine andere Idee oder ein anderes Foto – nur das Kleidungsstück, ohne Personen."
+        : relayMsg(e.message, "Die Vorschau konnte gerade nicht erzeugt werden – vielleicht probieren viele gleichzeitig. Versuch es in einer Minute noch einmal.");
+    } finally {
+      if (busyFor === jpeg) busyFor = null;
     }
-    pick.disabled = false;
+    if (ev.jpeg !== jpeg || cur !== "designs") return;   // the visitor moved on; the screen is rebuilt when they come back
+    pick.disabled = false; showPick();
+    if (note) evMsg(note); else { $("#evNote").innerHTML = ""; if (ev.previews[ev.pick]) reveal($("#evPrev")); }
   };
 
   // REmake with the visitor's garment: a sewing guide written from the photo and step pictures of their own piece
-  async function loadGuide() {
-    const what = EN[ev.pick] || PICKS[ev.pick];
-    const prompt = `You are a sewing teacher. The photo shows one garment that someone wants to turn into ${what} at home. Answer in German, for a beginner, ` +
+  async function loadGuide(pv) {
+    const what = EN[pv.pick] || PICKS[pv.pick];
+    const prompt = `You are a sewing teacher. The photo shows one garment that someone wants to turn into ${what} at home. Answer in German, for a beginner, addressing the reader with the informal "du" (never "Sie"), ` +
       `based only on what you can see in the photo. steps: exactly 4 steps with the titles "Zuschneiden", "Detailarbeiten", "Nähen" and "Fertig"; each 2 or 3 short, ` +
       `practical sentences about this garment (its fabric, seams and the details worth keeping). pieces: the 2 to 5 pieces to cut from this garment, each with a name, ` +
       `an approximate size estimated from the photo written like "ca. 40 × 45 cm", and the part of the garment it comes from. materials: 3 to 6 things needed besides ` +
@@ -1871,76 +1917,83 @@ if (EVENT) {
       steps: { type: "ARRAY", items: { type: "OBJECT", properties: { title: { type: "STRING" }, text: { type: "STRING" } }, required: ["title", "text"] } },
       pieces: { type: "ARRAY", items: { type: "OBJECT", properties: { name: { type: "STRING" }, size: { type: "STRING" }, from: { type: "STRING" } }, required: ["name", "size", "from"] } },
       materials: { type: "ARRAY", items: { type: "STRING" } } }, required: ["steps", "pieces", "materials"] };
-    const r = await post(READ_PATH, { contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: "image/jpeg", data: ev.jpeg.split(",")[1] } }] }],
-      generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: .3 } }, 90000,
-      { kind: "guide", image: ev.jpeg.split(",")[1], pick: ev.pick, ticket: ev.ticket });
+    const r = await post(READ_PATH, { contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: "image/jpeg", data: pv.jpeg.split(",")[1] } }] }],
+      generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: .3 } }, 150000,
+      { kind: "guide", image: pv.jpeg.split(",")[1], pick: pv.pick, ticket: pv.ticket });
     return JSON.parse(r.candidates[0].content.parts.find(p => p.text).text);
   }
-  async function stepPicture(n) {
-    const what = EN[ev.pick] || PICKS[ev.pick];
+  async function stepPicture(pv, n) {
+    const what = EN[pv.pick] || PICKS[pv.pick];
     const scene = [
       `Photograph from above of this exact garment from the first photo, laid flat on a table, with chalk lines and a few pins marking where it will be cut to make ${what}; fabric scissors and a tape measure lie beside it.`,
       `Photograph of the cut pieces of this exact garment from the first photo being prepared for ${what}: hands pinning or adding a detail on a table, an iron nearby.`,
       `Photograph of this exact garment's fabric being sewn into ${what} at a home sewing machine, the piece starting to look like the second photo.`][n - 1];
     const prompt = scene + " Same fabric, colours, pattern and details as the first photo. Realistic home sewing scene, soft daylight. No text, no lettering, no numbers, no logos, no faces.";
-    const target = ev.preview.src.split(",")[1];
-    const r = await post(IMAGE_PATH, { model: "gemini-3.1-flash-image", input: [{ type: "text", text: prompt }, { type: "image", mime_type: "image/jpeg", data: ev.jpeg.split(",")[1] },
+    const target = pv.src.split(",")[1];
+    const r = await post(IMAGE_PATH, { model: "gemini-3.1-flash-image", input: [{ type: "text", text: prompt }, { type: "image", mime_type: "image/jpeg", data: pv.jpeg.split(",")[1] },
       { type: "image", mime_type: "image/jpeg", data: target }], response_format: { type: "image", mime_type: "image/jpeg", aspect_ratio: "4:5", image_size: "1K" }, store: false }, 150000,
-      { kind: "step", image: ev.jpeg.split(",")[1], target, pick: ev.pick, step: n, ticket: ev.ticket });
+      { kind: "step", image: pv.jpeg.split(",")[1], target, pick: pv.pick, step: n, ticket: pv.ticket });
     const img = (r.steps || r.outputs || []).flatMap(st => st.content || []).find(c => c.type === "image");
     if (!img) throw new Error("no image");
     return "data:image/jpeg;base64," + img.data;
   }
   const an = $("#s-anleitung");
   $('.foot .link', an).hidden = true;   // no PDF in the prototype: the printable pattern comes from the app's engine
-  const renderGuide = () => {
-    const g = ev.guide, title = PICKS[ev.pick] || "";
+  const renderGuide = pv => {
+    const g = { steps: pv.guide.steps || [], pieces: pv.guide.pieces || [], materials: pv.guide.materials || [] }, title = PICKS[pv.pick] || "";
     $(".lede", an).textContent = `${title}: Schritt für Schritt aus deinem Stück.`;
     $("#g-anleitung").innerHTML = `<span class="t-label faint">Bilder: KI-Vorschau aus deinem Foto · Text: KI aus deinem Foto</span>` + g.steps.slice(0, 4).map((st, i) =>
-      `<div class="step"><span class="print">${i === 3 || ev.stepPics[i + 1] ? `<img data-step="${i + 1}" src="${i === 3 ? ev.preview.src : ev.stepPics[i + 1]}" alt="${esc(st.title)}">`
+      `<div class="step"><span class="print">${i === 3 || pv.pics[i + 1] ? `<img data-step="${i + 1}" src="${i === 3 ? pv.src : pv.pics[i + 1]}" alt="${esc(st.title)}">`
         : `<img data-step="${i + 1}" hidden alt="${esc(st.title)}"><span class="step-wait"><span class="spinner"></span></span>`}</span><div><div class="num"><i>${i + 1}</i><h5>${esc(st.title)}</h5></div><p>${esc(st.text)}</p></div></div>`).join("");
-    $("#g-muster").innerHTML = `<div class="print" style="max-width:220px;align-self:center"><img src="${ev.jpeg}" alt="Dein Kleidungsstück"></div>
+    $("#g-muster").innerHTML = `<div class="print" style="max-width:220px;align-self:center"><img src="${pv.jpeg}" alt="Dein Kleidungsstück"></div>
       <span class="t-label faint">Teile zum Zuschneiden · KI-Schätzung aus deinem Foto</span>
       <ul class="plist">${g.pieces.map(p => `<li style="display:block"><b>${esc(p.name)}</b> · ${esc(p.size)}<br><small class="muted">aus: ${esc(p.from)}</small></li>`).join("")}</ul>
       <span class="t-label faint">Material</span><ul class="plist">${g.materials.map(m => `<li style="display:block">${esc(m)}</li>`).join("")}</ul>
       <div class="note"><svg><use href="#i-note"/></svg><span>Die Größen sind aus dem Foto geschätzt. In der fertigen App kommen die genauen Maße und das Schnittmuster zum Ausdrucken aus der Engine.</span></div>`;
   };
-  // Step pictures 1-3, one after another. Each is asked for once (going back and forth does not ask again); a failed one gets
-  // its own retry. ev.stepPics is replaced when the idea changes, so a loop still running for an older idea stops by itself.
-  const showStep = n => { const im = $(`#g-anleitung img[data-step="${n}"]`); if (!im || !ev.stepPics[n]) return;
-    im.src = ev.stepPics[n]; im.hidden = false; const w = im.parentNode.querySelector(".step-wait"); if (w) w.remove(); };
-  const waitFrame = (n, on) => { const im = $(`#g-anleitung img[data-step="${n}"]`), w = im && im.parentNode.querySelector(".step-wait"); if (w) w.innerHTML = on ? '<span class="spinner"></span>' : ""; };
-  const drawStep = async n => {
-    const pics = ev.stepPics; if (pics[n] || pics["wait" + n]) return showStep(n);
-    pics["wait" + n] = true; $$(`#g-anleitung [data-err="${n}"]`).forEach(x => x.remove()); waitFrame(n, true);
-    try { pics[n] = await stepPicture(n); }
+  // Step pictures 1-3 of the chosen preview, one after another, only while the visitor is on this screen. Each is asked for once
+  // per preview (going back and forth, or another idea and back, never asks again); a failed one gets its own retry.
+  const onScreen = pv => ev.preview === pv && cur === "anleitung";
+  const stepImg = n => $(`#g-anleitung img[data-step="${n}"]`);
+  const showStep = (pv, n) => { const im = onScreen(pv) && stepImg(n); if (!im || !pv.pics[n]) return;
+    im.src = pv.pics[n]; im.hidden = false; const w = im.parentNode.querySelector(".step-wait"); if (w) w.remove(); };
+  const waitFrame = (n, on) => { const im = stepImg(n), w = im && im.parentNode.querySelector(".step-wait"); if (w) w.innerHTML = on ? '<span class="spinner"></span>' : ""; };
+  const drawStep = async (pv, n) => {
+    if (pv.pics[n] || pv.pics["wait" + n]) return showStep(pv, n);
+    pv.pics["wait" + n] = true; if (onScreen(pv)) { $$(`#g-anleitung [data-err="${n}"]`).forEach(x => x.remove()); waitFrame(n, true); }
+    try { pv.pics[n] = await stepPicture(pv, n); }
     catch (e) {
-      const im = ev.stepPics === pics && $(`#g-anleitung img[data-step="${n}"]`);
+      const im = onScreen(pv) && stepImg(n);
       if (im) { waitFrame(n, false); im.closest(".step").lastElementChild.insertAdjacentHTML("beforeend", `<p class="t-small muted" data-err="${n}">${esc(relayMsg(e.message, "Das Bild ist gerade nicht entstanden."))} <button class="link" data-redraw="${n}">Noch einmal</button></p>`); }
     }
-    pics["wait" + n] = false; if (ev.stepPics === pics) showStep(n);
+    pv.pics["wait" + n] = false; showStep(pv, n);
   };
-  const drawSteps = async () => { const pics = ev.stepPics; for (let n = 1; n <= 3 && ev.stepPics === pics; n++) await drawStep(n); };
-  $("#g-anleitung").addEventListener("click", e => { const b = e.target.closest("[data-redraw]"); if (b) drawStep(+b.dataset.redraw); });
+  const drawSteps = async pv => { for (let n = 1; n <= 3 && onScreen(pv); n++) await drawStep(pv, n); };
+  $("#g-anleitung").addEventListener("click", e => { const b = e.target.closest("[data-redraw]"); if (b && ev.preview) drawStep(ev.preview, +b.dataset.redraw); });
   ENTER.anleitung = async () => {
-    if (!ev.preview) return;
-    if (ev.guide && ev.guide.pick === ev.pick) { renderGuide(); return drawSteps(); }
-    ev.stepPics = {};
-    $(".lede", an).textContent = "Deine Anleitung wird aus deinem Foto geschrieben …";
-    $("#g-anleitung").innerHTML = `<div class="cap-row"><span class="t-label muted">Wird geschrieben …</span><span class="spinner"></span></div>`;
-    $("#g-muster").innerHTML = "";
-    try { ev.guide = await loadGuide(); ev.guide.pick = ev.pick; }
-    catch (e) { $("#g-anleitung").innerHTML = `<p class="sheet-note">${esc(relayMsg(e.message, "Die Anleitung konnte gerade nicht geschrieben werden – vielleicht probieren viele gleichzeitig."))}</p><button class="link" id="evGuideAgain" style="align-self:flex-start">Noch einmal versuchen</button>`;
-      $("#evGuideAgain").onclick = () => ENTER.anleitung(); return; }
-    renderGuide(); drawSteps();
+    const pv = ev.preview; if (!pv) return;
+    if (!pv.guide) {
+      $(".lede", an).textContent = "Deine Anleitung wird aus deinem Foto geschrieben …";
+      $("#g-anleitung").innerHTML = `<div class="cap-row"><span class="t-label muted">Wird geschrieben …</span><span class="spinner"></span></div>`;
+      $("#g-muster").innerHTML = "";
+      if (!pv.guideP) { pv.guideP = loadGuide(pv); pv.guideP.catch(() => {}); }   // one request per preview, also when the visitor comes back
+      try { pv.guide = await pv.guideP; }
+      catch (e) {
+        pv.guideP = null; if (!onScreen(pv)) return;
+        $("#g-anleitung").innerHTML = `<p class="sheet-note">${esc(relayMsg(e.message, "Die Anleitung konnte gerade nicht geschrieben werden – vielleicht probieren viele gleichzeitig."))}</p><button class="link" id="evGuideAgain" style="align-self:flex-start">Noch einmal versuchen</button>`;
+        $("#evGuideAgain").onclick = () => ENTER.anleitung(); return;
+      }
+      if (!onScreen(pv)) return;   // the visitor moved on; the guide shows when they come back
+    }
+    renderGuide(pv); drawSteps(pv);
   };
   ENTER.zeigen = (orig => () => { orig(); if (!ev.preview) return;
     $("#zeigImg").src = $("#ghostImg").src = ev.preview.src;
     $$(".src-chip").forEach(c => { c.textContent = "KI-Vorschau"; c.className = "chip ai src-chip"; }); })(ENTER.zeigen);
   ENTER.fertig = () => {
-    if (!ev.preview) return;
-    $("#doneImg").src = ev.preview.src; $("#sumImg").src = ev.preview.src; $("#doneImg").style.objectPosition = "50% 50%";
-    $("#sumTitle").textContent = PICKS[ev.pick] || ""; $("#sumMeta").textContent = "aus deinem Stück · 4 Schritte";
+    const pv = ev.preview; if (!pv) return;
+    $("#doneImg").src = pv.src; $("#sumImg").src = pv.src; $("#doneImg").style.objectPosition = "50% 50%";
+    $("#sumTitle").textContent = PICKS[pv.pick] || ""; $("#sumMeta").textContent = "aus deinem Stück · 4 Schritte";
   };
   // Bist du zufrieden? shows their preview
   ENTER.zufrieden = () => { if (ev.preview) $("#zufImg").src = ev.preview.src; };
