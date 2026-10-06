@@ -379,8 +379,8 @@ body.present .side{visibility:hidden}
 .gen.run .bench .print{animation:toBag 1.5s var(--ease) forwards .3s}
 @keyframes toBag{to{transform:translate(var(--tx),var(--ty)) scale(.42) rotate(0);opacity:.0}}
 .gen svg{position:absolute;left:50%;top:132px;width:150px;height:160px;transform:translateX(-50%)}
-.gen svg path,.gen svg rect{fill:none;stroke:#fff;stroke-width:2.4;stroke-dasharray:7 5}
-.gen svg .m{stroke:#000;stroke-width:8;stroke-dasharray:600;stroke-dashoffset:600}
+.gen svg path,.gen svg rect{fill:none;stroke:var(--thread-deep);stroke-width:2.6;stroke-dasharray:7 5}
+.gen svg .m{stroke:#fff;stroke-width:8;stroke-dasharray:600;stroke-dashoffset:600}
 .gen.run svg .m{animation:sewIn 1.6s var(--ease) forwards .8s}
 .gen .t-voice{color:var(--ink-2)}
 
@@ -607,6 +607,7 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   .scr > .body:last-child{padding-bottom:calc(var(--s5) + env(safe-area-inset-bottom))}
   .map-dlg .sheet{padding-bottom:calc(var(--s5) + env(safe-area-inset-bottom))}
   .field input,.field textarea{font-size:16px}
+  .drop{height:220px}
 }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001s!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
@@ -692,7 +693,7 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
 </section>
 
 <section class="scr" id="s-start" data-title="Startseite" data-group="Ankommen">
-  <div class="bg"><img src="img/tee.jpg" alt="Weißes T-Shirt mit Vichy-Rüsche und Herz-Patch von Juanita’s Nähbox" style="object-position:50% 30%"></div>
+  <div class="bg"><img src="img2/tee.jpg" alt="Weißes T-Shirt mit Vichy-Rüsche und Herz-Patch von Juanita’s Nähbox" style="object-position:50% 30%"></div>
   <div class="shade"></div>
   <div class="over">
     <div class="mark rise"><b>RE</b>WARE</div>
@@ -711,9 +712,9 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <div class="mark rise"><b>RE</b><i>WARE</i></div>
     <p class="t-title rise" style="--d:.1">Teil der Veränderung werden.</p>
     <div class="stack">
-      <div class="print" style="--i:0"><img src="img/shirt.jpg" alt="Blaues Hemd"></div>
-      <div class="print" style="--i:1"><img src="img/tee.jpg" alt="Weißes T-Shirt mit Herz-Patch"></div>
-      <div class="print" style="--i:2"><img src="img/jeans.jpg" alt="Blaue Jeans"></div>
+      <div class="print" style="--i:0"><img src="img2/shirt.jpg" alt="Blaues Hemd"></div>
+      <div class="print" style="--i:1"><img src="img2/tee.jpg" alt="Weißes T-Shirt mit Herz-Patch"></div>
+      <div class="print" style="--i:2"><img src="img2/jeans.jpg" alt="Blaue Jeans"></div>
     </div>
     <div class="triad rise" style="--d:.3"><span>Weniger Konsum.</span><span>Mehr Kreativität.</span><span>Eine bessere Zukunft.</span></div>
   </div>
@@ -740,10 +741,10 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <div class="coupon rise" style="--d:.25"><span class="seal">+1</span><p class="t-small">Für jedes fertige Stück mit Foto schenken wir dir ein neues Projekt.</p></div>
     <span class="t-label faint rise" style="--d:.3">Vom Foto zum fertigen Stück</span>
     <div class="journey rise" style="--d:.35">
-      <figure><span class="print"><img src="img/jeans.jpg" alt=""></span><figcaption>Foto</figcaption></figure><i></i>
-      <figure><span class="print"><img src="img/design-tote.jpg" alt=""></span><figcaption>Design</figcaption></figure><i></i>
-      <figure><span class="print"><img src="img/step-cut.jpg" alt=""></span><figcaption>Schnitt</figcaption></figure><i></i>
-      <figure><span class="print"><img src="img/finished.jpg" alt=""></span><figcaption>Fertig</figcaption></figure>
+      <figure><span class="print"><img src="img2/jeans.jpg" alt=""></span><figcaption>Foto</figcaption></figure><i></i>
+      <figure><span class="print"><img src="img2/design-tote.jpg" alt=""></span><figcaption>Design</figcaption></figure><i></i>
+      <figure><span class="print"><img src="img2/step-cut.jpg" alt=""></span><figcaption>Schnitt</figcaption></figure><i></i>
+      <figure><span class="print"><img src="img2/finished.jpg" alt=""></span><figcaption>Fertig</figcaption></figure>
     </div>
     <span class="t-cap faint rise" style="--d:.4">Bilder 2–4: KI-Vorschau aus Juanitas Fotos</span>
   </div>
@@ -760,10 +761,10 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-body muted lede rise" style="--d:.1">Schön, dass du hier bist. Gemeinsam machen wir mehr aus dem, was du schon hast.</p>
     <span class="t-label faint rise" style="--d:.15">So funktioniert’s</span>
     <ol class="how">
-      <li class="rise" style="--d:.2"><span class="thumb"><img src="img/tee.jpg" alt=""></span><div><p class="re"><b>RE</b>think.</p><p class="t-small muted">Fotografiere ein Kleidungsstück und sieh, was daraus werden kann.</p></div></li>
-      <li class="rise" style="--d:.3"><span class="thumb"><img src="img/design-tote.jpg" alt=""></span><div><p class="re"><b>RE</b>design.</p><p class="t-small muted">Wähle die Idee, die Farben und die Details.</p></div></li>
-      <li class="rise" style="--d:.4"><span class="thumb"><img src="img/step-detail.jpg" alt=""></span><div><p class="re"><b>RE</b>make.</p><p class="t-small muted">Schnittmuster und Bilder führen dich Schritt für Schritt.</p></div></li>
-      <li class="rise" style="--d:.5"><span class="thumb"><img src="img/finished.jpg" alt=""></span><div><p class="re"><b>RE</b>wear.</p><p class="t-small muted">Zeig dein fertiges Stück – und trag es wieder.</p></div></li>
+      <li class="rise" style="--d:.2"><span class="thumb"><img src="img2/tee.jpg" alt=""></span><div><p class="re"><b>RE</b>think.</p><p class="t-small muted">Fotografiere ein Kleidungsstück und sieh, was daraus werden kann.</p></div></li>
+      <li class="rise" style="--d:.3"><span class="thumb"><img src="img2/design-tote.jpg" alt=""></span><div><p class="re"><b>RE</b>design.</p><p class="t-small muted">Wähle die Idee, die Farben und die Details.</p></div></li>
+      <li class="rise" style="--d:.4"><span class="thumb"><img src="img2/step-detail.jpg" alt=""></span><div><p class="re"><b>RE</b>make.</p><p class="t-small muted">Schnittmuster und Bilder führen dich Schritt für Schritt.</p></div></li>
+      <li class="rise" style="--d:.5"><span class="thumb"><img src="img2/finished.jpg" alt=""></span><div><p class="re"><b>RE</b>wear.</p><p class="t-small muted">Zeig dein fertiges Stück – und trag es wieder.</p></div></li>
     </ol>
     <span class="t-cap faint">Bilder 2–4: KI-Vorschau</span>
   </div>
@@ -852,8 +853,8 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-title rise">Jetzt geht’s los!</p>
     <p class="t-body muted lede rise" style="--d:.1">Was möchtest du heute mit deiner Kleidung machen?</p>
     <div class="paths">
-      <button class="pathcard rise" style="--d:.2" data-go="idee" data-path="transform"><span class="print"><img src="img/design-tote.jpg" alt=""></span><span><h4>Verwandeln</h4><p>Aus zwei oder drei alten Stücken wird etwas Neues.</p><span class="go">Kleidung auswählen <svg><use href="#i-arrow"/></svg></span></span></button>
-      <button class="pathcard rise" style="--d:.32" data-go="rep-was" data-path="repair"><span class="print"><img src="img/tee.jpg" alt="" style="object-position:50% 34%;transform:scale(1.7);transform-origin:52% 36%"></span><span><h4>Reparieren</h4><p>Loch, Riss oder zu eng? So trägst du dein Lieblingsstück wieder.</p><span class="go">Reparatur wählen <svg><use href="#i-arrow"/></svg></span></span></button>
+      <button class="pathcard rise" style="--d:.2" data-go="idee" data-path="transform"><span class="print"><img src="img2/design-tote.jpg" alt=""></span><span><h4>Verwandeln</h4><p>Aus zwei oder drei alten Stücken wird etwas Neues.</p><span class="go">Kleidung auswählen <svg><use href="#i-arrow"/></svg></span></span></button>
+      <button class="pathcard rise" style="--d:.32" data-go="rep-was" data-path="repair"><span class="print"><img src="img2/tee.jpg" alt="" style="object-position:50% 34%;transform:scale(1.7);transform-origin:52% 36%"></span><span><h4>Reparieren</h4><p>Loch, Riss oder zu eng? So trägst du dein Lieblingsstück wieder.</p><span class="go">Reparatur wählen <svg><use href="#i-arrow"/></svg></span></span></button>
     </div>
   </div>
 </section>
@@ -865,9 +866,9 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-body muted lede rise" style="--d:.1">Lade Fotos deiner Kleidungsstücke hoch oder zeige uns deine Skizze.</p>
     <div class="seg rise" style="--d:.15" role="tablist"><button role="tab" aria-selected="true" data-idea="fotos">Fotos hochladen</button><button role="tab" aria-selected="false" data-idea="skizze">Zeichnung hochladen</button></div>
     <div id="idea-fotos" class="thumbs rise" style="--d:.2">
-      <div class="print"><img src="img/tee.jpg" alt="T-Shirt"><span class="x"><svg><use href="#i-x"/></svg></span></div>
-      <div class="print"><img src="img/shirt.jpg" alt="Hemd"><span class="x"><svg><use href="#i-x"/></svg></span></div>
-      <div class="print"><img src="img/jeans.jpg" alt="Jeans"><span class="x"><svg><use href="#i-x"/></svg></span></div>
+      <div class="print"><img src="img2/tee.jpg" alt="T-Shirt"><span class="x"><svg><use href="#i-x"/></svg></span></div>
+      <div class="print"><img src="img2/shirt.jpg" alt="Hemd"><span class="x"><svg><use href="#i-x"/></svg></span></div>
+      <div class="print"><img src="img2/jeans.jpg" alt="Jeans"><span class="x"><svg><use href="#i-x"/></svg></span></div>
       <button class="add" data-go="foto"><svg><use href="#i-plus"/></svg>Foto</button>
     </div>
     <div id="idea-skizze" class="sketch tissue" hidden>
@@ -894,7 +895,7 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="body">
     <p class="t-title rise">Deine Kleidung ist der Anfang.</p>
     <p class="t-body muted lede rise" style="--d:.1">Fotografiere 2 oder 3 Kleidungsstücke, flach ausgelegt und ganz im Bild.</p>
-    <div class="cam rise" style="--d:.15"><img id="camImg" src="img/tee.jpg" alt="Kameravorschau"><div class="corners"><i></i><i></i><i></i><i></i></div><span class="count" id="camCount">1 von 3</span><div class="flash" id="flash"></div><div class="camdone tissue"><span class="print"><img src="img/tee.jpg" alt=""></span><span class="print"><img src="img/shirt.jpg" alt=""></span><span class="print"><img src="img/jeans.jpg" alt=""></span></div></div>
+    <div class="cam rise" style="--d:.15"><img id="camImg" src="img2/tee.jpg" alt="Kameravorschau"><div class="corners"><i></i><i></i><i></i><i></i></div><span class="count" id="camCount">1 von 3</span><div class="flash" id="flash"></div><div class="camdone tissue"><span class="print"><img src="img2/tee.jpg" alt=""></span><span class="print"><img src="img2/shirt.jpg" alt=""></span><span class="print"><img src="img2/jeans.jpg" alt=""></span></div></div>
     <div class="shutter-row"><div class="shots" id="shots"></div><button class="shutter" id="shutter" aria-label="Foto machen"><svg width="26" height="26" style="color:var(--ink)"><use href="#i-camera"/></svg></button><span></span></div>
   </div>
   <div class="foot">
@@ -911,17 +912,17 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-body muted lede rise" style="--d:.1">Das hat die Engine in deinen Stücken erkannt.</p>
     <div class="reads" id="reads">
       <div class="read" data-k="0">
-        <div class="print"><img src="img/tee.jpg" alt="T-Shirt">
+        <div class="print"><img src="img2/tee.jpg" alt="T-Shirt">
           <span class="pin" style="left:52%;top:10%;--k:0"></span><span class="pin c2" style="left:56%;top:36%;--k:1"></span><span class="pin c3" style="left:14%;top:30%;--k:2"></span></div>
         <div class="info"><span class="state">Stück 1 · T-Shirt</span><h5>Weißes Jersey-Shirt mit Vichy-Rüsche und <span style="white-space:nowrap">Herz-Patch</span></h5><span class="wlabel">Jersey · leicht · dehnbar</span><div class="feat"><span>Rüschenkragen</span><span>Herz-Patch</span><span>Ziernähte</span></div></div>
       </div>
       <div class="read" data-k="1">
-        <div class="print"><img src="img/shirt.jpg" alt="Hemd">
+        <div class="print"><img src="img2/shirt.jpg" alt="Hemd">
           <span class="pin" style="left:52%;top:27%;--k:0"></span><span class="pin c2" style="left:51%;top:56%;--k:1"></span><span class="pin c3" style="left:12%;top:70%;--k:2"></span></div>
         <div class="info"><span class="state">Stück 2 · Hemd</span><h5>Blaues Popeline-Hemd, langarm</h5><span class="wlabel">Popeline · leicht · fest</span><div class="feat"><span>Knopfleiste</span><span>Kragen</span><span>Manschetten</span></div></div>
       </div>
       <div class="read" data-k="2">
-        <div class="print"><img src="img/jeans.jpg" alt="Jeans">
+        <div class="print"><img src="img2/jeans.jpg" alt="Jeans">
           <span class="pin" style="left:30%;top:9%;--k:0"></span><span class="pin c2" style="left:68%;top:18%;--k:1"></span><span class="pin c3" style="left:20%;top:90%;--k:2"></span></div>
         <div class="info"><span class="state">Stück 3 · Jeans</span><h5>Blaue Wide-Leg-Jeans aus festem Denim</h5><span class="wlabel">Denim · schwer · fest</span><div class="feat"><span>Gürtelschlaufen</span><span>Nieten</span><span>Taschen</span><span>Fransensaum</span></div></div>
       </div>
@@ -938,9 +939,9 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="top"><button class="icon-btn" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><div class="stitchbar"></div><button class="icon-btn" data-map aria-label="Alle Bildschirme"><svg><use href="#i-menu"/></svg></button></div>
   <div class="gen tissue off" id="gen">
     <div class="bench">
-      <div class="print" style="--tx:62px;--ty:150px"><img src="img/tee.jpg" alt=""></div>
-      <div class="print" style="--tx:0px;--ty:160px"><img src="img/shirt.jpg" alt=""></div>
-      <div class="print" style="--tx:-62px;--ty:150px"><img src="img/jeans.jpg" alt=""></div>
+      <div class="print" style="--tx:62px;--ty:150px"><img src="img2/tee.jpg" alt=""></div>
+      <div class="print" style="--tx:0px;--ty:160px"><img src="img2/shirt.jpg" alt=""></div>
+      <div class="print" style="--tx:-62px;--ty:150px"><img src="img2/jeans.jpg" alt=""></div>
       <svg viewBox="0 0 150 160"><defs><mask id="mkb"><path class="m" pathLength="600" d="M30 50 C30 8 62 8 62 50 M88 50 C88 8 120 8 120 50 M14 52 H136 L132 152 H18 Z"/></mask></defs><path mask="url(#mkb)" d="M30 50 C30 8 62 8 62 50 M88 50 C88 8 120 8 120 50 M14 52 H136 L132 152 H18 Z"/></svg>
     </div>
     <p class="t-voice">Deine drei Stücke werden kombiniert …</p>
@@ -949,8 +950,8 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-title rise">Deine Designs.</p>
     <p class="t-body muted lede rise" style="--d:.1">Aus deinen drei Stücken sind zwei Vorschläge entstanden.</p>
     <div class="designs">
-      <button class="dcard rise" style="--d:.2" data-design="tote" aria-pressed="true"><span class="print"><img src="img/design-tote.jpg" alt="Tasche aus Jeans, Hemd und T-Shirt"></span><span class="t-label">Design 1 · Tasche</span><h5>„City Companion“</h5><span class="src"><i style="background-image:url(img/jeans.jpg)"></i><i style="background-image:url(img/shirt.jpg)"></i><i style="background-image:url(img/tee.jpg)"></i></span><span class="fav" aria-hidden="true" aria-pressed="true"><svg><use href="#i-heart"/></svg></span></button>
-      <button class="dcard rise" style="--d:.3" data-design="vest" aria-pressed="false"><span class="print"><img src="img/design-vest.jpg" alt="Weste aus Hemd, Jeans und T-Shirt"></span><span class="t-label">Design 2 · Weste</span><h5>„New Favorite“</h5><span class="src"><i style="background-image:url(img/shirt.jpg)"></i><i style="background-image:url(img/jeans.jpg)"></i><i style="background-image:url(img/tee.jpg)"></i></span><span class="fav" aria-hidden="true" aria-pressed="false"><svg><use href="#i-heart"/></svg></span></button>
+      <button class="dcard rise" style="--d:.2" data-design="tote" aria-pressed="true"><span class="print"><img src="img2/design-tote.jpg" alt="Tasche aus Jeans, Hemd und T-Shirt"></span><span class="t-label">Design 1 · Tasche</span><h5>„City Companion“</h5><span class="src"><i style="background-image:url(img2/jeans.jpg)"></i><i style="background-image:url(img2/shirt.jpg)"></i><i style="background-image:url(img2/tee.jpg)"></i></span><span class="fav" aria-hidden="true" aria-pressed="true"><svg><use href="#i-heart"/></svg></span></button>
+      <button class="dcard rise" style="--d:.3" data-design="vest" aria-pressed="false"><span class="print"><img src="img2/design-vest.jpg" alt="Weste aus Hemd, Jeans und T-Shirt"></span><span class="t-label">Design 2 · Weste</span><h5>„New Favorite“</h5><span class="src"><i style="background-image:url(img2/shirt.jpg)"></i><i style="background-image:url(img2/jeans.jpg)"></i><i style="background-image:url(img2/tee.jpg)"></i></span><span class="fav" aria-hidden="true" aria-pressed="false"><svg><use href="#i-heart"/></svg></span></button>
     </div>
     <div class="note rise" style="--d:.35"><svg><use href="#i-note"/></svg><span><b style="color:var(--ink)">KI-Vorschau</b> aus den Teilen deiner drei Stücke. Die Grundmaße der Tasche kommen aus der Engine, nicht aus dem Bild.</span></div>
     <p class="sheet-note" id="vestNote" hidden>Für die Weste gibt es im Prototyp nur die Vorschau. Die Tasche zeigen wir dir Schritt für Schritt.</p>
@@ -962,7 +963,7 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="top"><button class="icon-btn" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><div class="stitchbar"></div><button class="icon-btn" data-map aria-label="Alle Bildschirme"><svg><use href="#i-menu"/></svg></button></div>
   <div class="body">
     <p class="t-title rise">Dein Design.</p>
-    <div class="preview rise" style="--d:.1"><img id="pv-base" src="img/design-tote.jpg" alt="Vorschau der Tasche"><img id="pv-ging" src="img/tote-gingham.jpg" alt="" style="opacity:0"><img id="pv-plain" src="img/tote-plain.jpg" alt="" style="opacity:0"><span class="chip ai">KI-Vorschau · Tasche „City&nbsp;Companion“</span></div>
+    <div class="preview rise" style="--d:.1"><img id="pv-base" src="img2/design-tote.jpg" alt="Vorschau der Tasche"><img id="pv-ging" src="img2/tote-gingham.jpg" alt="" style="opacity:0"><img id="pv-plain" src="img2/tote-plain.jpg" alt="" style="opacity:0"><span class="chip ai">KI-Vorschau · Tasche „City&nbsp;Companion“</span></div>
     <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-dtab="farben">Farben</button><button role="tab" aria-selected="false" data-dtab="details">Details</button><button role="tab" aria-selected="false" data-dtab="stoff">Stoffkombination</button></div>
     <div id="dt-farben" class="swatches">
       <button class="swatch" data-look="base" aria-pressed="true"><i class="sw-orig"></i>Original<small>Henkel aus dem Hemd</small></button>
@@ -998,7 +999,7 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="body" style="align-items:center;text-align:center">
     <p class="t-title rise">Bist du zufrieden?</p>
     <p class="t-body muted lede rise" style="--d:.1">Dann geht’s weiter zu deiner Anleitung und deinem Schnittmuster.</p>
-    <div class="print rise" style="--d:.2;width:230px;height:286px;border:6px solid #fff;rotate:-2deg"><img id="zufImg" src="img/design-tote.jpg" alt="Gewähltes Design"></div>
+    <div class="print rise" style="--d:.2;width:230px;height:286px;border:6px solid #fff;rotate:-2deg"><img id="zufImg" src="img2/design-tote.jpg" alt="Gewähltes Design"></div>
     <p class="voice-big rise" style="--d:.4">Aus Alt wird Neu.<svg class="sew" viewBox="0 0 300 14" preserveAspectRatio="none" style="--d:.9"><defs><mask id="mk1"><path class="m" pathLength="400" d="M4 7 C 80 2, 160 13, 230 6 S 290 7, 296 7"/></mask></defs><path mask="url(#mk1)" d="M4 7 C 80 2, 160 13, 230 6 S 290 7, 296 7"/></svg></p>
   </div>
   <div class="foot"><button class="btn" data-go="ch-make">Weiter</button><button class="link" data-back>Zurück zum Design</button></div>
@@ -1015,16 +1016,16 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <div class="seg rise" style="--d:.15" role="tablist"><button role="tab" aria-selected="true" data-guide="anleitung">Anleitung</button><button role="tab" aria-selected="false" data-guide="muster">Schnittmuster</button></div>
     <div id="g-anleitung" class="steps">
       <span class="t-label faint">Bilder: KI-Vorschau aus Juanitas Fotos</span>
-      <div class="step rise" style="--d:.2"><span class="print"><img src="img/step-cut.jpg" alt="Zuschnitt mit Kreidelinien"></span><div><div class="num"><i>1</i><h5>Zuschneiden</h5></div><p>Hosenbeine an der Innennaht öffnen, A und B je 36 × 40&nbsp;cm zuschneiden. Aus dem Hemd zwei Henkelstreifen und die Innentasche schneiden. Rüsche und Herz-Patch vom T-Shirt lösen.</p></div></div>
-      <div class="step rise" style="--d:.28"><span class="print"><img src="img/step-detail.jpg" alt="Herz-Patch wird mit Kreuzstichen aufgenäht"></span><div><div class="num"><i>2</i><h5>Detailarbeiten</h5></div><p>Solange alles flach liegt: Herz-Patch mittig auf A, 10&nbsp;cm unter der Kante, im Kreuzstich annähen. Rüsche 3&nbsp;cm unter der Kante aufsteppen. Innentasche innen auf B. Henkel bügeln, zweimal falten, absteppen.</p></div></div>
-      <div class="step rise" style="--d:.36"><span class="print"><img src="img/step-sew.jpg" alt="Nähen an der Maschine"></span><div><div class="num"><i>3</i><h5>Nähen</h5></div><p>A und B rechts auf rechts mit 1&nbsp;cm Nahtzugabe steppen (Jeansnadel 100/16). Bodenecken auf 8&nbsp;cm abnähen. Oberkante 1 + 2&nbsp;cm einschlagen, absteppen. Henkel mit Viereck und Kreuz festnähen.</p></div></div>
-      <div class="step rise" style="--d:.44"><span class="print"><img src="img/design-tote.jpg" alt="KI-Vorschau der fertigen Tasche"></span><div><div class="num"><i>4</i><h5>Fertig!</h5></div><p>Deine Tasche „City Companion“ ist fertig.</p></div></div>
+      <div class="step rise" style="--d:.2"><span class="print"><img src="img2/step-cut.jpg" alt="Zuschnitt mit Kreidelinien"></span><div><div class="num"><i>1</i><h5>Zuschneiden</h5></div><p>Hosenbeine an der Innennaht öffnen, A und B je 36 × 40&nbsp;cm zuschneiden. Aus dem Hemd zwei Henkelstreifen und die Innentasche schneiden. Rüsche und Herz-Patch vom T-Shirt lösen.</p></div></div>
+      <div class="step rise" style="--d:.28"><span class="print"><img src="img2/step-detail.jpg" alt="Herz-Patch wird mit Kreuzstichen aufgenäht"></span><div><div class="num"><i>2</i><h5>Detailarbeiten</h5></div><p>Solange alles flach liegt: Herz-Patch mittig auf A, 10&nbsp;cm unter der Kante, im Kreuzstich annähen. Rüsche 3&nbsp;cm unter der Kante aufsteppen. Innentasche innen auf B. Henkel bügeln, zweimal falten, absteppen.</p></div></div>
+      <div class="step rise" style="--d:.36"><span class="print"><img src="img2/step-sew.jpg" alt="Nähen an der Maschine"></span><div><div class="num"><i>3</i><h5>Nähen</h5></div><p>A und B rechts auf rechts mit 1&nbsp;cm Nahtzugabe steppen (Jeansnadel 100/16). Bodenecken auf 8&nbsp;cm abnähen. Oberkante 1 + 2&nbsp;cm einschlagen, absteppen. Henkel mit Viereck und Kreuz festnähen.</p></div></div>
+      <div class="step rise" style="--d:.44"><span class="print"><img src="img2/design-tote.jpg" alt="KI-Vorschau der fertigen Tasche"></span><div><div class="num"><i>4</i><h5>Fertig!</h5></div><p>Deine Tasche „City Companion“ ist fertig.</p></div></div>
     </div>
     <div id="g-muster" hidden style="display:flex;flex-direction:column;gap:var(--s4)">
       <div class="cutplan" id="cutplan">
-        <div class="print"><img src="img/jeans.jpg" alt="Jeans mit Kreidelinien"><svg viewBox="0 0 100 133" preserveAspectRatio="xMidYMid slice"><rect x="14" y="62" width="27" height="50"/><rect x="58" y="62" width="27" height="50"/></svg></div>
-        <div class="print"><img src="img/shirt.jpg" alt="Hemd mit Kreidelinien"><svg viewBox="0 0 100 133" preserveAspectRatio="xMidYMid slice"><rect x="42" y="56" width="18" height="20"/></svg></div>
-        <div class="print"><img src="img/tee.jpg" alt="T-Shirt mit Kreidelinien"><svg viewBox="0 0 100 119" preserveAspectRatio="xMidYMid slice"><path d="M27 2 C33 26 66 28 75 2"/><rect x="39" y="34" width="27" height="18"/></svg></div>
+        <div class="print"><img src="img2/jeans.jpg" alt="Jeans mit Kreidelinien"><svg viewBox="0 0 100 133" preserveAspectRatio="xMidYMid slice"><rect x="14" y="62" width="27" height="50"/><rect x="58" y="62" width="27" height="50"/></svg></div>
+        <div class="print"><img src="img2/shirt.jpg" alt="Hemd mit Kreidelinien"><svg viewBox="0 0 100 133" preserveAspectRatio="xMidYMid slice"><rect x="42" y="56" width="18" height="20"/></svg></div>
+        <div class="print"><img src="img2/tee.jpg" alt="T-Shirt mit Kreidelinien"><svg viewBox="0 0 100 119" preserveAspectRatio="xMidYMid slice"><path d="M27 2 C33 26 66 28 75 2"/><rect x="39" y="34" width="27" height="18"/></svg></div>
       </div>
       <ul class="plist">
         <li><i>A</i><span><b>Vorderteil</b><small>Jeans, linkes Bein, an der Innennaht geöffnet</small></span><span class="dim">36 × 40 cm</span></li>
@@ -1053,7 +1054,7 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="body">
     <p class="t-title rise">Nicht selbst machen?</p>
     <p class="t-body muted lede rise" style="--d:.1">Kein Problem! Hier findest du Schneider:innen in deiner Nähe, die dir bei der Umsetzung helfen.</p>
-    <div class="map rise" style="--d:.15"><img src="img/graz-map.jpg" alt="Karte der Grazer Innenstadt"><span class="mpin sel" style="left:44%;top:46%;--k:0"></span><span class="mpin" style="left:63%;top:30%;--k:1"></span><span class="mpin" style="left:30%;top:70%;--k:2"></span><a class="attr" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="text-decoration:none">© OpenStreetMap-Mitwirkende</a></div>
+    <div class="map rise" style="--d:.15"><img src="img2/graz-map.jpg" alt="Karte der Grazer Innenstadt"><span class="mpin sel" style="left:44%;top:46%;--k:0"></span><span class="mpin" style="left:63%;top:30%;--k:1"></span><span class="mpin" style="left:30%;top:70%;--k:2"></span><a class="attr" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="text-decoration:none">© OpenStreetMap-Mitwirkende</a></div>
     <div class="list" id="tailors">
       <button class="sel"><span class="ic"><svg><use href="#i-scissors"/></svg></span><span><b>Änderungsschneiderei Müller</b><small>Änderungen · Reparaturen</small></span><span class="km">1,2 km</span></button>
       <button><span class="ic"><svg><use href="#i-scissors"/></svg></span><span><b>Atelier Saumnaht</b><small>Maßarbeit · Upcycling</small></span><span class="km">2,4 km</span></button>
@@ -1070,14 +1071,14 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="body">
     <p class="t-title rise">Unterstützung gewünscht?</p>
     <p class="t-body muted lede rise" style="--d:.1">Buche ein Einzelcoaching, einen Workshop oder eine kurze Video-Hilfe bei Juanita’s Nähbox.</p>
-    <div class="arch rise" style="--d:.15"><img src="img/juanita.jpg" alt="Juanita an ihrer Nähmaschine"></div>
+    <div class="arch rise" style="--d:.15"><img src="img2/juanita.jpg" alt="Juanita an ihrer Nähmaschine"></div>
     <div class="sign rise" style="--d:.25"><p class="t-voice">Juanita’s Nähbox</p><p class="t-small muted">Nähen verbindet Menschen.</p></div>
     <div class="offers" id="offers">
       <button class="offer rise" style="--d:.3" aria-pressed="true"><span class="ic"><svg><use href="#i-needle"/></svg></span><span><b>Einzelcoaching im Atelier</b><small>Persönliche Begleitung bei deinem Projekt</small></span></button>
       <button class="offer rise" style="--d:.36" aria-pressed="false"><span class="ic"><svg><use href="#i-people"/></svg></span><span><b>Workshop in der Gruppe</b><small>Tipps &amp; Tricks, Inspiration &amp; Community</small></span></button>
       <button class="offer rise" style="--d:.42" aria-pressed="false"><span class="ic"><svg><use href="#i-video"/></svg></span><span><b>Video-Hilfe · 15 Minuten</b><small>Per FaceTime oder WhatsApp, wenn du mitten im Projekt hängst</small></span></button>
     </div>
-    <div class="print strip rise" style="--d:.45"><img src="img/atelier.jpg" alt="Das Atelier von Juanita’s Nähbox" style="object-position:50% 60%"></div>
+    <div class="print strip rise" style="--d:.45"><img src="img2/atelier.jpg" alt="Das Atelier von Juanita’s Nähbox" style="object-position:50% 60%"></div>
     <p class="sheet-note" id="bookNote" hidden>Im Prototyp: Hier öffnet sich der Kalender von Juanita’s Nähbox.</p>
   </div>
   <div class="foot"><button class="btn" id="bookBtn">Jetzt Termin buchen</button><button class="link" data-go="partner">Materialien benötigt?</button></div>
@@ -1109,8 +1110,8 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-title rise">Zeig uns dein fertiges Stück.</p>
     <p class="t-body muted lede rise" style="--d:.1">Ein Foto genügt – dafür schenken wir dir dein nächstes Projekt.</p>
     <div class="frame rise" style="--d:.15" id="frame">
-      <div class="empty"><span class="print" style="width:110px;height:138px;opacity:.55;rotate:-3deg;margin-bottom:var(--s2)"><img id="ghostImg" src="img/design-tote.jpg" alt=""></span><svg><use href="#i-camera"/></svg><span class="t-small">Fotografiere dein Stück bei Tageslicht.</span></div>
-      <div class="ph"><img id="zeigImg" src="img/finished.jpg" alt="Foto des fertigen Stücks"><span class="chip ai src-chip" id="zeigTag" style="position:absolute;left:10px;top:10px">KI-Vorschau</span></div>
+      <div class="empty"><span class="print" style="width:110px;height:138px;opacity:.55;rotate:-3deg;margin-bottom:var(--s2)"><img id="ghostImg" src="img2/design-tote.jpg" alt=""></span><svg><use href="#i-camera"/></svg><span class="t-small">Fotografiere dein Stück bei Tageslicht.</span></div>
+      <div class="ph"><img id="zeigImg" src="img2/finished.jpg" alt="Foto des fertigen Stücks"><span class="chip ai src-chip" id="zeigTag" style="position:absolute;left:10px;top:10px">KI-Vorschau</span></div>
       <div class="stamp"><b>+1</b><span>Projekt geschenkt</span></div>
     </div>
     <div class="gift" id="gift">
@@ -1125,9 +1126,9 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="body" style="padding-top:var(--s4)">
     <div class="cap-row rise"><div class="mark" style="font-size:24px"><b>RE</b><i>WARE</i></div><span class="chip">Fertig</span></div>
     <p class="t-title rise" style="--d:.1">Du machst den Unterschied.</p>
-    <div class="print done-photo rise" style="--d:.2"><img id="doneImg" src="img/finished.jpg" alt="Dein fertiges Stück"><span class="chip ai src-chip" id="doneTag" style="position:absolute;left:12px;top:12px">KI-Vorschau</span></div>
+    <div class="print done-photo rise" style="--d:.2"><img id="doneImg" src="img2/finished.jpg" alt="Dein fertiges Stück"><span class="chip ai src-chip" id="doneTag" style="position:absolute;left:12px;top:12px">KI-Vorschau</span></div>
     <p class="voice-big rise" style="--d:.35;font-size:26px">Jede Naht erzählt eine Geschichte.<svg class="sew" viewBox="0 0 300 14" preserveAspectRatio="none" style="--d:.8;width:250px"><defs><mask id="mk2"><path class="m" pathLength="400" d="M4 7 C 80 2, 160 13, 230 6 S 290 7, 296 7"/></mask></defs><path mask="url(#mk2)" d="M4 7 C 80 2, 160 13, 230 6 S 290 7, 296 7"/></svg></p>
-    <div class="card summary rise" style="--d:.45"><span class="print"><img id="sumImg" src="img/design-tote.jpg" alt=""></span><div><p class="t-head" id="sumTitle">Tasche „City&nbsp;Companion“</p><p class="t-cap muted" id="sumMeta">aus 3 Stücken · 4 Schritte · Foto geteilt</p></div></div>
+    <div class="card summary rise" style="--d:.45"><span class="print"><img id="sumImg" src="img2/design-tote.jpg" alt=""></span><div><p class="t-head" id="sumTitle">Tasche „City&nbsp;Companion“</p><p class="t-cap muted" id="sumMeta">aus 3 Stücken · 4 Schritte · Foto geteilt</p></div></div>
     <div class="triad rise" style="--d:.55;font-size:17px"><span>Weniger Konsum.</span><span>Mehr Kreativität.</span><span>Eine bessere Zukunft.</span></div>
   </div>
   <div class="foot" style="padding-bottom:var(--s3)"><button class="btn" data-go="weg">Neues Projekt starten</button></div>
@@ -1146,9 +1147,9 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-title rise">Was möchtest du reparieren?</p>
     <p class="t-body muted lede rise" style="--d:.1">Wähle, was passiert ist. Die App rechnet dir den Flicken oder die Erweiterung aus.</p>
     <div class="paths">
-      <button class="pathcard rise" style="--d:.2" data-go="rep-stelle"><span class="print"><img src="img/tee-hole.jpg" alt="" style="transform:scale(2.2);transform-origin:50% 36%"></span><span><h4>Loch oder Riss</h4><p>Ein Flicken, der zum Hingucker wird.</p><span class="go">Stelle zeigen <svg><use href="#i-arrow"/></svg></span></span></button>
+      <button class="pathcard rise" style="--d:.2" data-go="rep-stelle"><span class="print"><img src="img2/tee-hole.jpg" alt="" style="transform:scale(2.2);transform-origin:50% 36%"></span><span><h4>Loch oder Riss</h4><p>Ein Flicken, der zum Hingucker wird.</p><span class="go">Stelle zeigen <svg><use href="#i-arrow"/></svg></span></span></button>
       <button class="pathcard rise" style="--d:.3" data-go="rep-eng"><span class="print tissue" style="display:grid;place-items:center"><svg viewBox="0 0 60 80" width="62" height="84"><path d="M22 4 h16 l4 10 c6 4 8 10 7 16 l-3 4 l8 42 h-48 l8 -42 l-3 -4 c-1 -6 1 -12 7 -16 z" fill="#E8DCCB" stroke="#0F241F" stroke-width="1.2"/><path d="M9 76 l8 -42 l4 0 l-6 42z M51 76 l-8 -42 l-4 0 l6 42z" fill="#2C5A9E"/></svg></span><span><h4>Zu eng</h4><p>Mit Seitenstreifen aus einem zweiten Stück größer machen.</p><span class="go">Ausrechnen <svg><use href="#i-arrow"/></svg></span></span></button>
-      <div class="pathcard soon rise" style="--d:.4" aria-disabled="true"><span class="print"><img src="img/jeans.jpg" alt="" style="transform:scale(1.8);transform-origin:30% 80%"></span><span><h4>Durchgescheuert</h4><p>Jeans am Knie oder im Schritt verstärken.</p><span class="chip ex" style="margin-top:8px">kommt in Phase 2</span></span></div>
+      <div class="pathcard soon rise" style="--d:.4" aria-disabled="true"><span class="print"><img src="img2/jeans.jpg" alt="" style="transform:scale(1.8);transform-origin:30% 80%"></span><span><h4>Durchgescheuert</h4><p>Jeans am Knie oder im Schritt verstärken.</p><span class="chip ex" style="margin-top:8px">kommt in Phase 2</span></span></div>
     </div>
   </div>
 </section>
@@ -1158,7 +1159,7 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="body">
     <p class="t-title rise">Zeig uns die Stelle.</p>
     <p class="t-body muted lede rise" style="--d:.1">Tippe auf das Loch.</p>
-    <div class="spot rise" style="--d:.15" id="spot"><img src="img/tee-hole.jpg" alt="KI-Bild: T-Shirt mit kleinem Loch in der Brustmitte"><span class="ring"></span><span class="pin"></span><span class="hint">Auf die Stelle tippen</span><span class="chip ai" style="position:absolute;left:12px;top:12px">KI-Vorschau</span></div>
+    <div class="spot rise" style="--d:.15" id="spot"><img src="img2/tee-hole.jpg" alt="KI-Bild: T-Shirt mit kleinem Loch in der Brustmitte"><span class="ring"></span><span class="pin"></span><span class="hint">Auf die Stelle tippen</span><span class="chip ai" style="position:absolute;left:12px;top:12px">KI-Vorschau</span></div>
     <div class="found card" id="found"><div class="cap-row"><p class="t-head">Loch in der Brustmitte</p><span class="chip ex">Beispiel</span></div><p class="t-small muted" style="margin-top:6px">ca. 3 × 1,5 cm · Kanten leicht ausgefranst</p><span class="wlabel" style="margin-top:10px">Jersey · leicht · dehnbar</span></div>
   </div>
   <div class="foot"><button class="btn" id="spotNext" data-go="rep-plan" disabled>Reparatur-Plan zeigen</button></div>
@@ -1205,10 +1206,10 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
     <p class="t-body muted lede rise" style="--d:.1">Vier Schritte, eine Stunde – und dein Lieblingsstück ist zurück.</p>
     <span class="t-label faint rise" style="--d:.12">Bilder 1–3: KI-Vorschau</span>
     <div class="steps">
-      <div class="step rise" style="--d:.15"><span class="print"><img src="img/tee-hole.jpg" alt="KI-Bild: T-Shirt mit Loch" style="transform:scale(1.9);transform-origin:50% 36%"></span><div><div class="num"><i>1</i><h5>Loch sichern</h5></div><p>Die Ränder flach mit kleinen Überwendlingsstichen sichern – nicht zusammenziehen, sonst wirft der Jersey Falten.</p></div></div>
-      <div class="step rise" style="--d:.23"><span class="print"><img src="img/tee-r1.jpg" alt="Material neben dem T-Shirt"></span><div><div class="num"><i>2</i><h5>Zuschneiden</h5></div><p>Leinen 11 × 8 cm zuschneiden, die Kanten rundum 5 mm ausfransen. Herz 6 cm aus einem Baumwollrest.</p></div></div>
-      <div class="step rise" style="--d:.31"><span class="print"><img src="img/tee-r2.jpg" alt="Flicken wird mit Kreuzstichen aufgenäht"></span><div><div class="num"><i>3</i><h5>Aufnähen</h5></div><p>Zuerst das Herz mit kleinen Stichen auf das Leinen nähen. Dann das Leinen mittig über das Loch stecken und ringsum im Kreuzstich annähen.</p></div></div>
-      <div class="step rise" style="--d:.39"><span class="print"><img src="img/tee.jpg" alt="Juanitas echtes T-Shirt mit Herz-Patch"></span><div><div class="num"><i>4</i><h5>Fertig!</h5></div><p>Dein T-Shirt ist wieder da – mit Herz.</p><span class="chip" style="margin-top:6px">Echtes Stück</span></div></div>
+      <div class="step rise" style="--d:.15"><span class="print"><img src="img2/tee-hole.jpg" alt="KI-Bild: T-Shirt mit Loch" style="transform:scale(1.9);transform-origin:50% 36%"></span><div><div class="num"><i>1</i><h5>Loch sichern</h5></div><p>Die Ränder flach mit kleinen Überwendlingsstichen sichern – nicht zusammenziehen, sonst wirft der Jersey Falten.</p></div></div>
+      <div class="step rise" style="--d:.23"><span class="print"><img src="img2/tee-r1.jpg" alt="Material neben dem T-Shirt"></span><div><div class="num"><i>2</i><h5>Zuschneiden</h5></div><p>Leinen 11 × 8 cm zuschneiden, die Kanten rundum 5 mm ausfransen. Herz 6 cm aus einem Baumwollrest.</p></div></div>
+      <div class="step rise" style="--d:.31"><span class="print"><img src="img2/tee-r2.jpg" alt="Flicken wird mit Kreuzstichen aufgenäht"></span><div><div class="num"><i>3</i><h5>Aufnähen</h5></div><p>Zuerst das Herz mit kleinen Stichen auf das Leinen nähen. Dann das Leinen mittig über das Loch stecken und ringsum im Kreuzstich annähen.</p></div></div>
+      <div class="step rise" style="--d:.39"><span class="print"><img src="img2/tee.jpg" alt="Juanitas echtes T-Shirt mit Herz-Patch"></span><div><div class="num"><i>4</i><h5>Fertig!</h5></div><p>Dein T-Shirt ist wieder da – mit Herz.</p><span class="chip" style="margin-top:6px">Echtes Stück</span></div></div>
     </div>
     
   </div>
@@ -1248,9 +1249,11 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
   <div class="top"><button class="icon-btn" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><div class="stitchbar"></div><button class="icon-btn" data-map aria-label="Alle Bildschirme"><svg><use href="#i-menu"/></svg></button></div>
   <div class="body">
     <div class="cap-row"><p class="t-title">Live ausprobieren.</p><span class="chip live">Live</span></div>
-    <p class="t-body muted lede">Wähle ein Foto eines Kleidungsstücks. Die Engine liest es jetzt – wie in der App.</p>
-    <label class="drop" id="drop"><input type="file" accept="image/*" id="liveFile"><span id="dropHint"><svg width="34" height="34" style="color:var(--ink-3)"><use href="#i-camera"/></svg><br><span class="t-small">Foto wählen oder aufnehmen</span></span></label>
-    <div id="liveOut"></div>
+    <p class="t-body muted lede">Fotografiere ein Kleidungsstück. Die KI liest es, schlägt drei Ideen vor und zeigt dir eine davon als Bild.</p>
+    <div class="note"><svg><use href="#i-note"/></svg><span>Nur das Kleidungsstück, flach ausgelegt, ohne Personen. Sobald du ein Foto wählst, schicken wir es an Google Gemini – zum Lesen und für die Vorschau. REWARE speichert dein Foto nicht.</span></div>
+    <label class="drop" id="drop"><input type="file" accept="image/*" id="liveFile"><span id="dropHint"><svg width="34" height="34" style="color:var(--ink-3)"><use href="#i-camera"/></svg><br><span class="t-small">Foto aus der Galerie wählen</span></span></label>
+    <label class="link" style="position:relative;align-self:center"><input type="file" accept="image/*" capture="environment" id="liveCam" style="position:absolute;inset:0;opacity:0;width:100%">Mit der Kamera fotografieren</label>
+    <div id="liveOut" aria-live="polite"></div>
   </div>
   <div class="foot"><button class="btn" id="liveGo" disabled>Vorschau erzeugen</button></div>
 </section>
@@ -1258,11 +1261,11 @@ dialog.map-dlg::backdrop{background:rgba(10,10,10,.6)}
 <section class="scr day" id="s-live-vorschau" data-title="Live-Vorschau" data-group="Live" data-ch="2" data-p="60">
   <div class="top"><button class="icon-btn" data-back aria-label="Zurück"><svg><use href="#i-back"/></svg></button><div class="stitchbar"></div><button class="icon-btn" data-map aria-label="Alle Bildschirme"><svg><use href="#i-menu"/></svg></button></div>
   <div class="body">
-    <div class="cap-row"><p class="t-title">Deine Vorschau.</p><span class="chip live">Live erzeugt</span></div>
-    <div class="preview" style="height:420px"><img id="liveImg" alt="Live erzeugte Vorschau"></div>
+    <div class="cap-row"><p class="t-title">Deine Vorschau.</p></div>
+    <div class="preview" style="height:420px"><img id="liveImg" alt="Live erzeugte Vorschau"><span class="chip live">KI-Vorschau · live</span></div>
     <p class="t-body muted" id="liveCaption"></p>
   </div>
-  <div class="foot"><button class="btn" data-go="foto">Zurück zum Prototyp</button></div>
+  <div class="foot"><button class="btn" id="liveAgain">Noch ein Stück ausprobieren</button><button class="link" data-go="foto">Zurück zum Prototyp</button></div>
 </section>
 
 <section class="scr day" id="s-schluessel" data-title="Live einrichten" data-group="Einrichtung">
@@ -1293,10 +1296,15 @@ const LIVE = { base: "https://generativelanguage.googleapis.com", key: (() => { 
 // Private presenter link …/reware2/#k=<key>: stores the key on this device and wipes it from the address bar at once.
 (() => {
   const m = /^#k=([A-Za-z0-9._\-]{20,})$/.exec(location.hash); if (!m) return;
+  if (!confirm("Präsentationsschlüssel auf diesem Gerät speichern?")) { history.replaceState(null, "", location.pathname + location.search + "#manifest"); return; }
   LIVE.key = m[1];
   try { localStorage.setItem(KEY_STORE, m[1]); } catch (e) {}
   history.replaceState(null, "", location.pathname + location.search + "#manifest");
 })();
+// Event relay (Google Apps Script web app, Tools/proxy/reware-live-relay.gs): visitors try the live part on their own phones;
+// the key stays on Google's side and a daily ceiling caps the bill. Empty = presenter key only, as before.
+const RELAY = "https://script.google.com/macros/s/AKfycbxIl5r2LPI7--TN55BBbSy5tKsww7zSmSAXUW-FORdK3j7SxbeHeFRYBlcsnAhvLUmL/exec";
+const LIVE_ON = !!(LIVE.key || RELAY);
 const READ_PATH = "/v1beta/models/gemini-3.5-flash-lite:generateContent";
 const IMAGE_PATH = "/v1beta/interactions";
 
@@ -1338,11 +1346,11 @@ $$(".scr[data-ch]:not(.chapter)").forEach(sec => {
 
 // Navigation
 const screens = $$("#app > .scr");
-const ids = screens.filter(s => LIVE.key || s.dataset.group !== "Live").map(s => s.id.slice(2));
+const ids = screens.filter(s => LIVE_ON || s.dataset.group !== "Live").map(s => s.id.slice(2));
 const state = { project: "tote", look: "base", shots: 0, readDone: false, genDone: false };
 let cur = null; const hist = [];
 
-const shown = s => (LIVE.key || s.dataset.group !== "Live") && s.dataset.group !== "Einrichtung";
+const shown = s => (LIVE_ON || s.dataset.group !== "Live") && s.dataset.group !== "Einrichtung";
 function buildNav(target, onPick) {
   const groups = {};
   screens.forEach((s, i) => shown(s) && (groups[s.dataset.group] ||= []).push([s, i]));
@@ -1374,7 +1382,7 @@ document.addEventListener("click", e => {
   if (g && !g.disabled) {
     if (g.dataset.path) { state.path = g.dataset.path; setProject(g.dataset.path === "repair" ? "tee" : "tote"); }
     if (g.dataset.project) setProject(g.dataset.project);
-    if (cur === "fertig" && g.dataset.go === "weg") { state.shots = 0; state.readDone = state.genDone = false; $("#shots").innerHTML = ""; $(".cam").classList.remove("done"); $("#camImg").src = "img/tee.jpg"; $("#camCount").textContent = "1 von 3"; $("#fotoNext").disabled = true; $("#readState").textContent = "wird gelesen"; }
+    if (cur === "fertig" && g.dataset.go === "weg") { state.shots = 0; state.readDone = state.genDone = false; $("#shots").innerHTML = ""; $(".cam").classList.remove("done"); $("#camImg").src = "img2/tee.jpg"; $("#camCount").textContent = "1 von 3"; $("#fotoNext").disabled = true; $("#readState").textContent = "wird gelesen"; }
     go(g.dataset.go); return;
   }
   if (e.target.closest("[data-back]")) return back();
@@ -1434,14 +1442,14 @@ const ENTER = {
 function setProject(p) {
   state.project = p;
   const tote = p === "tote";
-  const variant = "img/" + ({ base: "design-tote", ging: "tote-gingham", plain: "tote-plain" }[state.look]) + ".jpg";
-  const photo = !tote ? "img/tee.jpg" : state.look === "base" ? "img/finished.jpg" : variant;
+  const variant = "img2/" + ({ base: "design-tote", ging: "tote-gingham", plain: "tote-plain" }[state.look]) + ".jpg";
+  const photo = !tote ? "img2/tee.jpg" : state.look === "base" ? "img2/finished.jpg" : variant;
   $("#zeigImg").src = photo;
   $("#doneImg").src = photo;
   $("#doneImg").style.objectPosition = tote ? "50% 50%" : "50% 30%";
-  $("#sumImg").src = tote ? variant : "img/tee.jpg";
+  $("#sumImg").src = tote ? variant : "img2/tee.jpg";
   $$(".src-chip").forEach(c => { c.textContent = tote ? "KI-Vorschau" : "Echtes Stück"; c.className = "chip src-chip" + (tote ? " ai" : ""); });
-  $("#ghostImg").src = tote ? "img/design-tote.jpg" : "img/tee-hole.jpg";
+  $("#ghostImg").src = tote ? "img2/design-tote.jpg" : "img2/tee-hole.jpg";
   $("#sumTitle").textContent = tote ? "Tasche „City\u00a0Companion“" : "Herz-Flicken am T-Shirt";
   $("#sumMeta").textContent = tote ? "aus 3 Stücken · 4 Schritte · Foto geteilt" : "repariert · 4 Schritte · Foto geteilt";
 }
@@ -1467,7 +1475,7 @@ $$("[data-idea]").forEach(b => b.onclick = () => {
 });
 
 // Camera
-const CAM = ["img/tee.jpg", "img/shirt.jpg", "img/jeans.jpg"];
+const CAM = ["img2/tee.jpg", "img2/shirt.jpg", "img2/jeans.jpg"];
 function shoot() {
   if (state.shots >= 3) return;
   const f = $("#flash"); f.classList.remove("go"); void f.offsetWidth; f.classList.add("go");
@@ -1494,7 +1502,7 @@ function look(l) {
   ["base", "ging", "plain"].forEach(k => $("#pv-" + k).style.opacity = k === l ? 1 : 0);
   $$(".swatch").forEach(s => s.setAttribute("aria-pressed", s.dataset.look === l));
   $('[data-tg="ruesche"]').setAttribute("aria-checked", l !== "plain");
-  const src = "img/" + ({ base: "design-tote", ging: "tote-gingham", plain: "tote-plain" }[l]) + ".jpg";
+  const src = "img2/" + ({ base: "design-tote", ging: "tote-gingham", plain: "tote-plain" }[l]) + ".jpg";
   $("#zufImg").src = src; $("#g-anleitung .step:last-child img").src = src;
   if (state.project === "tote") setProject("tote");
 }
@@ -1607,7 +1615,15 @@ const PICKS = { "tee.crop": "Crop-Top", "tee.tank": "Tanktop", "tee.tote": "Tasc
   "skirt.mini": "Minirock", "skirt.tote": "Tasche", "skirt.scrunchie": "Scrunchies", "flat.circleskirt": "Tellerrock", "flat.tote": "Tasche", "flat.cushion": "Kissenbezüge", "flat.apron": "Latzschürze", "flat.napkins": "Servietten" };
 const EN = {"tee.crop": "a crop top", "tee.tank": "a tank top", "tee.tote": "a no-sew tote bag", "tee.scrunchie": "a set of scrunchies", "tee.headband": "a twisted headband", "shirt.skirt": "a gathered skirt", "shirt.crop": "a cropped shirt", "shirt.apron": "a half apron", "shirt.pillow": "a button-front cushion cover", "shirt.tote": "a tote bag", "jeans.tote": "a denim tote bag", "jeans.skirt": "a denim mini skirt", "jeans.shorts": "cut-off shorts", "jeans.apron": "a work apron", "jeans.pouch": "a crossbody pouch", "jeans.bucket": "a bucket hat", "trousers.shorts": "tailored shorts", "trousers.skirt": "a pencil skirt", "trousers.tote": "a tote bag", "sweater.vest": "a cropped sweater vest", "sweater.beanie": "a rib-brim beanie", "sweater.mittens": "a pair of mittens", "sweater.cushion": "a cushion cover", "sweater.legwarmers": "a pair of leg warmers", "sweater.crop": "a cropped jumper", "sweatshirt.crop": "a cropped sweatshirt", "sweatshirt.sleeveless": "a sleeveless muscle top", "sweatshirt.cushion": "a cushion cover", "sweatshirt.tote": "a tote bag", "dress.top": "a top", "dress.skirt": "an elastic-waist skirt", "dress.tote": "a tote bag", "dress.scrunchie": "a set of scrunchies", "skirt.mini": "a mini skirt", "skirt.tote": "a tote bag", "skirt.scrunchie": "a set of scrunchies", "flat.circleskirt": "a circle skirt", "flat.tote": "a tote bag", "flat.cushion": "cushion covers", "flat.apron": "a bib apron", "flat.napkins": "a set of napkins"};
 let live = { jpeg: null, reading: null, pick: null };
-if (LIVE.key) $("#liveLink").hidden = false;
+if (LIVE_ON) $("#liveLink").hidden = false;
+const PER_DEVICE = 3, DAY_KEY = "reware-live-day", today = () => new Date().toISOString().slice(0, 10);
+const usedToday = () => { try { const v = JSON.parse(localStorage.getItem(DAY_KEY) || "{}"); return v.d === today() ? v.n : 0; } catch (e) { return 0; } };
+const countOne = () => { try { localStorage.setItem(DAY_KEY, JSON.stringify({ d: today(), n: usedToday() + 1 })); } catch (e) {} };
+const LIMIT_MSG = "Für heute sind alle Live-Vorschauen vergeben. Danke fürs Ausprobieren! So soll es später in der REWARE-App funktionieren.";
+const DEVICE_MSG = "Du hast heute schon drei Vorschauen erzeugt. Danke fürs Ausprobieren! So soll es später in der REWARE-App funktionieren.";
+const BUSY_MSG = "Gerade probieren es sehr viele gleichzeitig aus. Versuch es in einer Minute noch einmal.";
+const CLOSED_MSG = "Die Live-Vorschau war nur zur Präsentation am 13. Oktober offen. So soll es später in der REWARE-App funktionieren.";
+const relayMsg = (m, fallback) => m === "429" ? LIMIT_MSG : m === "503" ? BUSY_MSG : m === "410" ? CLOSED_MSG : fallback;
 
 function toJpeg(file) {
   return new Promise((ok, no) => { const img = new Image(), url = URL.createObjectURL(file); img.onload = () => {
@@ -1616,57 +1632,80 @@ function toJpeg(file) {
     c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
     ok(c.toDataURL("image/jpeg", .85)); }; img.onerror = () => { URL.revokeObjectURL(url); no(new Error("image")); }; img.src = url; });
 }
-async function post(path, body, ms) {
+async function post(path, body, ms, relay) {
   const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), ms);
-  try { const r = await fetch(LIVE.base + path, { method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": LIVE.key }, body: JSON.stringify(body), signal: ctl.signal });
-    if (!r.ok) throw new Error(r.status); return await r.json(); } finally { clearTimeout(t); }
+  try {
+    if (LIVE.key) { const r = await fetch(LIVE.base + path, { method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": LIVE.key }, body: JSON.stringify(body), signal: ctl.signal });
+      if (!r.ok) throw new Error(r.status === 429 ? 503 : r.status); return await r.json(); }
+    // Relay: plain-text POST (no preflight); Apps Script answers through a redirect that fetch follows. Only the photo and the
+    // chosen idea travel; the relay writes the prompts itself (Tools/proxy/reware-live-relay.gs).
+    // Apps Script sometimes loses the answer and bounces to its GET handler ({"ok":true,...}): ask once more.
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const r = await fetch(RELAY, { method: "POST", body: JSON.stringify(relay), signal: ctl.signal });
+      let j = null; try { j = await r.json(); } catch (e) {}
+      if (!j || (j.ok === true && !j.candidates && !j.steps && !j.outputs)) continue;
+      if (j.error) throw new Error(j.error.code || "relay"); return j;
+    }
+    throw new Error("relay");
+  } finally { clearTimeout(t); }
 }
-const liveErr = msg => $("#liveOut").innerHTML = `<p class="sheet-note">${msg}</p>`;
-$("#liveFile").addEventListener("change", async e => {
-  const f = e.target.files[0]; e.target.value = ""; if (!f || !LIVE.key) return;
-  try { live.jpeg = await toJpeg(f); } catch (err) { return liveErr("Dieses Foto kann der Browser nicht öffnen. Versuch es mit einem JPG oder PNG."); }
-  $("#liveFile").disabled = true;
+const liveErr = msg => { $("#liveOut").innerHTML = `<p class="sheet-note">${msg}</p>`; reveal($("#liveOut")); };
+const onPhoto = async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f || !LIVE_ON) return;
+  if (!LIVE.key && usedToday() >= PER_DEVICE) return liveErr(DEVICE_MSG);
+  try { live.jpeg = await toJpeg(f); } catch (err) { return liveErr("Dieses Foto lässt sich hier nicht öffnen. Mach am besten direkt ein neues Foto mit der Kamera."); }
+  $$("#liveFile,#liveCam").forEach(i => i.disabled = true);
   $("#drop").querySelectorAll("img,svg.box").forEach(x => x.remove());
   $("#drop").insertAdjacentHTML("afterbegin", `<img src="${live.jpeg}" alt="Dein Foto">`); $("#dropHint").hidden = true;
-  $("#liveOut").innerHTML = `<div class="cap-row"><span class="t-label muted">Wird gelesen …</span><span class="spinner"></span></div>`; $("#liveGo").disabled = true;
+  $("#liveOut").innerHTML = `<div class="cap-row"><span class="t-label muted">Wird gelesen …</span><span class="spinner"></span></div>`; $("#liveGo").disabled = true; reveal($("#liveOut"));
   const prompt = "You are a sewing teacher reading one photo of a garment someone wants to upcycle. Describe only what you can see. Answer in German. " +
     "name: a short plain description. fabric: the construction a seamstress would name. condition: two or three words. features: details worth re-using. " +
     "box: [y0,x0,y1,x1] normalised 0-1000 around the whole garment. If the photo shows no garment, set isGarment false. picks: the 3 best ideas for THIS garment " +
     "from these candidates by exact id: " + Object.keys(PICKS).join(", ") + ".";
   const schema = { type: "OBJECT", properties: { isGarment: { type: "BOOLEAN" }, name: { type: "STRING" }, fabric: { type: "STRING" }, weight: { type: "STRING", enum: ["leicht", "mittel", "schwer"] },
     stretchy: { type: "BOOLEAN" }, condition: { type: "STRING" }, features: { type: "ARRAY", items: { type: "STRING" } }, box: { type: "ARRAY", items: { type: "INTEGER" } },
-    picks: { type: "ARRAY", items: { type: "OBJECT", properties: { id: { type: "STRING" }, reason: { type: "STRING" } }, required: ["id", "reason"] } } },
+    picks: { type: "ARRAY", items: { type: "OBJECT", properties: { id: { type: "STRING", enum: Object.keys(PICKS) }, reason: { type: "STRING" } }, required: ["id", "reason"] } } },
     required: ["isGarment", "name", "fabric", "weight", "stretchy", "condition", "features", "box", "picks"] };
   try {
     const r = await post(READ_PATH, { contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: "image/jpeg", data: live.jpeg.split(",")[1] } }] }],
-      generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: .2 } }, 60000);
+      generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: .2 } }, 90000,
+      { kind: "read", image: live.jpeg.split(",")[1] });
+    live.ticket = r.ticket || "";
     const j = JSON.parse(r.candidates[0].content.parts.find(p => p.text).text); live.reading = j;
     if (!j.isGarment) return liveErr("Auf diesem Foto erkennt die Engine kein Kleidungsstück. Versuch es mit einem Stück, flach ausgelegt und ganz im Bild.");
-    if (j.box && j.box.length === 4) { const [y0, x0, y1, x1] = j.box.map(v => v / 10);
-      $("#drop").insertAdjacentHTML("beforeend", `<svg class="box" viewBox="0 0 100 100" preserveAspectRatio="none"><rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" vector-effect="non-scaling-stroke"/></svg>`); }
+    if (j.box && j.box.length === 4) { const im = $("#drop img"), W = im.naturalWidth || 1000, H = im.naturalHeight || 1000, [y0, x0, y1, x1] = j.box.map(v => v / 1000);
+      $("#drop").insertAdjacentHTML("beforeend", `<svg class="box" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice"><rect x="${x0 * W}" y="${y0 * H}" width="${(x1 - x0) * W}" height="${(y1 - y0) * H}" vector-effect="non-scaling-stroke"/></svg>`); }
     const picks = (j.picks || []).filter(p => PICKS[p.id]).slice(0, 3);
     const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
     $("#liveOut").innerHTML = `<div class="card"><p class="t-head">${esc(j.name)}</p><span class="wlabel" style="margin-top:10px">${esc(j.fabric)} · ${esc(j.weight)} · ${j.stretchy ? "dehnbar" : "fest"}</span>
       <div class="read"><div></div></div><div class="feat" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:10px">${(j.features || []).map(x => `<span class="chip" style="text-transform:none;letter-spacing:0;font-family:var(--sans)">${esc(x)}</span>`).join("")}</div></div>
-      <span class="t-label faint">Drei Ideen für dieses Stück</span><div class="picks">${picks.map((p, i) => `<button data-pick="${p.id}" aria-pressed="${i === 0}"><b>${PICKS[p.id]}</b><small>${esc(p.reason)}</small></button>`).join("")}</div>`;
+      <span class="t-label faint">Drei Ideen – tippe eine an</span><div class="picks">${picks.map((p, i) => `<button data-pick="${p.id}" aria-pressed="${i === 0}"><b>${PICKS[p.id]}</b><small>${esc(p.reason)}</small></button>`).join("")}</div>`;
     live.pick = picks[0] && picks[0].id; $("#liveGo").disabled = !live.pick;
     $$("[data-pick]").forEach(b => b.onclick = () => { live.pick = b.dataset.pick; $$("[data-pick]").forEach(x => x.setAttribute("aria-pressed", x === b)); });
-  } catch (err) { liveErr("Gerade keine Verbindung zur Engine. Versuch es gleich noch einmal."); } finally { $("#liveFile").disabled = false; }
-});
+    reveal($("#liveOut"));
+  } catch (err) { liveErr(relayMsg(err.message, "Das hat gerade nicht geklappt – vielleicht probieren viele gleichzeitig. Wähle dein Foto in ein paar Sekunden noch einmal.")); } finally { $$("#liveFile,#liveCam").forEach(i => i.disabled = false); }
+};
+$("#liveFile").addEventListener("change", onPhoto); $("#liveCam").addEventListener("change", onPhoto);
 $("#liveGo").onclick = async () => {
-  const btn = $("#liveGo"); btn.disabled = true; $("#liveFile").disabled = true; btn.innerHTML = '<span class="spinner"></span>Vorschau entsteht …';
+  if (!LIVE.key && usedToday() >= PER_DEVICE) { $("#liveOut .gen-err")?.remove(); $("#liveOut").insertAdjacentHTML("beforeend", `<p class="sheet-note gen-err">${DEVICE_MSG}</p>`); reveal($("#liveOut")); return; }
+  const btn = $("#liveGo"); btn.disabled = true; $$("#liveFile,#liveCam").forEach(i => i.disabled = true); btn.innerHTML = '<span class="spinner"></span>Vorschau entsteht …'; btn.style.opacity = 1;
+  $("#liveOut").insertAdjacentHTML("beforeend", '<p class="t-small muted gen-wait">Das kann bis zu einer Minute dauern. Bitte lass diese Seite so lange offen.</p>'); reveal($("#liveOut"));
   const what = EN[live.pick] || PICKS[live.pick];
   const prompt = `Photograph of an upcycled garment. Take this exact ${live.reading.name} — the same fabric, colours, pattern, texture and details — and show it after it was cut apart and re-sewn at home into ${what}. Keep the same background, the same light and the same camera angle as this photo. A realistic photo of a handmade piece: believable seams, no text, no lettering, no logos, no people, no mannequin.`;
   try {
     const r = await post(IMAGE_PATH, { model: "gemini-3.1-flash-image", input: [{ type: "text", text: prompt }, { type: "image", mime_type: "image/jpeg", data: live.jpeg.split(",")[1] }],
-      response_format: { type: "image", mime_type: "image/jpeg", aspect_ratio: "4:5", image_size: "1K" }, store: false }, 150000);
+      response_format: { type: "image", mime_type: "image/jpeg", aspect_ratio: "4:5", image_size: "1K" }, store: false }, 150000,
+      { kind: "image", image: live.jpeg.split(",")[1], pick: live.pick, ticket: live.ticket });
     const parts = (r.steps || r.outputs || []).flatMap(s => s.content || []); const img = parts.find(c => c.type === "image");
     if (!img) throw new Error("no image");
-    $("#liveImg").src = "data:image/jpeg;base64," + img.data; $("#liveCaption").textContent = `So könnte dein Stück als ${PICKS[live.pick]} aussehen. In der App kommen die Maße dafür aus der Engine.`;
+    $("#liveImg").src = "data:image/jpeg;base64," + img.data; $("#liveCaption").textContent = `${PICKS[live.pick]}: So könnte dein Stück aussehen. In der App kommen die Maße dafür aus der Engine.`;
+    if (!LIVE.key) countOne();
     if (cur === "live") go("live-vorschau");
-  } catch (e) { $("#liveOut .gen-err")?.remove(); $("#liveOut").insertAdjacentHTML("beforeend", '<p class="sheet-note gen-err">Die Vorschau konnte gerade nicht erzeugt werden. Versuch es gleich noch einmal.</p>'); }
-  btn.disabled = false; $("#liveFile").disabled = false; btn.textContent = "Vorschau erzeugen";
+  } catch (e) { $("#liveOut .gen-err")?.remove(); $("#liveOut").insertAdjacentHTML("beforeend", `<p class="sheet-note gen-err">${e.message === "no image" ? "Für dieses Foto ist keine Vorschau entstanden. Versuch es mit einem anderen Foto – nur das Kleidungsstück, ohne Personen." : relayMsg(e.message, "Die Vorschau konnte gerade nicht erzeugt werden – vielleicht probieren viele gleichzeitig. Versuch es in einer Minute noch einmal.")}</p>`); reveal($("#liveOut")); }
+  btn.disabled = false; $$("#liveFile,#liveCam").forEach(i => i.disabled = false); btn.textContent = "Vorschau erzeugen"; btn.style.opacity = ""; $("#liveOut .gen-wait")?.remove();
 };
+
+$("#liveAgain").onclick = () => { live = { jpeg: null, reading: null, pick: null }; $("#drop").querySelectorAll("img,svg.box").forEach(x => x.remove()); $("#dropHint").hidden = false; $("#liveOut").innerHTML = ""; $("#liveGo").disabled = true; go("live"); };
 
 // Live set-up: test the key with one tiny text call, then keep it in this browser only
 function keyMsg(t, ok) { const k = $("#keyState"); k.textContent = t; k.style.color = ok ? "var(--sage-deep)" : "var(--pin)"; }
